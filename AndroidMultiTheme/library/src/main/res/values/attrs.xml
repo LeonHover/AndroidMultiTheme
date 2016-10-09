@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ThemeWidget">
+        <attr name="themeWidgetType" format="integer|enum|reference">
+            <enum name="ViewWidget" value="777" />
+            <enum name="TextViewWidget" value="776" />
+            <enum name="ImageViewWidget" value="775" />
+            <enum name="CompoundButtonWidget" value="774" />
+            <enum name="ProgressBarWidget" value="773" />
+            <enum name="ListViewWidget" value="772" />
+            <enum name="SeekBarWidget" value="771" />
+            <enum name="LinearLayoutWidget" value="770" />
+            <enum name="AbsListViewWidget" value="769" />
+            <enum name="RecyclerViewWidget" value="768" />
+            <enum name="SingleViewWidget" value="767" />
+        </attr>
+    </declare-styleable>
+</resources>

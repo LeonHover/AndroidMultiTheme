@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tag_theme_widget_type" type="id" />
+    <item name="tag_theme_is_night" type="id" />
+    <item name="tag_theme_widget_color_01" type="id" />
+    <item name="tag_theme_widget_color_02" type="id" />
+    <item name="tag_theme_widget_color_03" type="id" />
+    <item name="tag_theme_widget_color_04" type="id" />
+    <item name="tag_theme_widget_color_05" type="id" />
+    <item name="tag_theme_widget_color_06" type="id" />
+    <item name="tag_theme_widget_color_07" type="id" />
+    <item name="tag_theme_widget_color_08" type="id" />
+    <item name="tag_theme_widget_color_09" type="id" />
+    <item name="tag_theme_widget_color_10" type="id" />
+    <item name="tag_theme_widget_drawable_01" type="id" />
+    <item name="tag_theme_widget_drawable_02" type="id" />
+    <item name="tag_theme_widget_drawable_03" type="id" />
+    <item name="tag_theme_widget_drawable_04" type="id" />
+    <item name="tag_theme_widget_drawable_05" type="id" />
+    <item name="tag_theme_widget_drawable_06" type="id" />
+    <item name="tag_theme_widget_drawable_07" type="id" />
+    <item name="tag_theme_widget_drawable_08" type="id" />
+    <item name="tag_theme_widget_drawable_09" type="id" />
+    <item name="tag_theme_widget_drawable_10" type="id" />
+</resources>
