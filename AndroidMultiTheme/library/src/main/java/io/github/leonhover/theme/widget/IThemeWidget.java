@@ -22,16 +22,8 @@ public interface IThemeWidget {
     /**
      * view应用主题Theme
      *
-     * @param theme     主题
-     * @param resources 资源
      * @param view      View
      */
-    void applyTheme(Theme theme, Resources resources, View view);
+    void applyTheme( View view);
 
-    /**
-     * 判断是否是AdapterView，AdapterView不支持对子View应用主题
-     *
-     * @return true or false;
-     */
-    boolean isAdapterView();
 }

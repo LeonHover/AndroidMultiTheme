@@ -69,7 +69,6 @@ public class ThemeManager {
         this.themeWidgetMap.put(771, new SeekBarWidget());
         this.themeWidgetMap.put(770, new LinearLayoutWidget());
         this.themeWidgetMap.put(769, new AbsListViewWidget());
-        this.themeWidgetMap.put(768, new RecycleViewWidget());
         this.themeWidgetMap.put(767, new SingleViewWidget());
 
         this.themeObserverSet = new HashSet<>();
@@ -220,17 +219,17 @@ public class ThemeManager {
      */
     public void applyTheme(Activity activity, @StyleRes int themeResId) {
         activity.setTheme(themeResId);
-        applyTheme(activity, activity.getTheme(), activity.getResources());
+        applyTheme(activity);
     }
 
-    private void applyTheme(Activity activity, Resources.Theme theme, Resources resources) {
+    private void applyTheme(Activity activity) {
         Log.d(TAG, "applyThemeForActivity");
-        if (activity == null || theme == null || resources == null) {
-            throw new IllegalArgumentException("activity theme resources,someone is null!");
+        if (activity == null) {
+            throw new IllegalArgumentException("activity  is null!");
         }
 
         View decorView = activity.getWindow().getDecorView();
-        applyTheme(decorView, theme, resources);
+        applyTheme(decorView);
 
     }
 
@@ -254,7 +253,7 @@ public class ThemeManager {
         if (viewIsNightTheme != isNightTheme) {
             Resources.Theme theme = context.getTheme();
             Resources resources = context.getResources();
-            applyTheme(view, theme, resources);
+            applyTheme(view);
         }
         Log.d(TAG, "applyThemeForViewHolder end" + isNightTheme);
     }
@@ -263,10 +262,8 @@ public class ThemeManager {
      * 对单个View应用主题
      *
      * @param view      View
-     * @param theme     主题
-     * @param resources 资源
      */
-    private void applyTheme(View view, Resources.Theme theme, Resources resources) {
+    private void applyTheme(View view) {
 
         Object object = view.getTag(R.id.tag_theme_widget_type);
         int themeWidgetType = -1;
@@ -278,7 +275,7 @@ public class ThemeManager {
         if (themeWidgetType > 0) {
             IThemeWidget themeWidget = this.themeWidgetMap.get(themeWidgetType);
             if (themeWidget != null) {
-                themeWidget.applyTheme(theme, resources, view);
+                themeWidget.applyTheme(view);
                 if (themeWidget instanceof SingleViewWidget) {
                     view.setTag(R.id.tag_theme_is_night, isNightTheme);
                 }
@@ -292,7 +289,7 @@ public class ThemeManager {
             ViewGroup viewGroup = (ViewGroup) view;
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
                 View child = viewGroup.getChildAt(i);
-                applyTheme(child, theme, resources);
+                applyTheme(child);
             }
         }
     }

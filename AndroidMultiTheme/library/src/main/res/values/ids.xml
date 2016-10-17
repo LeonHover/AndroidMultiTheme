@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="tag_theme_widget_type" type="id" />
-    <item name="tag_theme_is_night" type="id" />
-    <item name="tag_theme_widget_color_01" type="id" />
-    <item name="tag_theme_widget_color_02" type="id" />
-    <item name="tag_theme_widget_color_03" type="id" />
-    <item name="tag_theme_widget_color_04" type="id" />
-    <item name="tag_theme_widget_color_05" type="id" />
-    <item name="tag_theme_widget_color_06" type="id" />
-    <item name="tag_theme_widget_color_07" type="id" />
-    <item name="tag_theme_widget_color_08" type="id" />
-    <item name="tag_theme_widget_color_09" type="id" />
-    <item name="tag_theme_widget_color_10" type="id" />
-    <item name="tag_theme_widget_drawable_01" type="id" />
-    <item name="tag_theme_widget_drawable_02" type="id" />
-    <item name="tag_theme_widget_drawable_03" type="id" />
-    <item name="tag_theme_widget_drawable_04" type="id" />
-    <item name="tag_theme_widget_drawable_05" type="id" />
-    <item name="tag_theme_widget_drawable_06" type="id" />
-    <item name="tag_theme_widget_drawable_07" type="id" />
-    <item name="tag_theme_widget_drawable_08" type="id" />
-    <item name="tag_theme_widget_drawable_09" type="id" />
-    <item name="tag_theme_widget_drawable_10" type="id" />
+    <!-- View -->
+    <item name="amt_tag_view_background" type="id" />
+    <item name="amt_tag_view_current_theme" type="id" />
+    <item name="amt_tag_widget_type" type="id" />
+    <!-- TextView -->
+    <item name="amt_tag_text_view_text_color" type="id" />
+    <item name="amt_tag_text_view_text_color_link" type="id" />
+    <item name="amt_tag_text_view_text_color_hint" type="id" />
+    <item name="amt_tag_text_view_drawable_top" type="id" />
+    <item name="amt_tag_text_view_drawable_bottom" type="id" />
+    <item name="amt_tag_text_view_drawable_left" type="id" />
+    <item name="amt_tag_text_view_drawable_right" type="id" />
+    <!-- ImageView -->
+    <item name="amt_tag_image_view_src" type="id" />
+    <item name="amt_tag_image_view_src_compat" type="id" />
+    <!-- LinearLayout -->
+    <item name="amt_tag_linear_layout_divider" type="id" />
+    <!-- AbsListView -->
+    <item name="amt_tag_abs_list_view_list_selector" type="id" />
+    <!-- ListView -->
+    <item name="amt_tag_list_view_divider" type="id" />
+    <!-- ProgressBar -->
+    <item name="amt_tag_progress_bar_progress_drawable" type="id" />
+    <item name="amt_tag_progress_bar_indeterminate_drawable" type="id" />
+    <!-- SeekBar -->
+    <item name="amt_tag_seek_bar_thumb" type="id" />
+
 </resources>

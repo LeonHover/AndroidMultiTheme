@@ -2,6 +2,9 @@ package io.github.leonhover.theme.widget;
 
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.view.View;
 
 import io.github.leonhover.theme.R;
@@ -14,24 +17,37 @@ import io.github.leonhover.theme.model.ThemeElement;
 
 public class ViewWidget extends AbstractThemeWidget {
 
+    private static final String ATTR_NAME_BACKGROUND = "background";
+
 
     public ViewWidget() {
+        super(View.class);
+        initializeElements();
+    }
+
+    public ViewWidget(Class master) {
+        super(master);
+        initializeElements();
+    }
+
+    private void initializeElements() {
         ThemeElement element;
-        element = new ThemeElement(R.id.tag_theme_widget_drawable_01, "background");
+        element = new ThemeElement(R.id.amt_tag_view_background, ATTR_NAME_BACKGROUND, "setBackground");
         add(element);
     }
 
-    @Override
-    public void appleElementTheme(Theme theme, Resources resources, View view, ThemeElement element, int attrResId) {
-        switch (element.getTagKey()) {
-            case R.id.tag_theme_widget_drawable_01:
-                setBackground(theme, resources, view, attrResId);
-                break;
+    private void setBackground(View view, @AttrRes int attrResId) {
+        if (view == null) {
+            return;
         }
-    }
 
-    private void setBackground(Theme theme, Resources resources, View view, int attrResId) {
-        view.setBackgroundDrawable(ThemeUtils.getDrawable(theme, resources, attrResId));
+        Drawable background = ThemeUtils.getDrawable(view.getContext(), attrResId);
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            view.setBackground(background);
+        } else {
+            view.setBackgroundDrawable(background);
+        }
     }
 
 }

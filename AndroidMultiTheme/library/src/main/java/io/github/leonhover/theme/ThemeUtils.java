@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -50,18 +51,17 @@ public class ThemeUtils {
     }
 
     /**
-     * 获取attrResId指向的颜色
+     * 获取attrResId指向的颜色ColorStateList
      *
-     * @param theme     主题
-     * @param resources 资源
+     * @param context
      * @param attrResId attr资源id
-     * @return color of int
+     * @return ColorStateList
      */
-    public static int getColor(Resources.Theme theme, Resources resources, int attrResId) {
-        TypedValue typedValue = new TypedValue();
-        theme.resolveAttribute(attrResId, typedValue, true);
-        int color = resources.getColor(typedValue.resourceId);
-        return color;
+    public static ColorStateList getColorStateList(Context context, @AttrRes int attrResId) {
+        if (context == null) {
+            return null;
+        }
+        return getColorStateList(context.getTheme(), context.getResources(), attrResId);
     }
 
     /**
@@ -72,11 +72,27 @@ public class ThemeUtils {
      * @param attrResId attr资源id
      * @return ColorStateList
      */
-    public static ColorStateList getColorStateList(Resources.Theme theme, Resources resources, int attrResId) {
+    public static ColorStateList getColorStateList(Resources.Theme theme, Resources resources, @AttrRes int attrResId) {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attrResId, typedValue, true);
         ColorStateList colorStateList = resources.getColorStateList(typedValue.resourceId);
         return colorStateList;
+    }
+
+
+    /**
+     * 获取attrResId指向的Drawable
+     *
+     * @param context
+     * @param attrResId attr资源id
+     * @return Drawable
+     */
+    public static Drawable getDrawable(Context context, @AttrRes int attrResId) {
+        if (context == null) {
+            return null;
+        }
+
+        return getDrawable(context.getTheme(), context.getResources(), attrResId);
     }
 
     /**
@@ -87,7 +103,7 @@ public class ThemeUtils {
      * @param attrResId attr资源id
      * @return Drawable
      */
-    public static Drawable getDrawable(Resources.Theme theme, Resources resources, int attrResId) {
+    public static Drawable getDrawable(Resources.Theme theme, Resources resources, @AttrRes int attrResId) {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attrResId, typedValue, true);
         Drawable drawable = resources.getDrawable(typedValue.resourceId);
@@ -104,17 +120,4 @@ public class ThemeUtils {
         }
     }
 
-    /**
-     * 动态加载视图，并组装主题相关信息
-     *
-     * @param context     上下文
-     * @param layoutResId 布局资源ID
-     * @param parent      父视图
-     * @return
-     */
-    public static View inflateView(Context context, @LayoutRes int layoutResId, @Nullable ViewGroup parent) {
-        View view = LayoutInflater.from(context).inflate(layoutResId, parent);
-        ThemeManager.getInstance().assembleViewHolderThemeElement(view);
-        return view;
-    }
 }

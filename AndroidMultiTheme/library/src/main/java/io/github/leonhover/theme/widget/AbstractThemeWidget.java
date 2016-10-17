@@ -29,9 +29,22 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     private String nameSpace = ANDROID_NAMESPACE;
 
     /**
+     * 适合的主人Class
+     */
+    private Class properMaster;
+
+    /**
      * 主题元素集合
      */
     private Set<ThemeElement> elementSet;
+
+    public  AbstractThemeWidget(Class master){
+        this.properMaster = master;
+    }
+
+    public Class getMaster() {
+        return this.properMaster;
+    }
 
     /**
      * 添加主题元素
@@ -72,10 +85,10 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     }
 
     @Override
-    public void applyTheme(Resources.Theme theme, Resources resources, View view) {
+    public void applyTheme(View view) {
         Log.d(TAG, "applyTheme");
-        if (theme == null || resources == null || view == null) {
-            throw new IllegalArgumentException("check theme , resources, view, someone is illegal!!");
+        if ( view == null) {
+            throw new IllegalArgumentException(" view is illegal!!");
         }
 
         if (elementSet == null) {
@@ -90,26 +103,21 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
             }
             Log.d(TAG, "applyTheme element:" + element + " attrId:" + attrResId);
             if (attrResId > -1) {
-                appleElementTheme(theme, resources, view, element, attrResId);
+                appleElementTheme(view, element, attrResId);
             }
         }
-    }
-
-    @Override
-    public boolean isAdapterView() {
-        return false;
     }
 
     /**
      * 应用单个主题元素
      *
-     * @param theme     主题
-     * @param resources 资源
      * @param view      View
      * @param element   主题元素
      * @param attrResId AttrResId
      */
-    public abstract void appleElementTheme(Resources.Theme theme, Resources resources, View view, ThemeElement element, int attrResId);
+    private final void appleElementTheme(View view, ThemeElement element, int attrResId){
+        
+    }
 
 
 
