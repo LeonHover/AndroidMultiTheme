@@ -1,7 +1,5 @@
 package io.github.leonhover.theme.widget;
 
-import android.content.res.Resources;
-import android.content.res.Resources.Theme;
 import android.util.AttributeSet;
 import android.view.View;
 

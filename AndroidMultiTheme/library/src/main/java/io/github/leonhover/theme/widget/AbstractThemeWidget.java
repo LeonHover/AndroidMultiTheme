@@ -1,10 +1,8 @@
 package io.github.leonhover.theme.widget;
 
-import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-
 
 import java.util.HashSet;
 import java.util.Set;

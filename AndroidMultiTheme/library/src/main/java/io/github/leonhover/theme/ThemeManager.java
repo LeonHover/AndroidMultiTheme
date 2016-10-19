@@ -3,13 +3,12 @@ package io.github.leonhover.theme;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.support.annotation.StyleRes;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -53,11 +52,14 @@ public class ThemeManager {
 
     private ThemeViewCreator themeViewCreator;
 
-    private int currentTheme = -1;
+    private int currentThemeIndex = -1;
 
     private static ThemeManager sThemeManager;
 
     private Context context;
+
+    private static boolean isDebug = true;
+
 
     private Set<IThemeObserver> themeObserverSet;
 
@@ -89,7 +91,7 @@ public class ThemeManager {
     public static void init(Application context) {
         sThemeManager = new ThemeManager();
         sThemeManager.context = context;
-        sThemeManager.currentTheme = -1;
+        sThemeManager.currentThemeIndex = -1;
     }
 
     /**
@@ -192,13 +194,13 @@ public class ThemeManager {
      *
      * @return true 改变为夜间主题，false 改变为默认主题
      */
-    public boolean changeTheme(int theme) {
-        Log.d(TAG, "changeTheme theme=" + theme);
+    public boolean changeTheme(int whichTheme) {
+        Log.d(TAG, "changeTheme whichTheme=" + whichTheme);
 
-        if (theme != currentTheme) {
-            currentTheme = theme;
+        if (whichTheme != currentThemeIndex) {
+            currentThemeIndex = whichTheme;
             for (IThemeObserver themeObserver : themeObserverSet) {
-                themeObserver.onThemeChanged(theme);
+                themeObserver.onThemeChanged(whichTheme);
             }
             return true;
         } else {
@@ -207,8 +209,8 @@ public class ThemeManager {
 
     }
 
-    public int getCurrentTheme() {
-        return this.currentTheme;
+    public int getCurrentThemeIndex() {
+        return this.currentThemeIndex;
     }
 
     /**
@@ -236,10 +238,9 @@ public class ThemeManager {
     /**
      * 改变View的主题，应用场景要是AdapterView以及动态创建的View。
      *
-     * @param context 上下文
-     * @param view    ItemView
+     * @param view ItemView
      */
-    public void applyThemeForView(Context context, View view) {
+    public void applyThemeForView(View view) {
         int themeOfView = -1;
         try {
             themeOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_view_current_theme);
@@ -249,8 +250,8 @@ public class ThemeManager {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "applyThemeForViewHolder viewIsNightTheme:" + themeOfView + " currentTheme:" + currentTheme);
-        if (themeOfView != currentTheme) {
+        Log.d(TAG, "applyThemeForViewHolder viewIsNightTheme:" + themeOfView + " currentThemeIndex:" + currentThemeIndex);
+        if (themeOfView != currentThemeIndex) {
             applyTheme(view);
         }
     }
@@ -263,13 +264,13 @@ public class ThemeManager {
     private void applyTheme(View view) {
 
         Object object = view.getTag(R.id.amt_tag_widget_type);
-        int themeWidgetType = -1;
-        if (object instanceof Integer) {
-            themeWidgetType = (int) object;
+        String themeWidgetType = "";
+        if (object instanceof String) {
+            themeWidgetType = (String) object;
         }
 
         Log.d(TAG, "applyTheme  theme widget type " + themeWidgetType + " view:" + view);
-        if (themeWidgetType > 0) {
+        if (!TextUtils.isEmpty(themeWidgetType)) {
             IThemeWidget themeWidget = this.themeWidgetMap.get(themeWidgetType);
             if (themeWidget != null) {
                 themeWidget.applyTheme(view);

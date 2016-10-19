@@ -1,6 +1,5 @@
 package io.github.leonhover.theme.widget;
 
-import android.content.res.Resources;
 import android.view.View;
 import android.widget.AbsListView;
 

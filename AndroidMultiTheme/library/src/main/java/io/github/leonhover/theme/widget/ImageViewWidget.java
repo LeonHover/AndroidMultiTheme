@@ -1,7 +1,5 @@
 package io.github.leonhover.theme.widget;
 
-import android.content.res.Resources;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.ImageView;
 

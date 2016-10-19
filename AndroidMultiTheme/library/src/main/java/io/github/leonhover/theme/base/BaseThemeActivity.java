@@ -1,6 +1,7 @@
 package io.github.leonhover.theme.base;
 
 import android.os.Bundle;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 
 import io.github.leonhover.theme.IThemeObserver;
@@ -11,7 +12,7 @@ import io.github.leonhover.theme.ThemeViewEntities;
  * Created by leonhover on 16-10-9.
  */
 
-public class BaseThemeActivity extends AppCompatActivity {
+public abstract class BaseThemeActivity extends AppCompatActivity {
 
     private ActivityTheme activityTheme = new ActivityTheme(this);
     private ThemeViewEntities themeViewEntities = new ThemeViewEntities();
@@ -32,10 +33,9 @@ public class BaseThemeActivity extends AppCompatActivity {
      *
      * @param activityTheme Activity主题
      */
-    protected void configTheme(ActivityTheme activityTheme) {
-    }
+    protected abstract void configTheme(ActivityTheme activityTheme);
 
-    public ThemeViewEntities getThemeViewEntities() {
+    public final ThemeViewEntities getThemeViewEntities() {
         return this.themeViewEntities;
     }
 
@@ -57,15 +57,23 @@ public class BaseThemeActivity extends AppCompatActivity {
 
         private ThemeManager themeManager;
 
+        @StyleRes
+        private int[] themes;
+
         private ActivityTheme(AppCompatActivity activity) {
             this.activity = activity;
             this.themeManager = ThemeManager.getInstance();
         }
 
+        public final void setThemes(@StyleRes int[] themes) {
+            this.themes = themes;
+        }
+
         private void assembleThemeBeforeInflate() {
             int theme = -1;
             themeManager.addObserver(this);
-            activity.setTheme(theme);
+            int whichTheme = themeManager.getCurrentThemeIndex();
+            activity.setTheme(getTheme(whichTheme));
             themeManager.assembleThemeBeforeInflate(activity);
 
         }
@@ -77,11 +85,17 @@ public class BaseThemeActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onThemeChanged(int theme) {
+        public final void onThemeChanged(int whichTheme) {
             if (this.themeManager != null) {
-                this.themeManager.applyTheme(this.activity, theme);
+                this.themeManager.applyTheme(this.activity, getTheme(whichTheme));
             }
         }
 
+        private int getTheme(int index) {
+            if (this.themes == null) {
+                return -1;
+            }
+            return this.themes[index];
+        }
     }
 }
