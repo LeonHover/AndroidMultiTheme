@@ -14,7 +14,14 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.AbsListView;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,9 +36,7 @@ import io.github.leonhover.theme.widget.ImageViewWidget;
 import io.github.leonhover.theme.widget.LinearLayoutWidget;
 import io.github.leonhover.theme.widget.ListViewWidget;
 import io.github.leonhover.theme.widget.ProgressBarWidget;
-import io.github.leonhover.theme.widget.RecycleViewWidget;
 import io.github.leonhover.theme.widget.SeekBarWidget;
-import io.github.leonhover.theme.widget.SingleViewWidget;
 import io.github.leonhover.theme.widget.TextViewWidget;
 import io.github.leonhover.theme.widget.ViewWidget;
 
@@ -44,13 +49,11 @@ public class ThemeManager {
 
     public static final String TAG = ThemeManager.class.getSimpleName();
 
-    private final static int THEME_WIDGET_TYPE_INDEX = 0;
-
-    private Map<Integer, IThemeWidget> themeWidgetMap;
+    private Map<String, IThemeWidget> themeWidgetMap;
 
     private ThemeViewCreator themeViewCreator;
 
-    private boolean isNightTheme = false;
+    private int currentTheme = -1;
 
     private static ThemeManager sThemeManager;
 
@@ -60,16 +63,15 @@ public class ThemeManager {
 
     private ThemeManager() {
         this.themeWidgetMap = new HashMap<>();
-        this.themeWidgetMap.put(777, new ViewWidget());
-        this.themeWidgetMap.put(776, new TextViewWidget());
-        this.themeWidgetMap.put(775, new ImageViewWidget());
-        this.themeWidgetMap.put(774, new CompoundButtonWidget());
-        this.themeWidgetMap.put(773, new ProgressBarWidget());
-        this.themeWidgetMap.put(772, new ListViewWidget());
-        this.themeWidgetMap.put(771, new SeekBarWidget());
-        this.themeWidgetMap.put(770, new LinearLayoutWidget());
-        this.themeWidgetMap.put(769, new AbsListViewWidget());
-        this.themeWidgetMap.put(767, new SingleViewWidget());
+        this.themeWidgetMap.put(ViewWidget.class.getSimpleName(), new ViewWidget(View.class));
+        this.themeWidgetMap.put(TextViewWidget.class.getSimpleName(), new TextViewWidget(TextView.class));
+        this.themeWidgetMap.put(ImageViewWidget.class.getSimpleName(), new ImageViewWidget(ImageView.class));
+        this.themeWidgetMap.put(CompoundButtonWidget.class.getSimpleName(), new CompoundButtonWidget(CompoundButton.class));
+        this.themeWidgetMap.put(ProgressBarWidget.class.getSimpleName(), new ProgressBarWidget(ProgressBar.class));
+        this.themeWidgetMap.put(ListViewWidget.class.getSimpleName(), new ListViewWidget(ListView.class));
+        this.themeWidgetMap.put(SeekBarWidget.class.getSimpleName(), new SeekBarWidget(SeekBar.class));
+        this.themeWidgetMap.put(LinearLayoutWidget.class.getSimpleName(), new LinearLayoutWidget(LinearLayout.class));
+        this.themeWidgetMap.put(AbsListViewWidget.class.getSimpleName(), new AbsListViewWidget(AbsListView.class));
 
         this.themeObserverSet = new HashSet<>();
         this.themeViewCreator = new ThemeViewCreator();
@@ -87,7 +89,7 @@ public class ThemeManager {
     public static void init(Application context) {
         sThemeManager = new ThemeManager();
         sThemeManager.context = context;
-        sThemeManager.isNightTheme = false;
+        sThemeManager.currentTheme = -1;
     }
 
     /**
@@ -96,7 +98,7 @@ public class ThemeManager {
      * @param themeWidgetType 类型索引值
      * @param themeWidget     自定义的AbstractThemeWidget
      */
-    public void add(int themeWidgetType, AbstractThemeWidget themeWidget) {
+    public void add(String themeWidgetType, AbstractThemeWidget themeWidget) {
         this.themeWidgetMap.put(themeWidgetType, themeWidget);
     }
 
@@ -133,48 +135,44 @@ public class ThemeManager {
                     return null;
                 }
 
-                TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.ThemeWidget);
-                int themeWidgetType = typeArray.getInt(THEME_WIDGET_TYPE_INDEX, -1);
+                //TODO 定义如何找到ThemeWidgetType
+                String themeWidgetType = "ViewWidget";
                 assembleViewThemeElement(view, attrs, themeWidgetType);
-                typeArray.recycle();
 
                 return view;
             }
         });
     }
 
-    public void assembleViewHolderThemeElement(View view) {
-        if (view == null) {
-            return;
-        }
-
-        view.setTag(R.id.tag_theme_widget_type, 767);
-        view.setTag(R.id.tag_theme_is_night, isNightTheme);
-    }
+//    public void assembleViewHolderThemeElement(View view) {
+//        if (view == null) {
+//            return;
+//        }
+//
+//        view.setTag(R.id.amt_tag_widget_type, 767);
+//        view.setTag(R.id.amt_tag_view_current_theme, isNightTheme);
+//    }
 
     /**
      * 组装每个View的主题元素
      */
-    private void assembleViewThemeElement(View view, AttributeSet attributeSet, int widgetType) {
+    private void assembleViewThemeElement(View view, AttributeSet attributeSet, String widgetType) {
 
         Log.d(TAG, "assembleViewThemeElement  theme widget type " + widgetType + " view:" + view);
-        if (view == null || widgetType < 0) {
+        if (view == null) {
             return;
         }
 
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetType);
         if (themeWidget != null) {
-            view.setTag(R.id.tag_theme_widget_type, widgetType);
+            view.setTag(R.id.amt_tag_widget_type, widgetType);
             themeWidget.assemble(view, attributeSet);
-            if (themeWidget instanceof SingleViewWidget) {
-                view.setTag(R.id.tag_theme_is_night, isNightTheme);
-            }
 
             Log.d(TAG, "assembleViewThemeElement  theme widget type " + widgetType + " view:" + view);
             debugAttributes(attributeSet);
 
         } else {
-            view.setTag(R.id.tag_theme_widget_type, -1);
+            view.setTag(R.id.amt_tag_widget_type, -1);
             Log.d(TAG, "unsupported theme widget type " + widgetType + ",is your custom theme widget?");
         }
     }
@@ -194,21 +192,23 @@ public class ThemeManager {
      *
      * @return true 改变为夜间主题，false 改变为默认主题
      */
-    public boolean changeNightTheme() {
-        Log.d(TAG, "changeNightTheme isNightTheme=" + isNightTheme);
-        isNightTheme = !isNightTheme;
+    public boolean changeTheme(int theme) {
+        Log.d(TAG, "changeTheme theme=" + theme);
 
-        //setAppNightTheme(this.context, isNightTheme);
-
-        for (IThemeObserver themeObserver : themeObserverSet) {
-            themeObserver.onThemeChanged(isNightTheme);
+        if (theme != currentTheme) {
+            currentTheme = theme;
+            for (IThemeObserver themeObserver : themeObserverSet) {
+                themeObserver.onThemeChanged(theme);
+            }
+            return true;
+        } else {
+            return false;
         }
 
-        return isNightTheme;
     }
 
-    public boolean isNightTheme() {
-        return this.isNightTheme;
+    public int getCurrentTheme() {
+        return this.currentTheme;
     }
 
     /**
@@ -240,32 +240,29 @@ public class ThemeManager {
      * @param view    ItemView
      */
     public void applyThemeForView(Context context, View view) {
-        boolean viewIsNightTheme = false;
+        int themeOfView = -1;
         try {
-            viewIsNightTheme = ThemeUtils.getViewTag(view, R.id.tag_theme_is_night);
+            themeOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_view_current_theme);
         } catch (ClassCastException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "applyThemeForViewHolder viewIsNightTheme:" + viewIsNightTheme + " isNightTheme:" + isNightTheme);
-        if (viewIsNightTheme != isNightTheme) {
-            Resources.Theme theme = context.getTheme();
-            Resources resources = context.getResources();
+        Log.d(TAG, "applyThemeForViewHolder viewIsNightTheme:" + themeOfView + " currentTheme:" + currentTheme);
+        if (themeOfView != currentTheme) {
             applyTheme(view);
         }
-        Log.d(TAG, "applyThemeForViewHolder end" + isNightTheme);
     }
 
     /**
      * 对单个View应用主题
      *
-     * @param view      View
+     * @param view View
      */
     private void applyTheme(View view) {
 
-        Object object = view.getTag(R.id.tag_theme_widget_type);
+        Object object = view.getTag(R.id.amt_tag_widget_type);
         int themeWidgetType = -1;
         if (object instanceof Integer) {
             themeWidgetType = (int) object;
@@ -276,9 +273,6 @@ public class ThemeManager {
             IThemeWidget themeWidget = this.themeWidgetMap.get(themeWidgetType);
             if (themeWidget != null) {
                 themeWidget.applyTheme(view);
-                if (themeWidget instanceof SingleViewWidget) {
-                    view.setTag(R.id.tag_theme_is_night, isNightTheme);
-                }
                 Log.d(TAG, "applyTheme  theme widget type " + themeWidgetType + " view:" + view + " themeWidget:" + themeWidget);
             } else {
                 Log.d(TAG, "applyTheme unsupport theme widget type:" + themeWidgetType + " view:" + view);

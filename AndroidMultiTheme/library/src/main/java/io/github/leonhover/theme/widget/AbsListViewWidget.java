@@ -14,24 +14,29 @@ import io.github.leonhover.theme.model.ThemeElement;
 
 public class AbsListViewWidget extends ViewWidget {
 
-    public AbsListViewWidget() {
-        super();
-        ThemeElement element = new ThemeElement(R.id.tag_theme_widget_drawable_02, "listSelector");
+    private static final String ATTR_NAME_LIST_SELECTOR = "listSelector";
+
+    public AbsListViewWidget(Class master) {
+        super(master);
+    }
+
+    @Override
+    protected void initializeElements() {
+        super.initializeElements();
+        ThemeElement element = new ThemeElement(R.id.amt_tag_abs_list_view_list_selector, ATTR_NAME_LIST_SELECTOR);
         add(element);
     }
 
     @Override
-    public void appleElementTheme(Resources.Theme theme, Resources resources, View view, ThemeElement element, int attrResId) {
-        super.appleElementTheme(theme, resources, view, element, attrResId);
-        switch (element.getTagKey()) {
-            case R.id.tag_theme_widget_drawable_02:
-                setSelector(theme, resources, view, attrResId);
-                break;
+    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+        super.appleElementTheme(view, element, attrResId);
+        if (R.id.amt_tag_abs_list_view_list_selector == element.getTagKey()) {
+            setSelector(view, attrResId);
         }
     }
 
-    private void setSelector(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        ((AbsListView) view).setSelector(ThemeUtils.getDrawable(theme, resources, attrResId));
+    public void setSelector(View view, int attrResId) {
+        ((AbsListView) view).setSelector(ThemeUtils.getDrawable(view.getContext(), attrResId));
     }
 
 }

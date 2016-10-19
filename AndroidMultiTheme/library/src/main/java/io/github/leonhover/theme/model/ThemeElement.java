@@ -8,12 +8,10 @@ public class ThemeElement {
 
     private int tagKey;
     private String attrName;
-    private String targetMethod;
 
-    public ThemeElement(int tagKey, String attrName, String targetMethod) {
+    public ThemeElement(int tagKey, String attrName) {
         this.tagKey = tagKey;
         this.attrName = attrName;
-        this.targetMethod = targetMethod;
     }
 
     public int getTagKey() {
@@ -24,12 +22,8 @@ public class ThemeElement {
         return attrName;
     }
 
-    public String getTargetMethod() {
-        return this.targetMethod;
-    }
-
     @Override
     public String toString() {
-        return "ThemeElement:{ tagKey:" + this.tagKey + ", attrName:" + this.attrName + ",targetMethod:" + this.targetMethod + "}";
+        return "ThemeElement:{ tagKey:" + this.tagKey + ", attrName:" + this.attrName + "}";
     }
 }

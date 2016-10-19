@@ -1,6 +1,5 @@
 package io.github.leonhover.theme.widget;
 
-import android.content.res.Resources;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -14,23 +13,28 @@ import io.github.leonhover.theme.model.ThemeElement;
 
 public class CompoundButtonWidget extends TextViewWidget {
 
-    public CompoundButtonWidget() {
-        super();
-        ThemeElement element = new ThemeElement(R.id.tag_theme_widget_drawable_06, "button");
+    private static final String ATTR_NAME_BUTTON = "button";
+
+    public CompoundButtonWidget(Class master) {
+        super(master);
+    }
+
+    @Override
+    protected void initializeElements() {
+        super.initializeElements();
+        ThemeElement element = new ThemeElement(R.id.amt_tag_compound_button_button, ATTR_NAME_BUTTON);
         add(element);
     }
 
     @Override
-    public void appleElementTheme(Resources.Theme theme, Resources resources, View view, ThemeElement element, int attrResId) {
-        super.appleElementTheme(theme, resources, view, element, attrResId);
-        switch (element.getTagKey()) {
-            case R.id.tag_theme_widget_drawable_06:
-                setButtonDrawable(theme, resources, view, attrResId);
-                break;
+    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+        super.appleElementTheme(view, element, attrResId);
+        if (R.id.amt_tag_compound_button_button == element.getTagKey()) {
+            setButtonDrawable(view, attrResId);
         }
     }
 
-    private void setButtonDrawable(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        ((CompoundButton) view).setButtonDrawable(ThemeUtils.getDrawable(theme, resources, attrResId));
+    public void setButtonDrawable(View view, int attrResId) {
+        ((CompoundButton) view).setButtonDrawable(ThemeUtils.getDrawable(view.getContext(), attrResId));
     }
 }

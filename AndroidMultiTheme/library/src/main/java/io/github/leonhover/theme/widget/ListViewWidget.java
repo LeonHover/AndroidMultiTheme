@@ -1,7 +1,5 @@
 package io.github.leonhover.theme.widget;
 
-import android.content.res.Resources;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -15,39 +13,28 @@ import io.github.leonhover.theme.model.ThemeElement;
 
 public class ListViewWidget extends AbsListViewWidget {
 
-    public ListViewWidget() {
-        super();
+    private static final String ATTR_NAME_DIVIDER = "divider";
+
+    public ListViewWidget(Class master) {
+        super(master);
         ThemeElement element;
-        element = new ThemeElement(R.id.tag_theme_widget_drawable_03, "divider");
+        element = new ThemeElement(R.id.amt_tag_list_view_divider, "divider");
         add(element);
     }
 
     @Override
-    public void applyTheme(Resources.Theme theme, Resources resources, View view) {
-        super.applyTheme(theme, resources, view);
-    }
-
-    @Override
-    public void appleElementTheme(Resources.Theme theme, Resources resources, View view, ThemeElement element, int attrResId) {
-        super.appleElementTheme(theme, resources, view, element, attrResId);
-        switch (element.getTagKey()) {
-            case R.id.tag_theme_widget_drawable_03:
-                setDividerDrawable(theme, resources, view, attrResId);
-                break;
+    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+        super.appleElementTheme(view, element, attrResId);
+        if (R.id.amt_tag_list_view_divider == element.getTagKey()) {
+            setDividerDrawable(view, attrResId);
         }
     }
 
-    private void setDividerDrawable(Resources.Theme theme, Resources resources, View view, int attrResId) {
+    private void setDividerDrawable(View view, int attrResId) {
         ListView listView = (ListView) view;
         int dividerHeight = listView.getDividerHeight();
-        listView.setDivider(ThemeUtils.getDrawable(theme, resources, attrResId));
+        listView.setDivider(ThemeUtils.getDrawable(view.getContext(), attrResId));
         listView.setDividerHeight(dividerHeight);
-        Log.d(TAG, "setDividerDrawable dividerHeight:" + dividerHeight);
-
     }
 
-    @Override
-    public boolean isAdapterView() {
-        return true;
-    }
 }

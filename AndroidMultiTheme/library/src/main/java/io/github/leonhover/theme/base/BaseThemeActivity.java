@@ -33,7 +33,6 @@ public class BaseThemeActivity extends AppCompatActivity {
      * @param activityTheme Activity主题
      */
     protected void configTheme(ActivityTheme activityTheme) {
-//        activityTheme.setTheme(R.style.TopvAppDayTheme, R.style.TopvAppNightTheme);
     }
 
     public ThemeViewEntities getThemeViewEntities() {
@@ -53,8 +52,6 @@ public class BaseThemeActivity extends AppCompatActivity {
 
     public static class ActivityTheme implements IThemeObserver {
         public static final String TAG = ActivityTheme.class.getSimpleName();
-        private int defaultTheme = -1;
-        private int nightTheme = -1;
 
         private AppCompatActivity activity;
 
@@ -65,23 +62,11 @@ public class BaseThemeActivity extends AppCompatActivity {
             this.themeManager = ThemeManager.getInstance();
         }
 
-        /**
-         * 设置主题
-         *
-         * @param defaultTheme 默认主题
-         * @param nightTheme   夜间主题
-         */
-        public void setTheme(int defaultTheme, int nightTheme) {
-            this.defaultTheme = defaultTheme;
-            this.nightTheme = nightTheme;
-        }
-
         private void assembleThemeBeforeInflate() {
-            if (isThemeConfigured()) {
-                themeManager.addObserver(this);
-                activity.setTheme(getCurrentTheme(themeManager.isNightTheme()));
-                themeManager.assembleThemeBeforeInflate(activity);
-            }
+            int theme = -1;
+            themeManager.addObserver(this);
+            activity.setTheme(theme);
+            themeManager.assembleThemeBeforeInflate(activity);
 
         }
 
@@ -92,18 +77,11 @@ public class BaseThemeActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onThemeChanged(boolean isNightTheme) {
-            if (isThemeConfigured() && this.themeManager != null) {
-                this.themeManager.applyTheme(this.activity, getCurrentTheme(isNightTheme));
+        public void onThemeChanged(int theme) {
+            if (this.themeManager != null) {
+                this.themeManager.applyTheme(this.activity, theme);
             }
         }
 
-        private boolean isThemeConfigured() {
-            return this.defaultTheme > -1 && this.nightTheme > -1;
-        }
-
-        private int getCurrentTheme(boolean isNightTheme) {
-            return isNightTheme && nightTheme > 0 ? nightTheme : defaultTheme;
-        }
     }
 }

@@ -1,6 +1,7 @@
 package io.github.leonhover.theme.widget;
 
 import android.content.res.Resources;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,24 +16,30 @@ import io.github.leonhover.theme.model.ThemeElement;
 
 public class ImageViewWidget extends ViewWidget {
 
-    public ImageViewWidget() {
-        super();
+    private static final String ATTR_NAME_SRC = "src";
+    private static final String ATTR_NAME_SRC_COMPAT = "srcCompat";
+
+    public ImageViewWidget(Class master) {
+        super(master);
         ThemeElement element;
-        element = new ThemeElement(R.id.tag_theme_widget_drawable_02, "src");
+        element = new ThemeElement(R.id.amt_tag_image_view_src, ATTR_NAME_SRC);
+        add(element);
+        element = new ThemeElement(R.id.amt_tag_image_view_src_compat, ATTR_NAME_SRC_COMPAT);
         add(element);
     }
 
     @Override
-    public void appleElementTheme(Resources.Theme theme, Resources resources, View view, ThemeElement element, int attrResId) {
-        super.appleElementTheme(theme, resources, view, element, attrResId);
-        switch (element.getTagKey()) {
-            case R.id.tag_theme_widget_drawable_02:
-                setImageDrawable(theme, resources, view, attrResId);
-                break;
+    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+        super.appleElementTheme(view, element, attrResId);
+
+        if (R.id.amt_tag_image_view_src == element.getTagKey()) {
+            setImageDrawable(view, attrResId);
+        } else if (R.id.amt_tag_image_view_src_compat == element.getTagKey()) {
+            setImageDrawable(view, attrResId);
         }
     }
 
-    private void setImageDrawable(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        ((ImageView) view).setImageDrawable(ThemeUtils.getDrawable(theme, resources, attrResId));
+    public void setImageDrawable(View view, int attrResId) {
+        ((ImageView) view).setImageDrawable(ThemeUtils.getDrawable(view.getContext(), attrResId));
     }
 }

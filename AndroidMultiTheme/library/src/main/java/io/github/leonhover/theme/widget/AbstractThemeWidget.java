@@ -40,7 +40,13 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
 
     public  AbstractThemeWidget(Class master){
         this.properMaster = master;
+        initializeElements();
     }
+
+    /**
+     * 初始化主题的元素
+     */
+    protected abstract void initializeElements();
 
     public Class getMaster() {
         return this.properMaster;
@@ -115,8 +121,8 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
      * @param element   主题元素
      * @param attrResId AttrResId
      */
-    private final void appleElementTheme(View view, ThemeElement element, int attrResId){
-        
+    public void appleElementTheme(View view, ThemeElement element, int attrResId){
+
     }
 
 

@@ -26,5 +26,7 @@
     <item name="amt_tag_progress_bar_indeterminate_drawable" type="id" />
     <!-- SeekBar -->
     <item name="amt_tag_seek_bar_thumb" type="id" />
+    <!-- CompoundButton -->
+    <item name="amt_tag_compound_button_button" type="id" />
 
 </resources>

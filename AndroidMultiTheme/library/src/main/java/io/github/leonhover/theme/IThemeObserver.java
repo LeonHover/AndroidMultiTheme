@@ -5,5 +5,5 @@ package io.github.leonhover.theme;
  */
 
 public interface IThemeObserver {
-    void onThemeChanged(boolean isNightTheme);
+    void onThemeChanged(int theme);
 }

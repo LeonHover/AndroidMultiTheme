@@ -15,24 +15,30 @@ import io.github.leonhover.theme.model.ThemeElement;
 
 public class LinearLayoutWidget extends ViewWidget {
 
-    public LinearLayoutWidget() {
-        super();
+
+    private static final String ATTR_NAME_DIVIDER = "divider";
+
+    public LinearLayoutWidget(Class master) {
+        super(master);
+    }
+
+    @Override
+    protected void initializeElements() {
+        super.initializeElements();
         ThemeElement element;
-        element = new ThemeElement(R.id.tag_theme_widget_drawable_02, "divider");
+        element = new ThemeElement(R.id.amt_tag_linear_layout_divider, ATTR_NAME_DIVIDER);
         add(element);
     }
 
     @Override
-    public void appleElementTheme(Resources.Theme theme, Resources resources, View view, ThemeElement element, int attrResId) {
-        super.appleElementTheme(theme, resources, view, element, attrResId);
-        switch (element.getTagKey()) {
-            case R.id.tag_theme_widget_drawable_02:
-                setDividerDrawable(theme, resources, view, attrResId);
-                break;
+    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+        super.appleElementTheme(view, element, attrResId);
+        if (R.id.amt_tag_linear_layout_divider == element.getTagKey()) {
+            setDividerDrawable(view, attrResId);
         }
     }
 
-    private void setDividerDrawable(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        ((LinearLayout) view).setDividerDrawable(ThemeUtils.getDrawable(theme, resources, attrResId));
+    public void setDividerDrawable(View view, int attrResId) {
+        ((LinearLayout) view).setDividerDrawable(ThemeUtils.getDrawable(view.getContext(), attrResId));
     }
 }

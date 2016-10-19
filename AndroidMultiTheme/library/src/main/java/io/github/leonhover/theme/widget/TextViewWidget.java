@@ -1,6 +1,5 @@
 package io.github.leonhover.theme.widget;
 
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
@@ -15,85 +14,92 @@ import io.github.leonhover.theme.model.ThemeElement;
 
 public class TextViewWidget extends ViewWidget {
 
-    public TextViewWidget() {
-        super();
+
+    private static final String ATTR_NAME_TEXT_COLOR = "textColor";
+    private static final String ATTR_NAME_TEXT_COLOR_HINT = "textColorHint";
+    private static final String ATTR_NAME_TEXT_COLOR_LINK = "textColorLink";
+    private static final String ATTR_NAME_DRAWABLE_BOTTOM = "drawableBottom";
+    private static final String ATTR_NAME_DRAWABLE_LEFT = "drawableLeft";
+    private static final String ATTR_NAME_DRAWABLE_RIGHT = "drawableRight";
+    private static final String ATTR_NAME_DRAWABLE_TOP = "drawableTop";
+
+
+    public TextViewWidget(Class master) {
+        super(master);
+    }
+
+    @Override
+    protected void initializeElements() {
+        super.initializeElements();
         ThemeElement element;
-        element = new ThemeElement(R.id.tag_theme_widget_color_01, "textColor");
+        element = new ThemeElement(R.id.amt_tag_text_view_text_color, ATTR_NAME_TEXT_COLOR);
         add(element);
-        element = new ThemeElement(R.id.tag_theme_widget_color_02, "textColorHint");
+        element = new ThemeElement(R.id.amt_tag_text_view_text_color_hint, ATTR_NAME_TEXT_COLOR_HINT);
         add(element);
-        element = new ThemeElement(R.id.tag_theme_widget_color_03, "textColorLink");
+        element = new ThemeElement(R.id.amt_tag_text_view_text_color_link, ATTR_NAME_TEXT_COLOR_LINK);
         add(element);
-        element = new ThemeElement(R.id.tag_theme_widget_drawable_02, "drawableBottom");
+        element = new ThemeElement(R.id.amt_tag_text_view_drawable_top, ATTR_NAME_DRAWABLE_BOTTOM);
         add(element);
-        element = new ThemeElement(R.id.tag_theme_widget_drawable_03, "drawableLeft");
+        element = new ThemeElement(R.id.amt_tag_text_view_drawable_left, ATTR_NAME_DRAWABLE_LEFT);
         add(element);
-        element = new ThemeElement(R.id.tag_theme_widget_drawable_04, "drawableRight");
+        element = new ThemeElement(R.id.amt_tag_text_view_drawable_right, ATTR_NAME_DRAWABLE_RIGHT);
         add(element);
-        element = new ThemeElement(R.id.tag_theme_widget_drawable_05, "drawableTop");
+        element = new ThemeElement(R.id.amt_tag_text_view_drawable_top, ATTR_NAME_DRAWABLE_TOP);
         add(element);
     }
 
     @Override
-    public void appleElementTheme(Resources.Theme theme, Resources resources, View view, ThemeElement element, int attrResId) {
-        super.appleElementTheme(theme, resources, view, element, attrResId);
-        switch (element.getTagKey()) {
-            case R.id.tag_theme_widget_color_01:
-                setTextColor(theme, resources, view, attrResId);
-                break;
-            case R.id.tag_theme_widget_color_02:
-                setTextColorHint(theme, resources, view, attrResId);
-                break;
-            case R.id.tag_theme_widget_color_03:
-                setTextColorLink(theme, resources, view, attrResId);
-                break;
-            case R.id.tag_theme_widget_drawable_02:
-                setDrawableBottom(theme, resources, view, attrResId);
-                break;
-            case R.id.tag_theme_widget_drawable_03:
-                setDrawableLeft(theme, resources, view, attrResId);
-                break;
-            case R.id.tag_theme_widget_drawable_04:
-                setDrawableRight(theme, resources, view, attrResId);
-                break;
-            case R.id.tag_theme_widget_drawable_05:
-                setDrawableTop(theme, resources, view, attrResId);
-                break;
+    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+        super.appleElementTheme(view, element, attrResId);
+        if (R.id.amt_tag_text_view_text_color == element.getTagKey()) {
+            setTextColor(view, attrResId);
+        } else if (R.id.amt_tag_text_view_text_color_hint == element.getTagKey()) {
+            setTextColorHint(view, attrResId);
+        } else if (R.id.amt_tag_text_view_text_color_link == element.getTagKey()) {
+            setTextColorLink(view, attrResId);
+        } else if (R.id.amt_tag_text_view_drawable_top == element.getTagKey()) {
+            setDrawableTop(view, attrResId);
+        } else if (R.id.amt_tag_text_view_drawable_bottom == element.getTagKey()) {
+            setDrawableBottom(view, attrResId);
+        } else if (R.id.amt_tag_text_view_drawable_left == element.getTagKey()) {
+            setDrawableLeft(view, attrResId);
+        } else if (R.id.amt_tag_text_view_drawable_right == element.getTagKey()) {
+            setDrawableRight(view, attrResId);
         }
     }
 
-    private void setTextColor(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        ((TextView) view).setTextColor(ThemeUtils.getColorStateList(theme, resources, attrResId));
+    private void setTextColor(View view, int attrResId) {
+        ((TextView) view).setTextColor(ThemeUtils.getColorStateList(view.getContext(), attrResId));
     }
 
-    private void setTextColorLink(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        ((TextView) view).setLinkTextColor(ThemeUtils.getColorStateList(theme, resources, attrResId));
+    private void setTextColorLink(View view, int attrResId) {
+        ((TextView) view).setLinkTextColor(ThemeUtils.getColorStateList(view.getContext(), attrResId));
     }
 
-    private void setTextColorHint(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        ((TextView) view).setHintTextColor(ThemeUtils.getColorStateList(theme, resources, attrResId));
+    private void setTextColorHint(View view, int attrResId) {
+        ((TextView) view).setHintTextColor(ThemeUtils.getColorStateList(view.getContext(), attrResId));
     }
 
-    private void setDrawableBottom(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        Drawable drawable = ThemeUtils.getDrawable(theme, resources, attrResId);
+    private void setDrawableBottom(View view, int attrResId) {
+        Drawable drawable = ThemeUtils.getDrawable(view.getContext(), attrResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         ((TextView) view).setCompoundDrawables(null, null, null, drawable);
     }
 
-    private void setDrawableLeft(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        Drawable drawable = ThemeUtils.getDrawable(theme, resources, attrResId);
+    private void setDrawableLeft(View view, int attrResId) {
+        Drawable drawable = ThemeUtils.getDrawable(view.getContext(), attrResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         ((TextView) view).setCompoundDrawables(drawable, null, null, null);
     }
 
-    private void setDrawableRight(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        Drawable drawable = ThemeUtils.getDrawable(theme, resources, attrResId);
+    private void setDrawableRight(View view, int attrResId) {
+        Drawable drawable = ThemeUtils.getDrawable(view.getContext(), attrResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         ((TextView) view).setCompoundDrawables(null, null, drawable, null);
     }
 
-    private void setDrawableTop(Resources.Theme theme, Resources resources, View view, int attrResId) {
-        Drawable drawable = ThemeUtils.getDrawable(theme, resources, attrResId);
+    private void setDrawableTop(View view, int attrResId) {
+        Drawable drawable = ThemeUtils.getDrawable(view.getContext(), attrResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         ((TextView) view).setCompoundDrawables(null, drawable, null, null);
     }
