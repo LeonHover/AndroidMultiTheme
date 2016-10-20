@@ -1,6 +1,7 @@
 package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -69,6 +70,7 @@ public class TextViewWidget extends ViewWidget {
     }
 
     private void setTextColor(View view, int attrResId) {
+        Log.d(TAG, "setTextColor attrResId:" + attrResId);
         ((TextView) view).setTextColor(ThemeUtils.getColorStateList(view.getContext(), attrResId));
     }
 

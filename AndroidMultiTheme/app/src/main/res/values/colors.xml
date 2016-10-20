@@ -3,4 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- red theme -->
+    <color name="red_title_text_color">#FF5252</color>
+    <color name="red_sub_title_text_color">#EF5350</color>
+    <color name="red_button_text_color">#FAFAFA</color>
+    <color name="red_button_bg_normal_color">#B71C1C</color>
+    <color name="red_button_bg_pressed_color">#EF5350</color>
+
+    <!-- blue theme -->
+    <color name="blue_title_text_color">#2196F3</color>
+    <color name="blue_sub_title_text_color">#90CAF9</color>
+    <color name="blue_button_text_color">#F5F5F5</color>
+    <color name="blue_button_bg_normal_color">#0D47A1</color>
+    <color name="blue_button_bg_pressed_color">#2196F3</color>
 </resources>

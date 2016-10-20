@@ -18,7 +18,7 @@ public class ListViewWidget extends AbsListViewWidget {
     public ListViewWidget(Class master) {
         super(master);
         ThemeElement element;
-        element = new ThemeElement(R.id.amt_tag_list_view_divider, "divider");
+        element = new ThemeElement(R.id.amt_tag_list_view_divider, ATTR_NAME_DIVIDER);
         add(element);
     }
 

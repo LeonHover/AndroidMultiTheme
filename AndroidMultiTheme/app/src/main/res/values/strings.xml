@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">AndroidMultiTheme</string>
+    <string name="app_description">Support multi theme for Android App without recreation of Activity.</string>
+    <string name="button_text">More Info</string>
+    <string name="menu_title_change_theme">Change Theme</string>
 </resources>

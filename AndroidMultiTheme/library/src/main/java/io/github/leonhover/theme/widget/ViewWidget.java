@@ -19,7 +19,6 @@ public class ViewWidget extends AbstractThemeWidget {
 
     public ViewWidget(Class master) {
         super(master);
-        initializeElements();
     }
 
     @Override
@@ -27,6 +26,14 @@ public class ViewWidget extends AbstractThemeWidget {
         ThemeElement element;
         element = new ThemeElement(R.id.amt_tag_view_background, ATTR_NAME_BACKGROUND);
         add(element);
+    }
+
+    @Override
+    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+        super.appleElementTheme(view, element, attrResId);
+        if (R.id.amt_tag_view_background == element.getTagKey()) {
+            setBackground(view, attrResId);
+        }
     }
 
     public void setBackground(View view, @AttrRes int attrResId) {

@@ -76,7 +76,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
         }
 
         for (ThemeElement element : elementSet) {
-            Log.d(TAG, "assemble element:" + element);
             String attrValue = attributeSet.getAttributeValue(nameSpace, element.getAttrName());
             int attrId = -1;
             if (isAttrReference(attrValue)) {
@@ -105,8 +104,8 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
             if (tagValue instanceof Integer) {
                 attrResId = (int) tagValue;
             }
-            Log.d(TAG, "applyTheme element:" + element + " attrId:" + attrResId);
             if (attrResId > -1) {
+                Log.d(TAG, "applyTheme element:" + element + " attrId:" + attrResId);
                 appleElementTheme(view, element, attrResId);
             }
         }

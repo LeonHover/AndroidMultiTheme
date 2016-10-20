@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Theme">
+        <attr name="title_text_color" format="reference|color"/>
+        <attr name="sub_title_text_color" format="reference|color"/>
+        <attr name="button_text_color" format="reference|color"/>
+        <attr name="button_bg_selector" format="reference"/>
+    </declare-styleable>
+</resources>

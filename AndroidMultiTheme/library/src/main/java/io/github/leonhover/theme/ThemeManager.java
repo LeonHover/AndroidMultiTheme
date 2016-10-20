@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public class ThemeManager {
 
     public static final String TAG = ThemeManager.class.getSimpleName();
 
-    private Map<String, IThemeWidget> themeWidgetMap;
+    private Map<String, AbstractThemeWidget> themeWidgetMap;
 
     private ThemeViewCreator themeViewCreator;
 
@@ -65,15 +66,15 @@ public class ThemeManager {
 
     private ThemeManager() {
         this.themeWidgetMap = new HashMap<>();
-        this.themeWidgetMap.put(ViewWidget.class.getSimpleName(), new ViewWidget(View.class));
-        this.themeWidgetMap.put(TextViewWidget.class.getSimpleName(), new TextViewWidget(TextView.class));
-        this.themeWidgetMap.put(ImageViewWidget.class.getSimpleName(), new ImageViewWidget(ImageView.class));
-        this.themeWidgetMap.put(CompoundButtonWidget.class.getSimpleName(), new CompoundButtonWidget(CompoundButton.class));
-        this.themeWidgetMap.put(ProgressBarWidget.class.getSimpleName(), new ProgressBarWidget(ProgressBar.class));
-        this.themeWidgetMap.put(ListViewWidget.class.getSimpleName(), new ListViewWidget(ListView.class));
-        this.themeWidgetMap.put(SeekBarWidget.class.getSimpleName(), new SeekBarWidget(SeekBar.class));
-        this.themeWidgetMap.put(LinearLayoutWidget.class.getSimpleName(), new LinearLayoutWidget(LinearLayout.class));
-        this.themeWidgetMap.put(AbsListViewWidget.class.getSimpleName(), new AbsListViewWidget(AbsListView.class));
+        this.themeWidgetMap.put(View.class.getSimpleName(), new ViewWidget(View.class));
+        this.themeWidgetMap.put(TextView.class.getSimpleName(), new TextViewWidget(TextView.class));
+        this.themeWidgetMap.put(ImageView.class.getSimpleName(), new ImageViewWidget(ImageView.class));
+        this.themeWidgetMap.put(CompoundButton.class.getSimpleName(), new CompoundButtonWidget(CompoundButton.class));
+        this.themeWidgetMap.put(ProgressBar.class.getSimpleName(), new ProgressBarWidget(ProgressBar.class));
+        this.themeWidgetMap.put(ListView.class.getSimpleName(), new ListViewWidget(ListView.class));
+        this.themeWidgetMap.put(SeekBar.class.getSimpleName(), new SeekBarWidget(SeekBar.class));
+        this.themeWidgetMap.put(LinearLayout.class.getSimpleName(), new LinearLayoutWidget(LinearLayout.class));
+        this.themeWidgetMap.put(AbsListView.class.getSimpleName(), new AbsListViewWidget(AbsListView.class));
 
         this.themeObserverSet = new HashSet<>();
         this.themeViewCreator = new ThemeViewCreator();
@@ -137,8 +138,7 @@ public class ThemeManager {
                     return null;
                 }
 
-                //TODO 定义如何找到ThemeWidgetType
-                String themeWidgetType = "ViewWidget";
+                String themeWidgetType = findProperThemeWidgetType(view);
                 assembleViewThemeElement(view, attrs, themeWidgetType);
 
                 return view;
@@ -146,22 +146,49 @@ public class ThemeManager {
         });
     }
 
-//    public void assembleViewHolderThemeElement(View view) {
-//        if (view == null) {
-//            return;
-//        }
-//
-//        view.setTag(R.id.amt_tag_widget_type, 767);
-//        view.setTag(R.id.amt_tag_view_current_theme, isNightTheme);
-//    }
+    private String findProperThemeWidgetType(View view) {
+
+        if (view == null) {
+            return null;
+        }
+
+        Log.d(TAG, "findProperThemeWidgetType " + view.getClass().getSimpleName());
+
+        Class<?> tmpMaster = null;
+        for (AbstractThemeWidget themeWidget : this.themeWidgetMap.values()) {
+            Class<?> clazz = themeWidget.getMaster();
+
+            if (view.getClass().equals(themeWidget.getMaster())) {
+                return view.getClass().getSimpleName();
+            }
+
+            if (clazz.isAssignableFrom(view.getClass())) {
+                if (tmpMaster == null) {
+                    tmpMaster = clazz;
+                } else {
+                    if (tmpMaster.isAssignableFrom(themeWidget.getMaster())) {
+                        tmpMaster = themeWidget.getMaster();
+                    }
+                }
+            }
+        }
+
+        if (tmpMaster == null) {
+            return null;
+        } else {
+            Log.d(TAG, "findProperThemeWidgetType result:" + tmpMaster.getSimpleName());
+            return tmpMaster.getSimpleName();
+        }
+
+    }
 
     /**
      * 组装每个View的主题元素
      */
     private void assembleViewThemeElement(View view, AttributeSet attributeSet, String widgetType) {
 
-        Log.d(TAG, "assembleViewThemeElement  theme widget type " + widgetType + " view:" + view);
-        if (view == null) {
+        Log.d(TAG, "assembleViewThemeElement  theme widget type:" + widgetType + ", view:" + view);
+        if (view == null || TextUtils.isEmpty(widgetType)) {
             return;
         }
 
@@ -169,13 +196,12 @@ public class ThemeManager {
         if (themeWidget != null) {
             view.setTag(R.id.amt_tag_widget_type, widgetType);
             themeWidget.assemble(view, attributeSet);
-
-            Log.d(TAG, "assembleViewThemeElement  theme widget type " + widgetType + " view:" + view);
+            Log.d(TAG, "assembleViewThemeElement  theme widget type: " + widgetType + " themeWidget:" + themeWidget.getClass().getSimpleName());
             debugAttributes(attributeSet);
 
         } else {
-            view.setTag(R.id.amt_tag_widget_type, -1);
-            Log.d(TAG, "unsupported theme widget type " + widgetType + ",is your custom theme widget?");
+            view.setTag(R.id.amt_tag_widget_type, null);
+            Log.i(TAG, "unsupported theme widget type " + widgetType + ",is your custom theme widget?");
         }
     }
 
@@ -269,14 +295,14 @@ public class ThemeManager {
             themeWidgetType = (String) object;
         }
 
-        Log.d(TAG, "applyTheme  theme widget type " + themeWidgetType + " view:" + view);
+        Log.d(TAG, "applyTheme  theme widget type:" + themeWidgetType + " ,view:" + view);
         if (!TextUtils.isEmpty(themeWidgetType)) {
             IThemeWidget themeWidget = this.themeWidgetMap.get(themeWidgetType);
             if (themeWidget != null) {
                 themeWidget.applyTheme(view);
-                Log.d(TAG, "applyTheme  theme widget type " + themeWidgetType + " view:" + view + " themeWidget:" + themeWidget);
+                Log.d(TAG, "applyTheme  theme widget type: " + themeWidgetType + " ,view:" + view + " themeWidget:" + themeWidget);
             } else {
-                Log.d(TAG, "applyTheme unsupport theme widget type:" + themeWidgetType + " view:" + view);
+                Log.i(TAG, "applyTheme unsupport theme widget type:" + themeWidgetType + ", view:" + view);
             }
         }
 
