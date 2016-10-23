@@ -63,9 +63,19 @@ public class ThemeViewEntities extends HashSet<View> implements IThemeObserver {
     }
 
     @Override
+    public int getPriority() {
+        return PRIORITY_VIEW;
+    }
+
+    @Override
     public void onThemeChanged(int whichTheme) {
         for (View view : this) {
             ThemeManager.getInstance().applyTheme(view);
         }
+    }
+
+    @Override
+    public int compareTo(IThemeObserver o) {
+        return getPriority() > o.getPriority() ? 1 : -1;
     }
 }

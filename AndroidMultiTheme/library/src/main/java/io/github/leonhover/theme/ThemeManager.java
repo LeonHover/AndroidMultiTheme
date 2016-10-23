@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.github.leonhover.theme.widget.AbsListViewWidget;
 import io.github.leonhover.theme.widget.AbstractThemeWidget;
@@ -78,7 +79,7 @@ public class ThemeManager {
         this.themeWidgetMap.put(AbsListView.class.getSimpleName(), new AbsListViewWidget(AbsListView.class));
         this.themeWidgetMap.put(Toolbar.class.getSimpleName(), new ToolBarWidget(Toolbar.class));
 
-        this.themeObserverSet = new HashSet<>();
+        this.themeObserverSet = new TreeSet<>();
         this.themeViewCreator = new ThemeViewCreator();
     }
 

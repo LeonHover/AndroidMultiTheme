@@ -91,6 +91,11 @@ public abstract class BaseThemeActivity extends AppCompatActivity {
         }
 
         @Override
+        public int getPriority() {
+            return PRIORITY_ACTIVITY;
+        }
+
+        @Override
         public final void onThemeChanged(int whichTheme) {
             if (this.themeManager != null) {
                 this.themeManager.applyTheme(this.activity, getTheme(whichTheme));
@@ -105,6 +110,11 @@ public abstract class BaseThemeActivity extends AppCompatActivity {
                 return -1;
             }
             return this.themes[index];
+        }
+
+        @Override
+        public int compareTo(IThemeObserver o) {
+            return getPriority() > o.getPriority() ? 1 : -1;
         }
     }
 }
