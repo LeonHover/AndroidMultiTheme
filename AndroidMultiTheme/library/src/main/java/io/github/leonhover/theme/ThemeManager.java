@@ -8,6 +8,7 @@ import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,7 +25,6 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,6 +38,7 @@ import io.github.leonhover.theme.widget.ListViewWidget;
 import io.github.leonhover.theme.widget.ProgressBarWidget;
 import io.github.leonhover.theme.widget.SeekBarWidget;
 import io.github.leonhover.theme.widget.TextViewWidget;
+import io.github.leonhover.theme.widget.ToolBarWidget;
 import io.github.leonhover.theme.widget.ViewWidget;
 
 
@@ -75,6 +76,7 @@ public class ThemeManager {
         this.themeWidgetMap.put(SeekBar.class.getSimpleName(), new SeekBarWidget(SeekBar.class));
         this.themeWidgetMap.put(LinearLayout.class.getSimpleName(), new LinearLayoutWidget(LinearLayout.class));
         this.themeWidgetMap.put(AbsListView.class.getSimpleName(), new AbsListViewWidget(AbsListView.class));
+        this.themeWidgetMap.put(Toolbar.class.getSimpleName(), new ToolBarWidget(Toolbar.class));
 
         this.themeObserverSet = new HashSet<>();
         this.themeViewCreator = new ThemeViewCreator();

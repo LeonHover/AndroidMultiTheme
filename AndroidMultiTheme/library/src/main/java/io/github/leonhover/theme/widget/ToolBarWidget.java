@@ -27,8 +27,6 @@ public class ToolBarWidget extends ViewWidget {
     @Override
     protected void initializeElements() {
         super.initializeElements();
-//        themeElement = new ThemeElement(R.id.amt_tag_tool_bar_collapse_icon, ATTR_NAME_COLLAPSE_ICON);
-
         add(new ThemeElement(R.id.amt_tag_tool_bar_logo, ATTR_NAME_LOGO));
         add(new ThemeElement(R.id.amt_tag_tool_bar_navigation_icon, ATTR_NAME_NAVIGATION_ICON));
         add(new ThemeElement(R.id.amt_tag_tool_bar_subtitle_text_color, ATTR_NAME_SUBTITLE_TEXT_COLOR));
@@ -39,10 +37,9 @@ public class ToolBarWidget extends ViewWidget {
     public void appleElementTheme(View view, ThemeElement element, int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         Toolbar toolbar = (Toolbar) view;
-//        if (R.id.amt_tag_tool_bar_collapse_icon == element.getTagKey()) {
-//            setOverflowIcon(toolbar, attrResId);
-//        } else
-        if (R.id.amt_tag_tool_bar_logo == element.getTagKey()) {
+        if (R.id.amt_tag_tool_bar_overflow_icon == element.getTagKey()) {
+            setOverflowIcon(toolbar, attrResId);
+        } else if (R.id.amt_tag_tool_bar_logo == element.getTagKey()) {
             setLogo(toolbar, attrResId);
         } else if (R.id.amt_tag_tool_bar_subtitle_text_color == element.getTagKey()) {
             setSubTitleTextColor(toolbar, attrResId);
@@ -75,16 +72,16 @@ public class ToolBarWidget extends ViewWidget {
         toolBar.setNavigationIcon(iconDrawable);
     }
 
-//    public void setOverflowIcon(Toolbar toolBar, int attrResId) {
-//        if (toolBar == null) {
-//            return;
-//        }
-//
-//        toolBar.setTag(R.id.amt_tag_tool_bar_collapse_icon, attrResId);
-//
-//        Drawable iconDrawable = ThemeUtils.getDrawable(toolBar.getContext(), attrResId);
-//        toolBar.setOverflowIcon(iconDrawable);
-//    }
+    public void setOverflowIcon(Toolbar toolBar, int attrResId) {
+        if (toolBar == null) {
+            return;
+        }
+
+        toolBar.setTag(R.id.amt_tag_tool_bar_overflow_icon, attrResId);
+
+        Drawable iconDrawable = ThemeUtils.getDrawable(toolBar.getContext(), attrResId);
+        toolBar.setOverflowIcon(iconDrawable);
+    }
 
     public void setTitleTextColor(Toolbar toolBar, int attrResId) {
 
@@ -94,10 +91,7 @@ public class ToolBarWidget extends ViewWidget {
 
         toolBar.setTag(R.id.amt_tag_tool_bar_title_text_color, attrResId);
 
-        int titleTextColor = ThemeUtils.getColor(toolBar.getContext(), attrResId);
-        if (titleTextColor > -1) {
-            toolBar.setTitleTextColor(titleTextColor);
-        }
+        toolBar.setTitleTextColor(ThemeUtils.getColor(toolBar.getContext(), attrResId));
     }
 
     public void setSubTitleTextColor(Toolbar toolBar, int attrResId) {
@@ -108,9 +102,6 @@ public class ToolBarWidget extends ViewWidget {
 
         toolBar.setTag(R.id.amt_tag_tool_bar_subtitle_text_color, attrResId);
 
-        int subTitleTextColor = ThemeUtils.getColor(toolBar.getContext(), attrResId);
-        if (subTitleTextColor > -1) {
-            toolBar.setSubtitleTextColor(subTitleTextColor);
-        }
+        toolBar.setSubtitleTextColor(ThemeUtils.getColor(toolBar.getContext(), attrResId));
     }
 }

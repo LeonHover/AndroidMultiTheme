@@ -2,16 +2,26 @@
 <resources>
 
     <style name="AppTheme.Red" parent="AppTheme">
+        <item name="colorPrimary">@color/red_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/red_colorPrimaryDark</item>
+        <item name="colorAccent">@color/red_colorAccent</item>
         <item name="title_text_color">@color/red_title_text_color</item>
         <item name="sub_title_text_color">@color/red_sub_title_text_color</item>
         <item name="button_text_color">@color/red_button_text_color</item>
         <item name="button_bg_selector">@drawable/red_button_bg_selector</item>
+        <item name="icon_launcher">@drawable/red_ic_app_launcher</item>
+        <item name="icon_change_theme">@drawable/red_ic_change_theme</item>
     </style>
 
     <style name="AppTheme.Blue" parent="AppTheme">
+        <item name="colorPrimary">@color/blue_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/blue_colorPrimaryDark</item>
+        <item name="colorAccent">@color/blue_colorAccent</item>
         <item name="title_text_color">@color/blue_title_text_color</item>
         <item name="sub_title_text_color">@color/blue_sub_title_text_color</item>
         <item name="button_text_color">@color/blue_button_text_color</item>
         <item name="button_bg_selector">@drawable/blue_button_bg_selector</item>
+        <item name="icon_launcher">@drawable/blue_ic_app_launcher</item>
+        <item name="icon_change_theme">@drawable/blue_ic_change_theme</item>
     </style>
 </resources>

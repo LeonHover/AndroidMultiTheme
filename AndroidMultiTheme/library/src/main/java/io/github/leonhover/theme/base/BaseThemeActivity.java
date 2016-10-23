@@ -60,6 +60,8 @@ public abstract class BaseThemeActivity extends AppCompatActivity {
         @StyleRes
         private int[] themes;
 
+        private boolean isSupportMenuItemEnable = false;
+
         private ActivityTheme(AppCompatActivity activity) {
             this.activity = activity;
             this.themeManager = ThemeManager.getInstance();
@@ -67,6 +69,10 @@ public abstract class BaseThemeActivity extends AppCompatActivity {
 
         public final void setThemes(@StyleRes int[] themes) {
             this.themes = themes;
+        }
+
+        public final void setSupportMenuItemThemeEnable(boolean enable) {
+            this.isSupportMenuItemEnable = enable;
         }
 
         private void assembleThemeBeforeInflate() {
@@ -88,6 +94,9 @@ public abstract class BaseThemeActivity extends AppCompatActivity {
         public final void onThemeChanged(int whichTheme) {
             if (this.themeManager != null) {
                 this.themeManager.applyTheme(this.activity, getTheme(whichTheme));
+                if (isSupportMenuItemEnable) {
+                    this.activity.supportInvalidateOptionsMenu();
+                }
             }
         }
 

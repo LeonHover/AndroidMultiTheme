@@ -5,5 +5,7 @@
         <attr name="sub_title_text_color" format="reference|color"/>
         <attr name="button_text_color" format="reference|color"/>
         <attr name="button_bg_selector" format="reference"/>
+        <attr name="icon_launcher" format="reference"/>
+        <attr name="icon_change_theme" format="reference"/>
     </declare-styleable>
 </resources>
