@@ -32,77 +32,108 @@ public class TextViewWidget extends ViewWidget {
     @Override
     protected void initializeElements() {
         super.initializeElements();
-        ThemeElement element;
-        element = new ThemeElement(R.id.amt_tag_text_view_text_color, ATTR_NAME_TEXT_COLOR);
-        add(element);
-        element = new ThemeElement(R.id.amt_tag_text_view_text_color_hint, ATTR_NAME_TEXT_COLOR_HINT);
-        add(element);
-        element = new ThemeElement(R.id.amt_tag_text_view_text_color_link, ATTR_NAME_TEXT_COLOR_LINK);
-        add(element);
-        element = new ThemeElement(R.id.amt_tag_text_view_drawable_top, ATTR_NAME_DRAWABLE_BOTTOM);
-        add(element);
-        element = new ThemeElement(R.id.amt_tag_text_view_drawable_left, ATTR_NAME_DRAWABLE_LEFT);
-        add(element);
-        element = new ThemeElement(R.id.amt_tag_text_view_drawable_right, ATTR_NAME_DRAWABLE_RIGHT);
-        add(element);
-        element = new ThemeElement(R.id.amt_tag_text_view_drawable_top, ATTR_NAME_DRAWABLE_TOP);
-        add(element);
+        add(new ThemeElement(R.id.amt_tag_text_view_text_color, ATTR_NAME_TEXT_COLOR));
+        add(new ThemeElement(R.id.amt_tag_text_view_text_color_hint, ATTR_NAME_TEXT_COLOR_HINT));
+        add(new ThemeElement(R.id.amt_tag_text_view_text_color_link, ATTR_NAME_TEXT_COLOR_LINK));
+        add(new ThemeElement(R.id.amt_tag_text_view_drawable_bottom, ATTR_NAME_DRAWABLE_BOTTOM));
+        add(new ThemeElement(R.id.amt_tag_text_view_drawable_left, ATTR_NAME_DRAWABLE_LEFT));
+        add(new ThemeElement(R.id.amt_tag_text_view_drawable_right, ATTR_NAME_DRAWABLE_RIGHT));
+        add(new ThemeElement(R.id.amt_tag_text_view_drawable_top, ATTR_NAME_DRAWABLE_TOP));
     }
 
     @Override
     public void appleElementTheme(View view, ThemeElement element, int attrResId) {
         super.appleElementTheme(view, element, attrResId);
+        TextView textView = (TextView) view;
         if (R.id.amt_tag_text_view_text_color == element.getTagKey()) {
-            setTextColor(view, attrResId);
+            setTextColor(textView, attrResId);
         } else if (R.id.amt_tag_text_view_text_color_hint == element.getTagKey()) {
-            setTextColorHint(view, attrResId);
+            setTextColorHint(textView, attrResId);
         } else if (R.id.amt_tag_text_view_text_color_link == element.getTagKey()) {
-            setTextColorLink(view, attrResId);
+            setTextColorLink(textView, attrResId);
         } else if (R.id.amt_tag_text_view_drawable_top == element.getTagKey()) {
-            setDrawableTop(view, attrResId);
+            setDrawableTop(textView, attrResId);
         } else if (R.id.amt_tag_text_view_drawable_bottom == element.getTagKey()) {
-            setDrawableBottom(view, attrResId);
+            setDrawableBottom(textView, attrResId);
         } else if (R.id.amt_tag_text_view_drawable_left == element.getTagKey()) {
-            setDrawableLeft(view, attrResId);
+            setDrawableLeft(textView, attrResId);
         } else if (R.id.amt_tag_text_view_drawable_right == element.getTagKey()) {
-            setDrawableRight(view, attrResId);
+            setDrawableRight(textView, attrResId);
         }
     }
 
-    private void setTextColor(View view, int attrResId) {
+    private void setTextColor(TextView textView, int attrResId) {
         Log.d(TAG, "setTextColor attrResId:" + attrResId);
-        ((TextView) view).setTextColor(ThemeUtils.getColorStateList(view.getContext(), attrResId));
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTag(R.id.amt_tag_text_view_text_color, attrResId);
+
+        textView.setTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
     }
 
-    private void setTextColorLink(View view, int attrResId) {
-        ((TextView) view).setLinkTextColor(ThemeUtils.getColorStateList(view.getContext(), attrResId));
+    private void setTextColorLink(TextView textView, int attrResId) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTag(R.id.amt_tag_text_view_text_color_link, attrResId);
+
+        textView.setLinkTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
     }
 
-    private void setTextColorHint(View view, int attrResId) {
-        ((TextView) view).setHintTextColor(ThemeUtils.getColorStateList(view.getContext(), attrResId));
+    private void setTextColorHint(TextView textView, int attrResId) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTag(R.id.amt_tag_text_view_text_color_hint, attrResId);
+        textView.setHintTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
     }
 
-    private void setDrawableBottom(View view, int attrResId) {
-        Drawable drawable = ThemeUtils.getDrawable(view.getContext(), attrResId);
+    private void setDrawableBottom(TextView textView, int attrResId) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTag(R.id.amt_tag_text_view_drawable_bottom, attrResId);
+
+        Drawable drawable = ThemeUtils.getDrawable(textView.getContext(), attrResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        ((TextView) view).setCompoundDrawables(null, null, null, drawable);
+        textView.setCompoundDrawables(null, null, null, drawable);
     }
 
-    private void setDrawableLeft(View view, int attrResId) {
-        Drawable drawable = ThemeUtils.getDrawable(view.getContext(), attrResId);
+    private void setDrawableLeft(TextView textView, int attrResId) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTag(R.id.amt_tag_text_view_drawable_left, attrResId);
+        Drawable drawable = ThemeUtils.getDrawable(textView.getContext(), attrResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        ((TextView) view).setCompoundDrawables(drawable, null, null, null);
+        textView.setCompoundDrawables(drawable, null, null, null);
     }
 
-    private void setDrawableRight(View view, int attrResId) {
-        Drawable drawable = ThemeUtils.getDrawable(view.getContext(), attrResId);
+    private void setDrawableRight(TextView textView, int attrResId) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTag(R.id.amt_tag_text_view_drawable_right, attrResId);
+        Drawable drawable = ThemeUtils.getDrawable(textView.getContext(), attrResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        ((TextView) view).setCompoundDrawables(null, null, drawable, null);
+        textView.setCompoundDrawables(null, null, drawable, null);
     }
 
-    private void setDrawableTop(View view, int attrResId) {
-        Drawable drawable = ThemeUtils.getDrawable(view.getContext(), attrResId);
+    private void setDrawableTop(TextView textView, int attrResId) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTag(R.id.amt_tag_text_view_drawable_top, attrResId);
+        Drawable drawable = ThemeUtils.getDrawable(textView.getContext(), attrResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        ((TextView) view).setCompoundDrawables(null, drawable, null, null);
+        textView.setCompoundDrawables(null, drawable, null, null);
     }
 }

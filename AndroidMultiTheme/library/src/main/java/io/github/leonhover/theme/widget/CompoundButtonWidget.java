@@ -22,19 +22,26 @@ public class CompoundButtonWidget extends TextViewWidget {
     @Override
     protected void initializeElements() {
         super.initializeElements();
-        ThemeElement element = new ThemeElement(R.id.amt_tag_compound_button_button, ATTR_NAME_BUTTON);
-        add(element);
+        add(new ThemeElement(R.id.amt_tag_compound_button_button, ATTR_NAME_BUTTON));
     }
 
     @Override
     public void appleElementTheme(View view, ThemeElement element, int attrResId) {
         super.appleElementTheme(view, element, attrResId);
+        CompoundButton compoundButton = (CompoundButton) view;
         if (R.id.amt_tag_compound_button_button == element.getTagKey()) {
-            setButtonDrawable(view, attrResId);
+            setButtonDrawable(compoundButton, attrResId);
         }
     }
 
-    public void setButtonDrawable(View view, int attrResId) {
-        ((CompoundButton) view).setButtonDrawable(ThemeUtils.getDrawable(view.getContext(), attrResId));
+    public void setButtonDrawable(CompoundButton compoundButton, int attrResId) {
+
+        if (compoundButton == null) {
+            return;
+        }
+
+        compoundButton.setTag(R.id.amt_tag_compound_button_button, attrResId);
+
+        compoundButton.setButtonDrawable(ThemeUtils.getDrawable(compoundButton.getContext(), attrResId));
     }
 }

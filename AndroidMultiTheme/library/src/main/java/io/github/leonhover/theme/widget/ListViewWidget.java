@@ -17,23 +17,28 @@ public class ListViewWidget extends AbsListViewWidget {
 
     public ListViewWidget(Class master) {
         super(master);
-        ThemeElement element;
-        element = new ThemeElement(R.id.amt_tag_list_view_divider, ATTR_NAME_DIVIDER);
-        add(element);
+        add(new ThemeElement(R.id.amt_tag_list_view_divider, ATTR_NAME_DIVIDER));
     }
 
     @Override
     public void appleElementTheme(View view, ThemeElement element, int attrResId) {
         super.appleElementTheme(view, element, attrResId);
+        ListView listView = (ListView) view;
         if (R.id.amt_tag_list_view_divider == element.getTagKey()) {
-            setDividerDrawable(view, attrResId);
+            setDividerDrawable(listView, attrResId);
         }
     }
 
-    private void setDividerDrawable(View view, int attrResId) {
-        ListView listView = (ListView) view;
+    private void setDividerDrawable(ListView listView, int attrResId) {
+
+        if (listView == null) {
+            return;
+        }
+
+        listView.setTag(R.id.amt_tag_list_view_divider, attrResId);
+
         int dividerHeight = listView.getDividerHeight();
-        listView.setDivider(ThemeUtils.getDrawable(view.getContext(), attrResId));
+        listView.setDivider(ThemeUtils.getDrawable(listView.getContext(), attrResId));
         listView.setDividerHeight(dividerHeight);
     }
 

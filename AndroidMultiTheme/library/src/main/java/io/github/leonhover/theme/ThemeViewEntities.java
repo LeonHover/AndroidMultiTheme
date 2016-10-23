@@ -65,7 +65,7 @@ public class ThemeViewEntities extends HashSet<View> implements IThemeObserver {
     @Override
     public void onThemeChanged(int whichTheme) {
         for (View view : this) {
-            ThemeManager.getInstance().applyThemeForView(view);
+            ThemeManager.getInstance().applyTheme(view);
         }
     }
 }

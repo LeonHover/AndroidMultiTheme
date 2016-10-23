@@ -195,6 +195,7 @@ public class ThemeManager {
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetType);
         if (themeWidget != null) {
             view.setTag(R.id.amt_tag_widget_type, widgetType);
+            view.setTag(R.id.amt_tag_view_current_theme, getCurrentThemeIndex());
             themeWidget.assemble(view, attributeSet);
             Log.d(TAG, "assembleViewThemeElement  theme widget type: " + widgetType + " themeWidget:" + themeWidget.getClass().getSimpleName());
             debugAttributes(attributeSet);
@@ -262,11 +263,12 @@ public class ThemeManager {
     }
 
     /**
-     * 改变View的主题，应用场景要是AdapterView以及动态创建的View。
+     * 对单个View应用主题
      *
-     * @param view ItemView
+     * @param view View
      */
-    public void applyThemeForView(View view) {
+    public void applyTheme(View view) {
+
         int themeOfView = -1;
         try {
             themeOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_view_current_theme);
@@ -276,18 +278,10 @@ public class ThemeManager {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "applyThemeForViewHolder viewIsNightTheme:" + themeOfView + " currentThemeIndex:" + currentThemeIndex);
-        if (themeOfView != currentThemeIndex) {
-            applyTheme(view);
+        if (themeOfView == currentThemeIndex) {
+            return;
         }
-    }
 
-    /**
-     * 对单个View应用主题
-     *
-     * @param view View
-     */
-    private void applyTheme(View view) {
 
         Object object = view.getTag(R.id.amt_tag_widget_type);
         String themeWidgetType = "";
@@ -313,6 +307,8 @@ public class ThemeManager {
                 applyTheme(child);
             }
         }
+
+        view.setTag(R.id.amt_tag_view_current_theme, getCurrentThemeIndex());
     }
 
 }

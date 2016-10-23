@@ -10,6 +10,7 @@ import java.util.Set;
 import io.github.leonhover.theme.model.ThemeElement;
 
 import static io.github.leonhover.theme.ThemeUtils.ANDROID_NAMESPACE;
+import static io.github.leonhover.theme.ThemeUtils.APP_NAMESPACE;
 import static io.github.leonhover.theme.ThemeUtils.getAttrResId;
 import static io.github.leonhover.theme.ThemeUtils.isAttrReference;
 
@@ -24,7 +25,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     /**
      * Android官方的NameSpace
      */
-    private String nameSpace = ANDROID_NAMESPACE;
+    private static String[] NAMESPACES = new String[]{ANDROID_NAMESPACE, APP_NAMESPACE};
 
     /**
      * 适合的主人Class
@@ -36,7 +37,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
      */
     private Set<ThemeElement> elementSet;
 
-    public  AbstractThemeWidget(Class master){
+    public AbstractThemeWidget(Class master) {
         this.properMaster = master;
         initializeElements();
     }
@@ -63,10 +64,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
         elementSet.add(themeElement);
     }
 
-    public void setNameSpace(String nameSpace) {
-        this.nameSpace = nameSpace;
-    }
-
     @Override
     public void assemble(View view, AttributeSet attributeSet) {
 
@@ -76,12 +73,15 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
         }
 
         for (ThemeElement element : elementSet) {
-            String attrValue = attributeSet.getAttributeValue(nameSpace, element.getAttrName());
-            int attrId = -1;
-            if (isAttrReference(attrValue)) {
-                attrId = getAttrResId(attrValue);
-                view.setTag(element.getTagKey(), attrId);
-                Log.d(TAG, "assemble element:" + element + " attrId:" + attrId);
+            for (String nameSpace : NAMESPACES) {
+                String attrValue = attributeSet.getAttributeValue(nameSpace, element.getAttrName());
+                int attrId = -1;
+                if (isAttrReference(attrValue)) {
+                    attrId = getAttrResId(attrValue);
+                    view.setTag(element.getTagKey(), attrId);
+                    Log.d(TAG, "assemble element:" + element + " attrId:" + attrId);
+                    break;
+                }
             }
         }
 
@@ -90,7 +90,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     @Override
     public void applyTheme(View view) {
         Log.d(TAG, "applyTheme");
-        if ( view == null) {
+        if (view == null) {
             throw new IllegalArgumentException(" view is illegal!!");
         }
 
@@ -118,10 +118,9 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
      * @param element   主题元素
      * @param attrResId AttrResId
      */
-    public void appleElementTheme(View view, ThemeElement element, int attrResId){
+    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
 
     }
-
 
 
 }

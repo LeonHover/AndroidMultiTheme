@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 public class ThemeUtils {
 
     public static final String ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android";
+    public static final String APP_NAMESPACE = "http://schemas.android.com/apk/res-auto";
 
     /**
      * 判断是否是以“?attr/**”引用的资源
@@ -48,6 +49,35 @@ public class ThemeUtils {
 
         String resIdStr = attrValue.substring(1);
         return Integer.valueOf(resIdStr);
+    }
+
+    /**
+     * 获取attrResId指向的颜色Color
+     *
+     * @param context
+     * @param attrResId attr资源id
+     * @return Color
+     */
+    public static int getColor(Context context, @AttrRes int attrResId) {
+        if (context == null) {
+            return -1;
+        }
+        return getColor(context.getTheme(), context.getResources(), attrResId);
+    }
+
+    /**
+     * 获取attrResId指向的颜色Color
+     *
+     * @param theme     主题
+     * @param resources 资源
+     * @param attrResId attr资源id
+     * @return Color
+     */
+    public static int getColor(Resources.Theme theme, Resources resources, @AttrRes int attrResId) {
+        TypedValue typedValue = new TypedValue();
+        theme.resolveAttribute(attrResId, typedValue, true);
+        int color = resources.getColor(typedValue.resourceId);
+        return color;
     }
 
     /**

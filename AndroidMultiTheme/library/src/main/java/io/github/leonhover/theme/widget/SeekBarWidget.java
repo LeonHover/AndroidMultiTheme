@@ -22,19 +22,25 @@ public class SeekBarWidget extends ProgressBarWidget {
     @Override
     protected void initializeElements() {
         super.initializeElements();
-        ThemeElement element = new ThemeElement(R.id.amt_tag_seek_bar_thumb, ATTR_NAME_THUMB);
-        add(element);
+        add(new ThemeElement(R.id.amt_tag_seek_bar_thumb, ATTR_NAME_THUMB));
     }
 
     @Override
     public void appleElementTheme(View view, ThemeElement element, int attrResId) {
         super.appleElementTheme(view, element, attrResId);
+        AbsSeekBar seekBar = (AbsSeekBar) view;
         if (R.id.amt_tag_seek_bar_thumb == element.getTagKey()) {
-            setThumb(view, attrResId);
+            setThumb(seekBar, attrResId);
         }
     }
 
-    public void setThumb(View view, int attrResId) {
-        ((AbsSeekBar) view).setThumb(ThemeUtils.getDrawable(view.getContext(), attrResId));
+    public void setThumb(AbsSeekBar seekBar, int attrResId) {
+        if (seekBar == null) {
+            return;
+        }
+
+        seekBar.setTag(R.id.amt_tag_seek_bar_thumb, attrResId);
+
+        seekBar.setThumb(ThemeUtils.getDrawable(seekBar.getContext(), attrResId));
     }
 }

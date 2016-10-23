@@ -28,5 +28,11 @@
     <item name="amt_tag_seek_bar_thumb" type="id" />
     <!-- CompoundButton -->
     <item name="amt_tag_compound_button_button" type="id" />
+    <!-- ToolBar -->
+    <item name="amt_tag_tool_bar_collapse_icon" type="id" />
+    <item name="amt_tag_tool_bar_logo" type="id" />
+    <item name="amt_tag_tool_bar_navigation_icon" type="id" />
+    <item name="amt_tag_tool_bar_subtitle_text_color" type="id" />
+    <item name="amt_tag_tool_bar_title_text_color" type="id" />
 
 </resources>

@@ -23,29 +23,37 @@ public class ProgressBarWidget extends ViewWidget {
     @Override
     protected void initializeElements() {
         super.initializeElements();
-        ThemeElement element = null;
-        element = new ThemeElement(R.id.amt_tag_progress_bar_progress_drawable, ATTR_NAME_PROGRESS_DRAWABLE);
-        add(element);
-        element = new ThemeElement(R.id.amt_tag_progress_bar_indeterminate_drawable, ATTR_NAME_INDETERMINATE_DRAWABLE);
-        add(element);
+        add(new ThemeElement(R.id.amt_tag_progress_bar_progress_drawable, ATTR_NAME_PROGRESS_DRAWABLE));
+        add(new ThemeElement(R.id.amt_tag_progress_bar_indeterminate_drawable, ATTR_NAME_INDETERMINATE_DRAWABLE));
     }
 
     @Override
     public void appleElementTheme(View view, ThemeElement element, int attrResId) {
         super.appleElementTheme(view, element, attrResId);
-
+        ProgressBar progressBar = (ProgressBar) view;
         if (R.id.amt_tag_progress_bar_progress_drawable == element.getTagKey()) {
-            setProgressDrawable(view, attrResId);
+            setProgressDrawable(progressBar, attrResId);
         } else if (R.id.amt_tag_progress_bar_indeterminate_drawable == element.getTagKey()) {
-            setIndeterminateDrawable(view, attrResId);
+            setIndeterminateDrawable(progressBar, attrResId);
         }
     }
 
-    private void setProgressDrawable(View view, int attrResId) {
-        ((ProgressBar) view).setProgressDrawable(ThemeUtils.getDrawable(view.getContext(), attrResId));
+    private void setProgressDrawable(ProgressBar progressBar, int attrResId) {
+        if (progressBar == null) {
+            return;
+        }
+
+        progressBar.setTag(R.id.amt_tag_progress_bar_progress_drawable, attrResId);
+
+        progressBar.setProgressDrawable(ThemeUtils.getDrawable(progressBar.getContext(), attrResId));
     }
 
-    private void setIndeterminateDrawable(View view, int attrResId) {
-        ((ProgressBar) view).setIndeterminateDrawable(ThemeUtils.getDrawable(view.getContext(), attrResId));
+    private void setIndeterminateDrawable(ProgressBar progressBar, int attrResId) {
+        if (progressBar == null) {
+            return;
+        }
+
+        progressBar.setTag(R.id.amt_tag_progress_bar_indeterminate_drawable, attrResId);
+        progressBar.setIndeterminateDrawable(ThemeUtils.getDrawable(progressBar.getContext(), attrResId));
     }
 }

@@ -23,9 +23,7 @@ public class ViewWidget extends AbstractThemeWidget {
 
     @Override
     protected void initializeElements() {
-        ThemeElement element;
-        element = new ThemeElement(R.id.amt_tag_view_background, ATTR_NAME_BACKGROUND);
-        add(element);
+        add(new ThemeElement(R.id.amt_tag_view_background, ATTR_NAME_BACKGROUND));
     }
 
     @Override

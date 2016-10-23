@@ -19,25 +19,38 @@ public class ImageViewWidget extends ViewWidget {
 
     public ImageViewWidget(Class master) {
         super(master);
-        ThemeElement element;
-        element = new ThemeElement(R.id.amt_tag_image_view_src, ATTR_NAME_SRC);
-        add(element);
-        element = new ThemeElement(R.id.amt_tag_image_view_src_compat, ATTR_NAME_SRC_COMPAT);
-        add(element);
+        add(new ThemeElement(R.id.amt_tag_image_view_src, ATTR_NAME_SRC));
+        add(new ThemeElement(R.id.amt_tag_image_view_src_compat, ATTR_NAME_SRC_COMPAT));
     }
 
     @Override
     public void appleElementTheme(View view, ThemeElement element, int attrResId) {
         super.appleElementTheme(view, element, attrResId);
-
+        ImageView imageView = (ImageView) view;
         if (R.id.amt_tag_image_view_src == element.getTagKey()) {
-            setImageDrawable(view, attrResId);
+            setImageDrawable(imageView, attrResId);
         } else if (R.id.amt_tag_image_view_src_compat == element.getTagKey()) {
-            setImageDrawable(view, attrResId);
+            setImageCompatDrawable(imageView, attrResId);
         }
     }
 
-    public void setImageDrawable(View view, int attrResId) {
-        ((ImageView) view).setImageDrawable(ThemeUtils.getDrawable(view.getContext(), attrResId));
+    public void setImageDrawable(ImageView imageView, int attrResId) {
+        if (imageView == null) {
+            return;
+        }
+
+        imageView.setTag(R.id.amt_tag_image_view_src, attrResId);
+
+        imageView.setImageDrawable(ThemeUtils.getDrawable(imageView.getContext(), attrResId));
+    }
+
+    public void setImageCompatDrawable(ImageView imageView, int attrResId) {
+        if (imageView == null) {
+            return;
+        }
+
+        imageView.setTag(R.id.amt_tag_image_view_src_compat, attrResId);
+
+        imageView.setImageDrawable(ThemeUtils.getDrawable(imageView.getContext(), attrResId));
     }
 }

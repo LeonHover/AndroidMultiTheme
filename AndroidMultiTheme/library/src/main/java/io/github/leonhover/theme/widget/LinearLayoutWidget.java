@@ -24,20 +24,25 @@ public class LinearLayoutWidget extends ViewWidget {
     @Override
     protected void initializeElements() {
         super.initializeElements();
-        ThemeElement element;
-        element = new ThemeElement(R.id.amt_tag_linear_layout_divider, ATTR_NAME_DIVIDER);
-        add(element);
+        add(new ThemeElement(R.id.amt_tag_linear_layout_divider, ATTR_NAME_DIVIDER));
     }
 
     @Override
     public void appleElementTheme(View view, ThemeElement element, int attrResId) {
         super.appleElementTheme(view, element, attrResId);
+        LinearLayout linearLayout = (LinearLayout) view;
         if (R.id.amt_tag_linear_layout_divider == element.getTagKey()) {
-            setDividerDrawable(view, attrResId);
+            setDividerDrawable(linearLayout, attrResId);
         }
     }
 
-    public void setDividerDrawable(View view, int attrResId) {
-        ((LinearLayout) view).setDividerDrawable(ThemeUtils.getDrawable(view.getContext(), attrResId));
+    public void setDividerDrawable(LinearLayout linearLayout, int attrResId) {
+        if (linearLayout == null) {
+            return;
+        }
+
+        linearLayout.setTag(R.id.amt_tag_linear_layout_divider, attrResId);
+
+        linearLayout.setDividerDrawable(ThemeUtils.getDrawable(linearLayout.getContext(), attrResId));
     }
 }
