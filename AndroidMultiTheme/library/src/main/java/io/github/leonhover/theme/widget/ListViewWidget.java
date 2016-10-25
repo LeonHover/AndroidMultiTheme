@@ -15,8 +15,13 @@ public class ListViewWidget extends AbsListViewWidget {
 
     private static final String ATTR_NAME_DIVIDER = "divider";
 
-    public ListViewWidget(Class master) {
-        super(master);
+    public ListViewWidget() {
+        super();
+    }
+
+    @Override
+    protected void initializeElements() {
+        super.initializeElements();
         add(new ThemeElement(R.id.amt_tag_list_view_divider, ATTR_NAME_DIVIDER));
     }
 

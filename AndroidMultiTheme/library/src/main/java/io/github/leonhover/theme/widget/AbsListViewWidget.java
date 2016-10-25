@@ -15,8 +15,8 @@ public class AbsListViewWidget extends ViewWidget {
 
     private static final String ATTR_NAME_LIST_SELECTOR = "listSelector";
 
-    public AbsListViewWidget(Class master) {
-        super(master);
+    public AbsListViewWidget() {
+        super();
     }
 
     @Override

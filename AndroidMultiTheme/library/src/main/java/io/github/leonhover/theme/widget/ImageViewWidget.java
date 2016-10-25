@@ -17,8 +17,13 @@ public class ImageViewWidget extends ViewWidget {
     private static final String ATTR_NAME_SRC = "src";
     private static final String ATTR_NAME_SRC_COMPAT = "srcCompat";
 
-    public ImageViewWidget(Class master) {
-        super(master);
+    public ImageViewWidget() {
+        super();
+    }
+
+    @Override
+    protected void initializeElements() {
+        super.initializeElements();
         add(new ThemeElement(R.id.amt_tag_image_view_src, ATTR_NAME_SRC));
         add(new ThemeElement(R.id.amt_tag_image_view_src_compat, ATTR_NAME_SRC_COMPAT));
     }

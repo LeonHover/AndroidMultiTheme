@@ -16,8 +16,8 @@ public class ProgressBarWidget extends ViewWidget {
     private static final String ATTR_NAME_PROGRESS_DRAWABLE = "progressDrawable";
     private static final String ATTR_NAME_INDETERMINATE_DRAWABLE = "indeterminateDrawable";
 
-    public ProgressBarWidget(Class master) {
-        super(master);
+    public ProgressBarWidget() {
+        super();
     }
 
     @Override

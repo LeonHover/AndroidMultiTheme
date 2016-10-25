@@ -17,8 +17,8 @@ public class ViewWidget extends AbstractThemeWidget {
 
     private static final String ATTR_NAME_BACKGROUND = "background";
 
-    public ViewWidget(Class master) {
-        super(master);
+    public ViewWidget() {
+        super();
     }
 
     @Override
@@ -46,6 +46,10 @@ public class ViewWidget extends AbstractThemeWidget {
         } else {
             view.setBackgroundDrawable(background);
         }
+    }
+
+    public void setWidgetKey(View view, Class<?> widgetKey) {
+        view.setTag(R.id.amt_tag_widget_type, widgetKey);
     }
 
 }

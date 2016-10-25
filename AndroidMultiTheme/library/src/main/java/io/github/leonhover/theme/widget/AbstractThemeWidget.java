@@ -28,17 +28,11 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     private static String[] NAMESPACES = new String[]{ANDROID_NAMESPACE, APP_NAMESPACE};
 
     /**
-     * 适合的主人Class
-     */
-    private Class properMaster;
-
-    /**
      * 主题元素集合
      */
     private Set<ThemeElement> elementSet;
 
-    public AbstractThemeWidget(Class master) {
-        this.properMaster = master;
+    public AbstractThemeWidget() {
         initializeElements();
     }
 
@@ -46,10 +40,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
      * 初始化主题的元素
      */
     protected abstract void initializeElements();
-
-    public Class getMaster() {
-        return this.properMaster;
-    }
 
     /**
      * 添加主题元素

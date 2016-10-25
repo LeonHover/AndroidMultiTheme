@@ -20,8 +20,8 @@ public class ToolBarWidget extends ViewWidget {
     private final static String ATTR_NAME_SUBTITLE_TEXT_COLOR = "subtitleTextColor";
     private final static String ATTR_NAME_TITLE_TEXT_COLOR = "titleTextColor";
 
-    public ToolBarWidget(Class master) {
-        super(master);
+    public ToolBarWidget() {
+        super();
     }
 
     @Override

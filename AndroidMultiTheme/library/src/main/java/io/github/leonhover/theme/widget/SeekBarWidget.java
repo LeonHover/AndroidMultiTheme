@@ -15,8 +15,8 @@ public class SeekBarWidget extends ProgressBarWidget {
 
     private final static String ATTR_NAME_THUMB = "thumb";
 
-    public SeekBarWidget(Class master) {
-        super(master);
+    public SeekBarWidget() {
+        super();
     }
 
     @Override

@@ -17,8 +17,8 @@ public class LinearLayoutWidget extends ViewWidget {
 
     private static final String ATTR_NAME_DIVIDER = "divider";
 
-    public LinearLayoutWidget(Class master) {
-        super(master);
+    public LinearLayoutWidget() {
+        super();
     }
 
     @Override

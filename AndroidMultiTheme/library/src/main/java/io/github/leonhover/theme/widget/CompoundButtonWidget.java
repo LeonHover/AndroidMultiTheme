@@ -15,8 +15,8 @@ public class CompoundButtonWidget extends TextViewWidget {
 
     private static final String ATTR_NAME_BUTTON = "button";
 
-    public CompoundButtonWidget(Class master) {
-        super(master);
+    public CompoundButtonWidget() {
+        super();
     }
 
     @Override

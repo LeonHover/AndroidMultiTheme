@@ -25,8 +25,8 @@ public class TextViewWidget extends ViewWidget {
     private static final String ATTR_NAME_DRAWABLE_TOP = "drawableTop";
 
 
-    public TextViewWidget(Class master) {
-        super(master);
+    public TextViewWidget() {
+        super();
     }
 
     @Override
