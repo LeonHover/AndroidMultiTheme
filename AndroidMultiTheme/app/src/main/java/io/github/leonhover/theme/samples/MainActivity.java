@@ -36,6 +36,7 @@ public class MainActivity extends BaseThemeActivity {
     @Override
     protected void configTheme(ActivityTheme activityTheme) {
         activityTheme.setThemes(new int[]{R.style.AppTheme_Red, R.style.AppTheme_Blue});
+        activityTheme.setStatusBarColorAttrRes(R.attr.colorPrimary);
         activityTheme.setSupportMenuItemThemeEnable(true);
     }
 
@@ -71,5 +72,6 @@ public class MainActivity extends BaseThemeActivity {
     }
 
     public void clickMoreInfo(View view) {
+
     }
 }

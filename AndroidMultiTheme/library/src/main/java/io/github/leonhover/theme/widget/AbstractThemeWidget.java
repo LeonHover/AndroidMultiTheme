@@ -72,6 +72,12 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
             return;
         }
 
+//        int count = attributeSet.getAttributeCount();
+//        for (int i = 0; i < count; i++) {
+//            String attrName = attributeSet.getAttributeName(i);
+//            Log.e(TAG, "assemble attributeSet.getAttributeName(" + i + ")   name:" + attrName);
+//        }
+
         for (ThemeElement element : elementSet) {
             for (String nameSpace : NAMESPACES) {
                 String attrValue = attributeSet.getAttributeValue(nameSpace, element.getAttrName());

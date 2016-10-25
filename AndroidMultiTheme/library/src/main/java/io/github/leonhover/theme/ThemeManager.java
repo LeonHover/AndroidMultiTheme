@@ -278,7 +278,6 @@ public class ThemeManager {
         } catch (ClassCastException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
-            e.printStackTrace();
         }
 
         if (themeOfView == currentThemeIndex) {

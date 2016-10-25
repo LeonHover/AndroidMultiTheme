@@ -33,8 +33,15 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?attr/button_bg_selector"
+        android:onClick="clickMoreInfo"
         android:text="@string/button_text"
         android:textColor="?attr/button_text_color"
-        android:textSize="16sp"
-        android:onClick="clickMoreInfo"/>
+        android:textSize="16sp" />
+
+    <TextView
+        style="@style/RedTitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_description"
+        android:textSize="14sp" />
 </LinearLayout>
