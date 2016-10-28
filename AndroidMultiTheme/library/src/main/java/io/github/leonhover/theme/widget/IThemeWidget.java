@@ -20,8 +20,8 @@ public interface IThemeWidget {
     /**
      * view应用主题Theme
      *
-     * @param view      View
+     * @param view View
      */
-    void applyTheme( View view);
+    void applyTheme(View view);
 
 }

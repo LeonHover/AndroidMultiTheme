@@ -1,5 +1,6 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -28,7 +29,7 @@ public class ProgressBarWidget extends ViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         ProgressBar progressBar = (ProgressBar) view;
         if (R.id.amt_tag_progress_bar_progress_drawable == element.getTagKey()) {
@@ -38,7 +39,7 @@ public class ProgressBarWidget extends ViewWidget {
         }
     }
 
-    private void setProgressDrawable(ProgressBar progressBar, int attrResId) {
+    public void setProgressDrawable(ProgressBar progressBar, @AttrRes int attrResId) {
         if (progressBar == null) {
             return;
         }
@@ -48,7 +49,7 @@ public class ProgressBarWidget extends ViewWidget {
         progressBar.setProgressDrawable(ThemeUtils.getDrawable(progressBar.getContext(), attrResId));
     }
 
-    private void setIndeterminateDrawable(ProgressBar progressBar, int attrResId) {
+    public void setIndeterminateDrawable(ProgressBar progressBar, @AttrRes int attrResId) {
         if (progressBar == null) {
             return;
         }

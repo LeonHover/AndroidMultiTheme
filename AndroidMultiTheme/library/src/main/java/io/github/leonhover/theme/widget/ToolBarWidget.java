@@ -1,6 +1,7 @@
 package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AttrRes;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -34,7 +35,7 @@ public class ToolBarWidget extends ViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         Toolbar toolbar = (Toolbar) view;
         if (R.id.amt_tag_tool_bar_overflow_icon == element.getTagKey()) {
@@ -50,7 +51,7 @@ public class ToolBarWidget extends ViewWidget {
         }
     }
 
-    public void setLogo(Toolbar toolBar, int attrResId) {
+    public void setLogo(Toolbar toolBar, @AttrRes int attrResId) {
         if (toolBar == null) {
             return;
         }
@@ -61,7 +62,7 @@ public class ToolBarWidget extends ViewWidget {
         toolBar.setLogo(logoDrawable);
     }
 
-    public void setNavigationIcon(Toolbar toolBar, int attrResId) {
+    public void setNavigationIcon(Toolbar toolBar, @AttrRes int attrResId) {
         if (toolBar == null) {
             return;
         }
@@ -72,7 +73,7 @@ public class ToolBarWidget extends ViewWidget {
         toolBar.setNavigationIcon(iconDrawable);
     }
 
-    public void setOverflowIcon(Toolbar toolBar, int attrResId) {
+    public void setOverflowIcon(Toolbar toolBar, @AttrRes int attrResId) {
         if (toolBar == null) {
             return;
         }
@@ -83,7 +84,7 @@ public class ToolBarWidget extends ViewWidget {
         toolBar.setOverflowIcon(iconDrawable);
     }
 
-    public void setTitleTextColor(Toolbar toolBar, int attrResId) {
+    public void setTitleTextColor(Toolbar toolBar, @AttrRes int attrResId) {
 
         if (toolBar == null) {
             return;
@@ -94,7 +95,7 @@ public class ToolBarWidget extends ViewWidget {
         toolBar.setTitleTextColor(ThemeUtils.getColor(toolBar.getContext(), attrResId));
     }
 
-    public void setSubTitleTextColor(Toolbar toolBar, int attrResId) {
+    public void setSubTitleTextColor(Toolbar toolBar, @AttrRes int attrResId) {
 
         if (toolBar == null) {
             return;

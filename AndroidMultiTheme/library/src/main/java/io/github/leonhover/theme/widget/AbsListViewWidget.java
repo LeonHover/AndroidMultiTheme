@@ -1,5 +1,6 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.AbsListView;
 
@@ -26,7 +27,7 @@ public class AbsListViewWidget extends ViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         AbsListView absListView = (AbsListView) view;
         if (R.id.amt_tag_abs_list_view_list_selector == element.getTagKey()) {

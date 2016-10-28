@@ -1,5 +1,6 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -29,7 +30,7 @@ public class ImageViewWidget extends ViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         ImageView imageView = (ImageView) view;
         if (R.id.amt_tag_image_view_src == element.getTagKey()) {
@@ -39,7 +40,7 @@ public class ImageViewWidget extends ViewWidget {
         }
     }
 
-    public void setImageDrawable(ImageView imageView, int attrResId) {
+    public void setImageDrawable(ImageView imageView, @AttrRes int attrResId) {
         if (imageView == null) {
             return;
         }
@@ -49,7 +50,7 @@ public class ImageViewWidget extends ViewWidget {
         imageView.setImageDrawable(ThemeUtils.getDrawable(imageView.getContext(), attrResId));
     }
 
-    public void setImageCompatDrawable(ImageView imageView, int attrResId) {
+    public void setImageCompatDrawable(ImageView imageView, @AttrRes int attrResId) {
         if (imageView == null) {
             return;
         }

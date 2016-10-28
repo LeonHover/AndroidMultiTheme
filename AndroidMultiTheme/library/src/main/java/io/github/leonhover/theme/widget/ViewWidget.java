@@ -48,8 +48,4 @@ public class ViewWidget extends AbstractThemeWidget {
         }
     }
 
-    public void setWidgetKey(View view, Class<?> widgetKey) {
-        view.setTag(R.id.amt_tag_widget_type, widgetKey);
-    }
-
 }

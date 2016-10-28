@@ -3,7 +3,7 @@
     <!-- View -->
     <item name="amt_tag_view_background" type="id" />
     <item name="amt_tag_view_current_theme" type="id" />
-    <item name="amt_tag_widget_type" type="id" />
+    <item name="amt_tag_widget_key" type="id" />
     <!-- TextView -->
     <item name="amt_tag_text_view_text_color" type="id" />
     <item name="amt_tag_text_view_text_color_link" type="id" />

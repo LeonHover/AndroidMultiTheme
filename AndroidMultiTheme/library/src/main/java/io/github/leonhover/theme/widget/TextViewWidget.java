@@ -1,6 +1,7 @@
 package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AttrRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ public class TextViewWidget extends ViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         TextView textView = (TextView) view;
         if (R.id.amt_tag_text_view_text_color == element.getTagKey()) {
@@ -62,7 +63,7 @@ public class TextViewWidget extends ViewWidget {
         }
     }
 
-    private void setTextColor(TextView textView, int attrResId) {
+    private void setTextColor(TextView textView, @AttrRes int attrResId) {
         Log.d(TAG, "setTextColor attrResId:" + attrResId);
         if (textView == null) {
             return;
@@ -73,7 +74,7 @@ public class TextViewWidget extends ViewWidget {
         textView.setTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
     }
 
-    private void setTextColorLink(TextView textView, int attrResId) {
+    private void setTextColorLink(TextView textView, @AttrRes int attrResId) {
         if (textView == null) {
             return;
         }
@@ -83,7 +84,7 @@ public class TextViewWidget extends ViewWidget {
         textView.setLinkTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
     }
 
-    private void setTextColorHint(TextView textView, int attrResId) {
+    private void setTextColorHint(TextView textView, @AttrRes int attrResId) {
         if (textView == null) {
             return;
         }
@@ -92,7 +93,7 @@ public class TextViewWidget extends ViewWidget {
         textView.setHintTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
     }
 
-    private void setDrawableBottom(TextView textView, int attrResId) {
+    private void setDrawableBottom(TextView textView, @AttrRes int attrResId) {
         if (textView == null) {
             return;
         }
@@ -104,7 +105,7 @@ public class TextViewWidget extends ViewWidget {
         textView.setCompoundDrawables(null, null, null, drawable);
     }
 
-    private void setDrawableLeft(TextView textView, int attrResId) {
+    private void setDrawableLeft(TextView textView, @AttrRes int attrResId) {
         if (textView == null) {
             return;
         }
@@ -115,7 +116,7 @@ public class TextViewWidget extends ViewWidget {
         textView.setCompoundDrawables(drawable, null, null, null);
     }
 
-    private void setDrawableRight(TextView textView, int attrResId) {
+    private void setDrawableRight(TextView textView, @AttrRes int attrResId) {
         if (textView == null) {
             return;
         }
@@ -126,7 +127,7 @@ public class TextViewWidget extends ViewWidget {
         textView.setCompoundDrawables(null, null, drawable, null);
     }
 
-    private void setDrawableTop(TextView textView, int attrResId) {
+    private void setDrawableTop(TextView textView, @AttrRes int attrResId) {
         if (textView == null) {
             return;
         }

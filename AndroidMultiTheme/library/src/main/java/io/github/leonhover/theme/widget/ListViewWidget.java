@@ -1,5 +1,6 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.ListView;
 
@@ -26,7 +27,7 @@ public class ListViewWidget extends AbsListViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         ListView listView = (ListView) view;
         if (R.id.amt_tag_list_view_divider == element.getTagKey()) {
@@ -34,7 +35,7 @@ public class ListViewWidget extends AbsListViewWidget {
         }
     }
 
-    private void setDividerDrawable(ListView listView, int attrResId) {
+    private void setDividerDrawable(ListView listView, @AttrRes int attrResId) {
 
         if (listView == null) {
             return;

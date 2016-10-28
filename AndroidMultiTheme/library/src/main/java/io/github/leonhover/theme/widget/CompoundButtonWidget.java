@@ -1,5 +1,6 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -26,7 +27,7 @@ public class CompoundButtonWidget extends TextViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         CompoundButton compoundButton = (CompoundButton) view;
         if (R.id.amt_tag_compound_button_button == element.getTagKey()) {
@@ -34,7 +35,7 @@ public class CompoundButtonWidget extends TextViewWidget {
         }
     }
 
-    public void setButtonDrawable(CompoundButton compoundButton, int attrResId) {
+    public void setButtonDrawable(CompoundButton compoundButton, @AttrRes int attrResId) {
 
         if (compoundButton == null) {
             return;

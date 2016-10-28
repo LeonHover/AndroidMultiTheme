@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -142,7 +143,7 @@ public class ThemeUtils {
         return drawable;
     }
 
-    public static <T> T getViewTag(View view, int tagKey) throws ClassCastException, NullPointerException {
+    public static <T> T getViewTag(View view, @IdRes int tagKey) throws ClassCastException, NullPointerException {
         try {
             return (T) view.getTag(tagKey);
         } catch (ClassCastException e) {

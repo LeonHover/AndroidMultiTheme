@@ -1,5 +1,6 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AttrRes;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -114,7 +115,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
      * @param element   主题元素
      * @param attrResId AttrResId
      */
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
 
     }
 

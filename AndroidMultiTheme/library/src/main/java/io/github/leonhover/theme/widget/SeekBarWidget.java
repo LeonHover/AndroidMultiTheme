@@ -1,5 +1,6 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.AbsSeekBar;
 
@@ -26,7 +27,7 @@ public class SeekBarWidget extends ProgressBarWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, ThemeElement element, int attrResId) {
+    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
         super.appleElementTheme(view, element, attrResId);
         AbsSeekBar seekBar = (AbsSeekBar) view;
         if (R.id.amt_tag_seek_bar_thumb == element.getTagKey()) {
@@ -34,7 +35,7 @@ public class SeekBarWidget extends ProgressBarWidget {
         }
     }
 
-    public void setThumb(AbsSeekBar seekBar, int attrResId) {
+    public void setThumb(AbsSeekBar seekBar, @AttrRes int attrResId) {
         if (seekBar == null) {
             return;
         }

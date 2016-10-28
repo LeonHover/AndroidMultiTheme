@@ -10,6 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import io.github.leonhover.theme.ActivityTheme;
+import io.github.leonhover.theme.MultiTheme;
 import io.github.leonhover.theme.ThemeManager;
 import io.github.leonhover.theme.base.BaseThemeActivity;
 
@@ -64,8 +66,8 @@ public class MainActivity extends BaseThemeActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_main_change_theme:
-                int current = ThemeManager.getInstance().getCurrentThemeIndex();
-                ThemeManager.getInstance().changeTheme(current == 0 ? 1 : 0);
+                int current = MultiTheme.getCurrentThemeIndex();
+                MultiTheme.changeTheme(current == 0 ? 1 : 0);
                 return true;
         }
         return super.onOptionsItemSelected(item);

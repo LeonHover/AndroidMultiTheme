@@ -45,12 +45,12 @@ public class ThemeViewEntities extends HashSet<View> implements IThemeObserver {
     private void checkObserver() {
         if (this.size() > 0) {
             if (!underObservation) {
-                ThemeManager.getInstance().addObserver(this);
+                MultiTheme.addObserver(this);
                 underObservation = true;
             }
         } else {
             if (underObservation) {
-                ThemeManager.getInstance().removeObserver(this);
+                MultiTheme.removeObserver(this);
                 underObservation = false;
             }
         }
@@ -70,7 +70,7 @@ public class ThemeViewEntities extends HashSet<View> implements IThemeObserver {
     @Override
     public void onThemeChanged(int whichTheme) {
         for (View view : this) {
-            ThemeManager.getInstance().applyTheme(view);
+            MultiTheme.applyTheme(view);
         }
     }
 

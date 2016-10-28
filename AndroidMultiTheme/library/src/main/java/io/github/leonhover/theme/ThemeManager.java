@@ -9,7 +9,6 @@ import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -48,7 +47,7 @@ import io.github.leonhover.theme.widget.ViewWidget;
 
 public class ThemeManager {
 
-    public static final String TAG = ThemeManager.class.getSimpleName();
+    private static final String TAG = ThemeManager.class.getSimpleName();
 
     private Map<Class<?>, AbstractThemeWidget> themeWidgetMap;
 
@@ -56,16 +55,12 @@ public class ThemeManager {
 
     private int currentThemeIndex = -1;
 
-    private static ThemeManager sThemeManager;
-
-    private Context context;
-
-    private static boolean isDebug = true;
-
+    private Application application;
 
     private Set<IThemeObserver> themeObserverSet;
 
-    private ThemeManager() {
+    protected ThemeManager(Application application) {
+        this.application = application;
         this.themeWidgetMap = new HashMap<>();
         this.themeWidgetMap.put(View.class, new ViewWidget());
         this.themeWidgetMap.put(TextView.class, new TextViewWidget());
@@ -80,47 +75,23 @@ public class ThemeManager {
 
         this.themeObserverSet = new TreeSet<>();
         this.themeViewCreator = new ThemeViewCreator();
+        this.currentThemeIndex = -1;
+
     }
 
-    public static ThemeManager getInstance() {
-        return sThemeManager;
-    }
-
-    /**
-     * 初始化
-     *
-     * @param context 应用上下文
-     */
-    public static void init(Application context) {
-        sThemeManager = new ThemeManager();
-        sThemeManager.context = context;
-        sThemeManager.currentThemeIndex = -1;
-    }
-
-    /**
-     * 添加自定义的AbstractThemeWidget
-     *
-     * @param widgetKey   类型索引
-     * @param themeWidget 自定义的AbstractThemeWidget
-     */
-    public void add(Class<?> widgetKey, AbstractThemeWidget themeWidget) {
+    protected void addThemeWidget(Class<?> widgetKey, AbstractThemeWidget themeWidget) {
         this.themeWidgetMap.put(widgetKey, themeWidget);
     }
 
-    public void addObserver(IThemeObserver observer) {
+    protected void addObserver(IThemeObserver observer) {
         this.themeObserverSet.add(observer);
     }
 
-    public void removeObserver(IThemeObserver observer) {
+    protected void removeObserver(IThemeObserver observer) {
         this.themeObserverSet.remove(observer);
     }
 
-    /**
-     * 组装主题相关元素，注意在Activity的setContentView之前调用。
-     *
-     * @param activity AppCompatActivity
-     */
-    public void assembleThemeBeforeInflate(final AppCompatActivity activity) {
+    protected void assembleThemeBeforeInflate(final AppCompatActivity activity) {
 
         if (activity == null) {
             throw new NullPointerException();
@@ -140,7 +111,7 @@ public class ThemeManager {
                     return null;
                 }
 
-                Class<?> widgetKey = findProperThemeWidgetType(view);
+                Class<?> widgetKey = findProperThemeWidgetKey(view);
                 assembleViewThemeElement(view, attrs, widgetKey);
 
                 return view;
@@ -148,13 +119,13 @@ public class ThemeManager {
         });
     }
 
-    private Class<?> findProperThemeWidgetType(View view) {
+    private Class<?> findProperThemeWidgetKey(View view) {
 
         if (view == null) {
             return null;
         }
 
-        Log.d(TAG, "findProperThemeWidgetType " + view.getClass().getSimpleName());
+        Log.d(TAG, "findProperThemeWidgetKey " + view.getClass().getSimpleName());
 
         Class<?> tmpKey = null;
         for (Class<?> widgetKey : this.themeWidgetMap.keySet()) {
@@ -177,10 +148,22 @@ public class ThemeManager {
         if (tmpKey == null) {
             return null;
         } else {
-            Log.d(TAG, "findProperThemeWidgetType result:" + tmpKey);
+            Log.d(TAG, "findProperThemeWidgetKey result:" + tmpKey);
             return tmpKey;
         }
 
+    }
+
+    /**
+     * 指定View的主题WidgetKey
+     *
+     * @param view
+     */
+    protected void addViewThemeWidgetKeyTag(View view) {
+        if (view != null) {
+            Class<?> widgetKey = findProperThemeWidgetKey(view);
+            view.setTag(R.id.amt_tag_widget_key, widgetKey);
+        }
     }
 
     /**
@@ -195,14 +178,12 @@ public class ThemeManager {
 
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetKey);
         if (themeWidget != null) {
-            view.setTag(R.id.amt_tag_widget_type, widgetKey);
+            view.setTag(R.id.amt_tag_widget_key, widgetKey);
             view.setTag(R.id.amt_tag_view_current_theme, getCurrentThemeIndex());
             themeWidget.assemble(view, attributeSet);
             Log.d(TAG, "assembleViewThemeElement  theme widget type: " + widgetKey + " themeWidget:" + themeWidget.getClass().getSimpleName());
-            debugAttributes(attributeSet);
-
         } else {
-            view.setTag(R.id.amt_tag_widget_type, null);
+            view.setTag(R.id.amt_tag_widget_key, null);
             Log.i(TAG, "unsupported theme widget type " + widgetKey + ",is your custom theme widget?");
         }
     }
@@ -222,7 +203,7 @@ public class ThemeManager {
      *
      * @return true 改变为夜间主题，false 改变为默认主题
      */
-    public boolean changeTheme(int whichTheme) {
+    protected boolean changeTheme(int whichTheme) {
         Log.d(TAG, "changeTheme whichTheme=" + whichTheme);
 
         if (whichTheme != currentThemeIndex) {
@@ -237,7 +218,7 @@ public class ThemeManager {
 
     }
 
-    public int getCurrentThemeIndex() {
+    protected int getCurrentThemeIndex() {
         return this.currentThemeIndex;
     }
 
@@ -247,7 +228,7 @@ public class ThemeManager {
      * @param activity   Activity
      * @param themeResId 主题资源id
      */
-    public void applyTheme(Activity activity, @StyleRes int themeResId) {
+    protected void applyTheme(Activity activity, @StyleRes int themeResId) {
         activity.setTheme(themeResId);
         applyTheme(activity);
     }
@@ -268,7 +249,7 @@ public class ThemeManager {
      *
      * @param view View
      */
-    public void applyTheme(View view) {
+    protected void applyTheme(View view) {
 
         int themeOfView = -1;
         try {
@@ -282,8 +263,7 @@ public class ThemeManager {
             return;
         }
 
-
-        Class<?> widgetKey = (Class<?>) view.getTag(R.id.amt_tag_widget_type);
+        Class<?> widgetKey = (Class<?>) view.getTag(R.id.amt_tag_widget_key);
 
         Log.d(TAG, "applyTheme  theme widget type:" + widgetKey + " ,view:" + view);
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetKey);
