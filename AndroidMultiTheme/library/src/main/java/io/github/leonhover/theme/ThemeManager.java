@@ -23,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -88,7 +89,14 @@ public class ThemeManager {
     }
 
     protected void removeObserver(IThemeObserver observer) {
-        this.themeObserverSet.remove(observer);
+        Iterator<IThemeObserver> obsIterator = this.themeObserverSet.iterator();
+        while (obsIterator.hasNext()) {
+            IThemeObserver obs = obsIterator.next();
+            if (observer.equals(obs)) {
+                obsIterator.remove();
+                return;
+            }
+        }
     }
 
     protected void assembleThemeBeforeInflate(final AppCompatActivity activity) {
