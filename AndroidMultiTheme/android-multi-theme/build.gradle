@@ -90,8 +90,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "android"
-        name = "AndroidMultiTheme"
-        userOrg = "leonhoverlab"
+        name = "Android-Multi-Theme"
         version "0.1.10"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
