@@ -89,8 +89,10 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "maven"
+        repo = "android"
         name = "AndroidMultiTheme"
+        userOrg = "leonhoverlab"
+        version "0.1.10"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
