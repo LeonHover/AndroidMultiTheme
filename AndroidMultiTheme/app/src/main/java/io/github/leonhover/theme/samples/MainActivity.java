@@ -1,7 +1,6 @@
 package io.github.leonhover.theme.samples;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -9,11 +8,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import io.github.leonhover.theme.ActivityTheme;
 import io.github.leonhover.theme.MultiTheme;
-import io.github.leonhover.theme.ThemeManager;
 import io.github.leonhover.theme.base.BaseThemeActivity;
+import io.github.leonhover.theme.widget.TextViewWidget;
 
 public class MainActivity extends BaseThemeActivity {
 
@@ -28,6 +28,11 @@ public class MainActivity extends BaseThemeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initActionBar();
+
+        TextView appCompatTextView = (TextView) findViewById(R.id.appcompat_text);
+        TextViewWidget textViewWidget = (TextViewWidget) MultiTheme.getThemeWidget(appCompatTextView);
+        textViewWidget.setTextColor(appCompatTextView, R.attr.title_text_color);
+
     }
 
     private void initActionBar() {
@@ -66,8 +71,9 @@ public class MainActivity extends BaseThemeActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_main_change_theme:
-                int current = MultiTheme.getCurrentThemeIndex();
-                MultiTheme.changeTheme(current == 0 ? 1 : 0);
+                int current = MultiTheme.getAppTheme();
+                int theme = current == 0 ? 1 : 0;
+                MultiTheme.setAppTheme(theme);
                 return true;
         }
         return super.onOptionsItemSelected(item);

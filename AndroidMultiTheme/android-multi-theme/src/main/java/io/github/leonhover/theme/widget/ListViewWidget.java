@@ -35,7 +35,7 @@ public class ListViewWidget extends AbsListViewWidget {
         }
     }
 
-    private void setDividerDrawable(ListView listView, @AttrRes int attrResId) {
+    public void setDividerDrawable(ListView listView, @AttrRes int attrResId) {
 
         if (listView == null) {
             return;

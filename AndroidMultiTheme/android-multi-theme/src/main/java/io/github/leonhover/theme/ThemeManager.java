@@ -54,7 +54,7 @@ public class ThemeManager {
 
     private ThemeViewCreator themeViewCreator;
 
-    private int currentThemeIndex = -1;
+    private int appTheme = -1;
 
     private Application application;
 
@@ -76,7 +76,7 @@ public class ThemeManager {
 
         this.themeObserverSet = new TreeSet<>();
         this.themeViewCreator = new ThemeViewCreator();
-        this.currentThemeIndex = -1;
+        this.appTheme = ThemePreferences.getAppTheme(this.application);
 
     }
 
@@ -84,7 +84,8 @@ public class ThemeManager {
         this.themeWidgetMap.put(widgetKey, themeWidget);
     }
 
-    protected AbstractThemeWidget getThemeWidget(Class<?> widgetKey) {
+    protected AbstractThemeWidget getThemeWidget(Class<?> clazz) {
+        Class<?> widgetKey = findProperThemeWidgetKey(clazz);
         return this.themeWidgetMap.get(widgetKey);
     }
 
@@ -123,7 +124,7 @@ public class ThemeManager {
                     return null;
                 }
 
-                Class<?> widgetKey = findProperThemeWidgetKey(view);
+                Class<?> widgetKey = findProperThemeWidgetKey(view.getClass());
                 assembleViewThemeElement(view, attrs, widgetKey);
 
                 return view;
@@ -131,22 +132,16 @@ public class ThemeManager {
         });
     }
 
-    private Class<?> findProperThemeWidgetKey(View view) {
-
-        if (view == null) {
-            return null;
-        }
-
-        Log.d(TAG, "findProperThemeWidgetKey " + view.getClass().getSimpleName());
+    private Class<?> findProperThemeWidgetKey(Class<?> clazz) {
 
         Class<?> tmpKey = null;
         for (Class<?> widgetKey : this.themeWidgetMap.keySet()) {
 
-            if (view.getClass().equals(widgetKey)) {
-                return view.getClass();
+            if (clazz.equals(widgetKey)) {
+                return clazz;
             }
 
-            if (widgetKey.isAssignableFrom(view.getClass())) {
+            if (widgetKey.isAssignableFrom(clazz)) {
                 if (tmpKey == null) {
                     tmpKey = widgetKey;
                 } else {
@@ -160,7 +155,6 @@ public class ThemeManager {
         if (tmpKey == null) {
             return null;
         } else {
-            Log.d(TAG, "findProperThemeWidgetKey result:" + tmpKey);
             return tmpKey;
         }
 
@@ -174,9 +168,8 @@ public class ThemeManager {
      */
     protected AbstractThemeWidget addViewThemeWidgetKeyTag(View view) {
         if (view != null) {
-            Class<?> widgetKey = findProperThemeWidgetKey(view);
+            Class<?> widgetKey = findProperThemeWidgetKey(view.getClass());
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
-
             return this.themeWidgetMap.get(widgetKey);
         }
         return null;
@@ -195,7 +188,7 @@ public class ThemeManager {
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetKey);
         if (themeWidget != null) {
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
-            view.setTag(R.id.amt_tag_view_current_theme, getCurrentThemeIndex());
+            view.setTag(R.id.amt_tag_view_current_theme, getAppTheme());
             themeWidget.assemble(view, attributeSet);
             Log.d(TAG, "assembleViewThemeElement  theme widget type: " + widgetKey + " themeWidget:" + themeWidget.getClass().getSimpleName());
         } else {
@@ -204,26 +197,17 @@ public class ThemeManager {
         }
     }
 
-    private void debugAttributes(AttributeSet attributeSet) {
-        Log.d(TAG, "debugAttributes =============== start ===============");
-
-        for (int i = 0; attributeSet != null && i < attributeSet.getAttributeCount(); i++) {
-            Log.d(TAG, "name:" + attributeSet.getAttributeName(i) + " value:" + attributeSet.getAttributeValue(i));
-        }
-        Log.d(TAG, "debugAttributes =============== end ===============");
-
-    }
-
     /**
      * 改变主题，在默认主题与夜间主题之间进行切换
      *
      * @return true 改变为夜间主题，false 改变为默认主题
      */
-    protected boolean changeTheme(int whichTheme) {
-        Log.d(TAG, "changeTheme whichTheme=" + whichTheme);
+    protected boolean setAppTheme(int whichTheme) {
+        Log.d(TAG, "setAppTheme whichTheme=" + whichTheme);
 
-        if (whichTheme > -1 && whichTheme != currentThemeIndex) {
-            currentThemeIndex = whichTheme;
+        if (whichTheme > -1 && whichTheme != appTheme) {
+            ThemePreferences.setAppTheme(this.application, whichTheme);
+            appTheme = whichTheme;
             for (IThemeObserver themeObserver : themeObserverSet) {
                 themeObserver.onThemeChanged(whichTheme);
             }
@@ -234,8 +218,14 @@ public class ThemeManager {
 
     }
 
-    protected int getCurrentThemeIndex() {
-        return this.currentThemeIndex;
+    protected int getAppTheme() {
+        return this.appTheme;
+    }
+
+    protected void setDefaultTheme(int defaultTheme) {
+        if (ThemePreferences.getAppTheme(this.application) == -1) {
+            setAppTheme(defaultTheme);
+        }
     }
 
     /**
@@ -275,7 +265,7 @@ public class ThemeManager {
         } catch (NullPointerException e) {
         }
 
-        if (themeOfView == currentThemeIndex) {
+        if (themeOfView == appTheme) {
             return;
         }
 
@@ -298,7 +288,7 @@ public class ThemeManager {
             }
         }
 
-        view.setTag(R.id.amt_tag_view_current_theme, getCurrentThemeIndex());
+        view.setTag(R.id.amt_tag_view_current_theme, getAppTheme());
     }
 
 }

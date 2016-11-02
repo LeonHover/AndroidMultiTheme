@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_description"
-        android:textColor="?attr/sub_title_text_color"
+        android:textColor="#456789"
         android:textSize="14sp" />
 
     <Button
@@ -38,10 +38,12 @@
         android:textColor="?attr/button_text_color"
         android:textSize="16sp" />
 
-    <TextView
-        style="@style/RedTitleTextStyle"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/appcompat_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:background="#123fde"
         android:text="@string/app_description"
+        android:textColor="?attr/title_text_color"
         android:textSize="14sp" />
 </LinearLayout>

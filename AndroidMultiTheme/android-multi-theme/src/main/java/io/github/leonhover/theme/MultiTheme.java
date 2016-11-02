@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import io.github.leonhover.theme.widget.AbstractThemeWidget;
-import io.github.leonhover.theme.widget.IThemeWidget;
 
 /**
  * Created by wangzongliang on 2016/10/28.
@@ -16,14 +15,21 @@ import io.github.leonhover.theme.widget.IThemeWidget;
 public class MultiTheme {
 
     private static ThemeManager sThemeManager = null;
+    private static boolean debugMode = false;
 
     /**
      * 初始化多主题模块，必须在其他方法调用前调用
-     *
-     * @param application
      */
     public static void init(Application application) {
         sThemeManager = new ThemeManager(application);
+    }
+
+    public static void setDebugMode(boolean debugMode) {
+        MultiTheme.debugMode = debugMode;
+    }
+
+    protected static boolean isDebugMode() {
+        return MultiTheme.debugMode;
     }
 
     /**
@@ -37,13 +43,23 @@ public class MultiTheme {
     }
 
     /**
-     * 获取widgetKey对应的AbstractThemeWidget。
+     * 获取view对应的AbstractThemeWidget。
      *
-     * @param widgetKey widgetKey通常为Class<? extends View>
+     * @param view View.
      * @return AbstractThemeWidget
      */
-    public static AbstractThemeWidget getThemeWidget(Class<?> widgetKey) {
-        return sThemeManager.getThemeWidget(widgetKey);
+    public static AbstractThemeWidget getThemeWidget(View view) {
+        return sThemeManager.getThemeWidget(view.getClass());
+    }
+
+    /**
+     * 获取Class对应的AbstractThemeWidget。
+     *
+     * @param clazz class of View.
+     * @return AbstractThemeWidget
+     */
+    public static AbstractThemeWidget getThemeWidget(Class<?> clazz) {
+        return sThemeManager.getThemeWidget(clazz);
     }
 
     /**
@@ -86,15 +102,29 @@ public class MultiTheme {
     /**
      * 改变主题
      *
-     * @param whichTheme 主题的Index值
-     * @return
+     * @param whichTheme 应用主题，这里对应的是ActivityTheme中的theme[]的索引值
+     * @return true 表示切换主题成功,反之为false.
      */
-    public static boolean changeTheme(int whichTheme) {
-        return sThemeManager.changeTheme(whichTheme);
+    public static boolean setAppTheme(int whichTheme) {
+        return sThemeManager.setAppTheme(whichTheme);
     }
 
-    public static int getCurrentThemeIndex() {
-        return sThemeManager.getCurrentThemeIndex();
+    /**
+     * 设置应用的默认主题，通常是首次使用的，但修改后就会这个值就不再生效了。
+     *
+     * @param defaultTheme 默认主题
+     */
+    public static void setDefaultAppTheme(int defaultTheme) {
+        sThemeManager.setDefaultTheme(defaultTheme);
+    }
+
+    /**
+     * 获取应用的当前主题
+     *
+     * @return int 当前应用的theme[]的索引值
+     */
+    public static int getAppTheme() {
+        return sThemeManager.getAppTheme();
     }
 
     /**

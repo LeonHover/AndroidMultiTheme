@@ -74,8 +74,11 @@ public class ActivityTheme implements IThemeObserver {
 
     public void assembleThemeBeforeInflate() {
         MultiTheme.addObserver(this);
-        int whichTheme = MultiTheme.getCurrentThemeIndex();
-        activity.setTheme(getTheme(whichTheme));
+        int whichTheme = MultiTheme.getAppTheme();
+        int theme = getTheme(whichTheme);
+        if (theme > 0) {
+            activity.setTheme(theme);
+        }
         MultiTheme.assembleThemeBeforeInflate(activity);
         initializeStatusBarTheme();
     }
@@ -170,6 +173,11 @@ public class ActivityTheme implements IThemeObserver {
         if (this.themes == null) {
             return -1;
         }
+
+        if (index > this.themes.length || index < 0) {
+            return this.themes[0];
+        }
+
         return this.themes[index];
     }
 
