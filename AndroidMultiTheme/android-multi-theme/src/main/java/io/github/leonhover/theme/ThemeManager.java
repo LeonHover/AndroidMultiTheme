@@ -84,6 +84,10 @@ public class ThemeManager {
         this.themeWidgetMap.put(widgetKey, themeWidget);
     }
 
+    protected AbstractThemeWidget getThemeWidget(Class<?> widgetKey) {
+        return this.themeWidgetMap.get(widgetKey);
+    }
+
     protected void addObserver(IThemeObserver observer) {
         this.themeObserverSet.add(observer);
     }
@@ -166,12 +170,16 @@ public class ThemeManager {
      * 指定View的主题WidgetKey
      *
      * @param view
+     * @return AbstractThemeWidget
      */
-    protected void addViewThemeWidgetKeyTag(View view) {
+    protected AbstractThemeWidget addViewThemeWidgetKeyTag(View view) {
         if (view != null) {
             Class<?> widgetKey = findProperThemeWidgetKey(view);
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
+
+            return this.themeWidgetMap.get(widgetKey);
         }
+        return null;
     }
 
     /**
@@ -214,7 +222,7 @@ public class ThemeManager {
     protected boolean changeTheme(int whichTheme) {
         Log.d(TAG, "changeTheme whichTheme=" + whichTheme);
 
-        if (whichTheme != currentThemeIndex) {
+        if (whichTheme > -1 && whichTheme != currentThemeIndex) {
             currentThemeIndex = whichTheme;
             for (IThemeObserver themeObserver : themeObserverSet) {
                 themeObserver.onThemeChanged(whichTheme);

@@ -37,6 +37,16 @@ public class MultiTheme {
     }
 
     /**
+     * 获取widgetKey对应的AbstractThemeWidget。
+     *
+     * @param widgetKey widgetKey通常为Class<? extends View>
+     * @return AbstractThemeWidget
+     */
+    public static AbstractThemeWidget getThemeWidget(Class<?> widgetKey) {
+        return sThemeManager.getThemeWidget(widgetKey);
+    }
+
+    /**
      * 添加主题改变的观察器
      *
      * @param themeObserver
@@ -67,9 +77,10 @@ public class MultiTheme {
      * 动态地为View添加主题控件的WidgetKey。
      *
      * @param view
+     * @return AbstractThemeWidget
      */
-    public static void addViewThemeWidgetKeyTag(View view) {
-        sThemeManager.addViewThemeWidgetKeyTag(view);
+    public static AbstractThemeWidget addViewThemeWidgetKeyTag(View view) {
+        return sThemeManager.addViewThemeWidgetKeyTag(view);
     }
 
     /**
