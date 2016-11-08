@@ -5,6 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorAccent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -12,38 +13,40 @@
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
         app:navigationIcon="?attr/icon_launcher"
         app:titleTextColor="?title_text_color" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="?attr/title_text_color"
-        android:textSize="18sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_description"
-        android:textColor="#456789"
-        android:textSize="14sp" />
-
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?attr/button_bg_selector"
-        android:onClick="clickMoreInfo"
-        android:text="@string/button_text"
-        android:textColor="?attr/button_text_color"
-        android:textSize="16sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="?attr/colorAccent"
+        android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/appcompat_text"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:background="#123fde"
-        android:text="@string/app_description"
-        android:textColor="?attr/title_text_color"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/app_description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="@string/app_description"
+            android:textColor="?attr/title_text_color"
+            android:textSize="14sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/button_bg_selector"
+            android:onClick="clickButton"
+            android:text="@string/button_text"
+            android:textColor="?button_text_color"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

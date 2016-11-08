@@ -28,9 +28,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import io.github.leonhover.theme.base.widget.CoverImageView;
 import io.github.leonhover.theme.widget.AbsListViewWidget;
 import io.github.leonhover.theme.widget.AbstractThemeWidget;
 import io.github.leonhover.theme.widget.CompoundButtonWidget;
+import io.github.leonhover.theme.widget.CoverImageWidget;
 import io.github.leonhover.theme.widget.IThemeWidget;
 import io.github.leonhover.theme.widget.ImageViewWidget;
 import io.github.leonhover.theme.widget.LinearLayoutWidget;
@@ -73,6 +75,7 @@ public class ThemeManager {
         this.themeWidgetMap.put(LinearLayout.class, new LinearLayoutWidget());
         this.themeWidgetMap.put(AbsListView.class, new AbsListViewWidget());
         this.themeWidgetMap.put(Toolbar.class, new ToolBarWidget());
+        this.themeWidgetMap.put(CoverImageView.class, new CoverImageWidget());
 
         this.themeObserverSet = new TreeSet<>();
         this.themeViewCreator = new ThemeViewCreator();

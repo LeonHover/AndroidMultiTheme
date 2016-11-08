@@ -35,5 +35,7 @@
     <item name="amt_tag_tool_bar_navigation_icon" type="id" />
     <item name="amt_tag_tool_bar_subtitle_text_color" type="id" />
     <item name="amt_tag_tool_bar_title_text_color" type="id" />
+    <!-- CoverImageView -->
+    <item name="amt_tag_cover_image_view_cover_color" type="id" />
 
 </resources>

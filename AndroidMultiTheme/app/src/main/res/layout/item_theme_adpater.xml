@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <io.github.leonhover.theme.base.widget.CoverImageView
+        android:id="@+id/theme_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:coverColor="?attr/img_cover_color" />
+
+    <TextView
+        android:id="@+id/theme_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/theme_img"
+        android:padding="3dp"
+        android:textColor="?attr/title_text_color"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/theme_description"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignLeft="@+id/theme_title"
+        android:layout_below="@+id/theme_title"
+        android:padding="3dp"
+        android:textColor="?attr/sub_title_text_color"
+        android:textSize="14sp" />
+
+</RelativeLayout>

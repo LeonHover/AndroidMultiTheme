@@ -4,20 +4,56 @@
     <!-- red theme -->
     <color name="red_colorPrimary">#B71C1C</color>
     <color name="red_colorPrimaryDark">#FF5252</color>
-    <color name="red_colorAccent">#0D47A1</color>
-    <color name="red_title_text_color">#FF5252</color>
-    <color name="red_sub_title_text_color">#EF5350</color>
+    <color name="red_colorAccent">#EF9A9A</color>
+    <color name="red_title_text_color">#FAFAFA</color>
+    <color name="red_sub_title_text_color">#EEEEEE</color>
     <color name="red_button_text_color">#FAFAFA</color>
     <color name="red_button_bg_normal_color">#B71C1C</color>
     <color name="red_button_bg_pressed_color">#EF5350</color>
+    <color name="red_img_cover_color">#40B71C1C</color>
 
     <!-- blue theme -->
     <color name="blue_colorPrimary">#3F51B5</color>
     <color name="blue_colorPrimaryDark">#303F9F</color>
-    <color name="blue_colorAccent">#FF4081</color>
-    <color name="blue_title_text_color">#2196F3</color>
-    <color name="blue_sub_title_text_color">#90CAF9</color>
+    <color name="blue_colorAccent">#BBDEFB</color>
+    <color name="blue_title_text_color">#424242</color>
+    <color name="blue_sub_title_text_color">#757575</color>
     <color name="blue_button_text_color">#F5F5F5</color>
     <color name="blue_button_bg_normal_color">#0D47A1</color>
     <color name="blue_button_bg_pressed_color">#2196F3</color>
+    <color name="blue_img_cover_color">#403F51B5</color>
+
+    <!-- black theme -->
+    <color name="black_colorPrimary">#9E9E9E</color>
+    <color name="black_colorPrimaryDark">#424242</color>
+    <color name="black_colorAccent">#BDBDBD</color>
+    <color name="black_title_text_color">#FAFAFA</color>
+    <color name="black_sub_title_text_color">#EEEEEE</color>
+    <color name="black_button_text_color">#FAFAFA</color>
+    <color name="black_button_bg_normal_color">#757575</color>
+    <color name="black_button_bg_pressed_color">#212121</color>
+    <color name="black_img_cover_color">#409E9E9E</color>
+
+
+    <!-- green theme -->
+    <color name="green_colorPrimary">#4CAF50</color>
+    <color name="green_colorPrimaryDark">#1B5E20</color>
+    <color name="green_colorAccent">#DCEDC8</color>
+    <color name="green_title_text_color">#424242</color>
+    <color name="green_sub_title_text_color">#757575</color>
+    <color name="green_button_text_color">#FAFAFA</color>
+    <color name="green_button_bg_normal_color">#4CAF50</color>
+    <color name="green_button_bg_pressed_color">#388E3C</color>
+    <color name="green_img_cover_color">#404CAF50</color>
+
+    <!-- yellow theme -->
+    <color name="yellow_colorPrimary">#FFEB3B</color>
+    <color name="yellow_colorPrimaryDark">#FFD600</color>
+    <color name="yellow_colorAccent">#F0F4C3</color>
+    <color name="yellow_title_text_color">#424242</color>
+    <color name="yellow_sub_title_text_color">#616161</color>
+    <color name="yellow_button_text_color">#424242</color>
+    <color name="yellow_button_bg_normal_color">#FFEE58</color>
+    <color name="yellow_button_bg_pressed_color">#FBC02D</color>
+    <color name="yellow_img_cover_color">#40FFEB3B</color>
 </resources>

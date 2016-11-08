@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">AndroidMultiTheme</string>
     <string name="app_description">Support multi theme for Android App without recreation of Activity.</string>
-    <string name="button_text">More Info</string>
-    <string name="menu_title_change_theme">Change Theme</string>
+    <string name="button_text">Change widget attribute dynamically!</string>
+    <string name="theme_red_title">Red Theme</string>
+    <string name="theme_red_description">The kid was cught red-handed drinking from his father’s wine collection.</string>
+    <string name="theme_blue_title">Blue Theme</string>
+    <string name="theme_blue_description">The newly-wed princess is a blue-blooded member of the royalty.</string>
+    <string name="theme_yellow_title">Yellow Theme</string>
+    <string name="theme_yellow_description">You can’t count on him; he has a yellow streak down his back.</string>
+    <string name="theme_green_title">Green Theme</string>
+    <string name="theme_green_description">After the feasibility studies were in, the CEO gave the green light to the new project.</string>
+    <string name="theme_Black_title">Black Theme</string>
+    <string name="theme_Black_description">In children’s literature, a character is often either all good or all bad; such balck-and-white situations seldom exist in real life.</string>
 </resources>
