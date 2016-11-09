@@ -2,7 +2,16 @@
 
 Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并且支持在不销毁重建Activity的情况下动态切换主题。利用Android自身支持的不同Style中可复写相同的attribute的值的特性，通过代码动态设置不同的Style来达到不同主题的切换效果。它支持静态设置控件使用主题元素的方式——layout的xml中定义控件时使用，也支持程序动态设置——主题控件辅助类来动态改变主题元素。
 
+ [![Download](https://api.bintray.com/packages/leonhover/android/Android-Multi-Theme/images/download.svg) ](https://bintray.com/leonhover/android/Android-Multi-Theme/_latestVersion)
+
+ ![效果图](https://github.com/LeonHover/Android-Multi-Theme/blob/master/assets/2016-11-09%2011_57_38.gif)
+
 ## 快速使用
+1. 修改build.gradle
+```
+  compile 'io.github.leonhover:android-multi-theme:$version'
+```
+
 2. 在attrs.xml中定义主题控制的attr；
   ```  
     <attr name="title_text_color" format="reference|color"/>
