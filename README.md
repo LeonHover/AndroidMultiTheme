@@ -7,6 +7,7 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
  ![效果图](https://github.com/LeonHover/Android-Multi-Theme/blob/master/assets/2016-11-09%2011_57_38.gif)
 
 ## 快速使用
+
 1. 修改build.gradle
 
 ```
@@ -34,6 +35,7 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
         ...
     </style>
 ```
+
 4. 对Acitivity设定主题集合；
 
 ```
@@ -52,6 +54,7 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
       android:textColor="?attr/title_text_color"
       android:textSize="18sp" />
 ```
+
 6. 在代码中动态使用
 
 ```
@@ -62,6 +65,7 @@ TextViewWidget textViewWidget =
         R.attr.title_text_color;
         textViewWidget.setTextColor(appDescriptionTextView, textColorAttrId);
 ```
+
 7. 切换主题
 
 ```
