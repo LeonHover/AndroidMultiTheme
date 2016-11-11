@@ -63,12 +63,15 @@ TextViewWidget textViewWidget =
 
 ## 进阶
 1. CoverImageView与CoverImageWidget
+
   在主题的需求中，有一些情况一般是通过对图片添加不同主题的颜色蒙层来实现改变主题效果。CoverImageView就是这样的自定义ImageView，添加attribute——coverColor以及setCoverColor(int color)方法。支持对任意形状的图标控件添加颜色蒙层效果，而且不会忽略图片中的alpha值。
 
 2. 自定义主题控件
+
   开发中，我们都会遇到需要自定义View来满足需求得情况，进阶第1项中的CoverImageView以及CoverImageWidget就是很好的例子，可供参考。
 
 3. AdapterView
+
   由于AdapterView具有ItemView的缓存机制，所以不一定能在Window的decorView中找到，这个就需要在View被attach到window的时候应用下当前的主题Style。
   Sample中写了RecyclerView的使用场景。
   ListView的Adapter中，应该在getView方法中调用：
@@ -76,9 +79,11 @@ TextViewWidget textViewWidget =
         MultiTheme.applyTheme(holder.itemView);
   ```
 4. "放养的孩子"
+
   AdapterView中添加HeaderView或FooterView的情况，他们无法再AdapterView的Adapter回调方法中知道何时attach到Window上。这种就需要我们自己记录，并在主题切换的时候，主动对View的应用主题。
   `ThemeViewEntities`就是这种情况的辅助类，只需要将上面情况的View添加到`ThemeViewEntities`中，主题框架就会自动管理这些View的主题。
 
 ## 注意
-1. 目前不支持Style中设置attrRes来支持多主题控件属性切换，静态使用的情况一定要写在控件的xml定义标签内。
-2. 出现inflate的异常，一般情况是没有attrRes指向的资源在当前使用的Style中。
+1. 框架利用AppCompatActivity中的接口覆盖了XML解释的部分逻辑，所以这个框架只支持AppCompatActivity内使用。
+2. 目前不支持Style中设置attrRes来支持多主题控件属性切换，静态使用的情况一定要写在控件的xml定义标签内。
+3. 出现inflate的异常，一般情况是没有attrRes指向的资源在当前使用的Style中。
