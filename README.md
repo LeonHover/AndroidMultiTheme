@@ -14,13 +14,13 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
   compile 'io.github.leonhover:android-multi-theme:$version'
 ```
 
-2. 在attrs.xml中定义主题控制的attr；
+2. 在attrs.xml中定义主题控制的attr
 
   ```  
     <attr name="title_text_color" format="reference|color"/>
   ```
 
-3. 定义不同的Activity主题；
+3. 定义不同的Activity主题
 
 ```
     <style name="AppTheme.Red" parent="AppTheme">
@@ -36,7 +36,7 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
     </style>
 ```
 
-4. 对Acitivity设定主题集合；
+4. 对Acitivity设定主题集合
 
 ```
     activityTheme.setThemes(new int[]{R.style.AppTheme_Blue,
