@@ -11,14 +11,14 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
 1. 修改build.gradle
 
 ```
-  compile 'io.github.leonhover:android-multi-theme:$version'
+    compile 'io.github.leonhover:android-multi-theme:$version'
 ```
 
 2. 在attrs.xml中定义主题控制的attr
 
-  ```  
+```  
     <attr name="title_text_color" format="reference|color"/>
-  ```
+```
 
 3. 定义不同的Activity主题
 
@@ -45,7 +45,7 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
 5. 在XML中静态使用
 
 ```
-  <TextView
+    <TextView
       android:id="@+id/theme_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -58,7 +58,7 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
 6. 在代码中动态使用
 
 ```
-TextViewWidget textViewWidget =
+  TextViewWidget textViewWidget =
 (TextViewWidget) MultiTheme.getThemeWidget(appDescriptionTextView);
         attrChanged = !attrChanged;
         int textColorAttrId = attrChanged ? R.attr.sub_title_text_color :
