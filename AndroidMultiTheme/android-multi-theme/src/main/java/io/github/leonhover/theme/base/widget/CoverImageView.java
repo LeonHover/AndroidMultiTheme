@@ -1,6 +1,5 @@
 package io.github.leonhover.theme.base.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -10,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import java.lang.ref.SoftReference;
 
 import io.github.leonhover.theme.R;
 
@@ -22,8 +23,8 @@ public class CoverImageView extends ImageView {
     public static final String TAG = "CoverImageView";
 
     private Paint mPaint;
-    private Bitmap tmpBitmap = null;
-    private Canvas tmpCanvas = null;
+    private SoftReference<Bitmap> tmpBitmapReference = null;
+    private SoftReference<Canvas> tmpCanvasReference = null;
     private int canvasWidth = -1;
     private int canvasHeight = -1;
     private int[] pixels;
@@ -76,16 +77,12 @@ public class CoverImageView extends ImageView {
         if (canvasHeight != canvas.getHeight() || canvasWidth != canvas.getWidth()) {
             canvasHeight = canvas.getHeight();
             canvasWidth = canvas.getWidth();
-
-            if (tmpBitmap != null && !tmpBitmap.isRecycled()) {
-                tmpBitmap.recycle();
-                tmpBitmap = null;
-            }
-
-            tmpBitmap = Bitmap.createBitmap(canvasWidth, canvasHeight, Bitmap.Config.ARGB_8888);
-            tmpCanvas = new Canvas(tmpBitmap);
             pixels = new int[canvasWidth * canvasHeight];
         }
+
+        Bitmap tmpBitmap = createCoverBitmap(canvasWidth, canvasHeight);
+
+        Canvas tmpCanvas = createCoverCanvas(tmpBitmap);
 
         tmpCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         super.onDraw(tmpCanvas);
@@ -101,4 +98,36 @@ public class CoverImageView extends ImageView {
         canvas.drawBitmap(tmpBitmap, 0, 0, mPaint);
     }
 
+    private Bitmap createCoverBitmap(int width, int height) {
+        Bitmap coverBitmap = null;
+
+        if (tmpBitmapReference != null && tmpBitmapReference.get() != null) {
+            coverBitmap = tmpBitmapReference.get();
+            if (coverBitmap.getWidth() != width || coverBitmap.getHeight() != height || coverBitmap.isRecycled()) {
+                coverBitmap = null;
+            }
+        }
+
+        if (coverBitmap == null) {
+            coverBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            tmpBitmapReference = new SoftReference<Bitmap>(coverBitmap);
+        }
+
+        return coverBitmap;
+    }
+
+    private Canvas createCoverCanvas(Bitmap bitmap) {
+        Canvas coverCanvas = null;
+
+        if (tmpCanvasReference != null && tmpCanvasReference.get() != null) {
+            coverCanvas = tmpCanvasReference.get();
+        }
+
+        if (coverCanvas == null) {
+            coverCanvas = new Canvas(bitmap);
+            tmpCanvasReference = new SoftReference<Canvas>(coverCanvas);
+        }
+
+        return coverCanvas;
+    }
 }

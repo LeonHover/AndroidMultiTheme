@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import io.github.leonhover.theme.widget.AbstractThemeWidget;
@@ -39,6 +40,7 @@ public class MultiTheme {
      * @param themeWidget 自定义的AbstractThemeWidget
      */
     public static void addThemeWidget(Class<?> widgetKey, AbstractThemeWidget themeWidget) {
+        checkInstance();
         sThemeManager.addThemeWidget(widgetKey, themeWidget);
     }
 
@@ -49,6 +51,7 @@ public class MultiTheme {
      * @return AbstractThemeWidget
      */
     public static AbstractThemeWidget getThemeWidget(View view) {
+        checkInstance();
         return sThemeManager.getThemeWidget(view.getClass());
     }
 
@@ -59,6 +62,7 @@ public class MultiTheme {
      * @return AbstractThemeWidget
      */
     public static AbstractThemeWidget getThemeWidget(Class<?> clazz) {
+        checkInstance();
         return sThemeManager.getThemeWidget(clazz);
     }
 
@@ -68,6 +72,7 @@ public class MultiTheme {
      * @param themeObserver
      */
     public static void addObserver(IThemeObserver themeObserver) {
+        checkInstance();
         sThemeManager.addObserver(themeObserver);
     }
 
@@ -77,6 +82,7 @@ public class MultiTheme {
      * @param themeObserver
      */
     public static void removeObserver(IThemeObserver themeObserver) {
+        checkInstance();
         sThemeManager.removeObserver(themeObserver);
     }
 
@@ -86,6 +92,7 @@ public class MultiTheme {
      * @param activity AppCompatActivity
      */
     public static void assembleThemeBeforeInflate(AppCompatActivity activity) {
+        checkInstance();
         sThemeManager.assembleThemeBeforeInflate(activity);
     }
 
@@ -96,6 +103,7 @@ public class MultiTheme {
      * @return AbstractThemeWidget
      */
     public static AbstractThemeWidget addViewThemeWidgetKeyTag(View view) {
+        checkInstance();
         return sThemeManager.addViewThemeWidgetKeyTag(view);
     }
 
@@ -106,6 +114,7 @@ public class MultiTheme {
      * @return true 表示切换主题成功,反之为false.
      */
     public static boolean setAppTheme(int whichTheme) {
+        checkInstance();
         return sThemeManager.setAppTheme(whichTheme);
     }
 
@@ -115,6 +124,7 @@ public class MultiTheme {
      * @param defaultTheme 默认主题
      */
     public static void setDefaultAppTheme(int defaultTheme) {
+        checkInstance();
         sThemeManager.setDefaultTheme(defaultTheme);
     }
 
@@ -124,6 +134,7 @@ public class MultiTheme {
      * @return int 当前应用的theme[]的索引值
      */
     public static int getAppTheme() {
+        checkInstance();
         return sThemeManager.getAppTheme();
     }
 
@@ -134,6 +145,7 @@ public class MultiTheme {
      * @param theme
      */
     protected static void applyTheme(Activity activity, @StyleRes int theme) {
+        checkInstance();
         sThemeManager.applyTheme(activity, theme);
     }
 
@@ -143,14 +155,37 @@ public class MultiTheme {
      * @param view
      */
     public static void applyTheme(View view) {
+        checkInstance();
         sThemeManager.applyTheme(view);
     }
 
-
-    private static void checkInstance() {
+    private static void checkInstance() throws IllegalStateException {
         if (sThemeManager == null) {
-
+            throw new IllegalStateException("Do you initialize MultiTheme in creation of your app's application.");
         }
     }
 
+    public static int d(String tag, String msg) {
+        if (isDebugMode()) {
+            return Log.d(tag, msg);
+        } else {
+            return -1;
+        }
+    }
+
+    public static int e(String tag, String msg) {
+        if (isDebugMode()) {
+            return Log.e(tag, msg);
+        } else {
+            return -1;
+        }
+    }
+
+    public static int i(String tag, String msg) {
+        if (isDebugMode()) {
+            return Log.i(tag, msg);
+        } else {
+            return -1;
+        }
+    }
 }

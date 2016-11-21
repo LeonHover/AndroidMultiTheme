@@ -8,6 +8,7 @@ import android.view.View;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.github.leonhover.theme.MultiTheme;
 import io.github.leonhover.theme.model.ThemeElement;
 
 import static io.github.leonhover.theme.ThemeUtils.ANDROID_NAMESPACE;
@@ -58,7 +59,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     @Override
     public void assemble(View view, AttributeSet attributeSet) {
 
-        Log.d(TAG, "applyTheme");
+        MultiTheme.d(TAG, "applyTheme");
         if (elementSet == null) {
             return;
         }
@@ -76,7 +77,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
                 if (isAttrReference(attrValue)) {
                     attrId = getAttrResId(attrValue);
                     view.setTag(element.getTagKey(), attrId);
-                    Log.d(TAG, "assemble element:" + element + " attrId:" + attrId);
+                    MultiTheme.d(TAG, "assemble element:" + element + " attrId:" + attrId);
                     break;
                 }
             }
@@ -86,7 +87,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
 
     @Override
     public void applyTheme(View view) {
-        Log.d(TAG, "applyTheme");
+        MultiTheme.d(TAG, "applyTheme");
         if (view == null) {
             throw new IllegalArgumentException(" view is illegal!!");
         }
@@ -102,7 +103,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
                 attrResId = (int) tagValue;
             }
             if (attrResId > -1) {
-                Log.d(TAG, "applyTheme element:" + element + " attrId:" + attrResId);
+                MultiTheme.d(TAG, "applyTheme element:" + element + " attrId:" + attrResId);
                 appleElementTheme(view, element, attrResId);
             }
         }

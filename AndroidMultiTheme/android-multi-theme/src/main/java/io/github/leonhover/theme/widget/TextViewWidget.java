@@ -64,7 +64,6 @@ public class TextViewWidget extends ViewWidget {
     }
 
     public void setTextColor(TextView textView, @AttrRes int attrResId) {
-        Log.d(TAG, "setTextColor attrResId:" + attrResId);
         if (textView == null) {
             return;
         }

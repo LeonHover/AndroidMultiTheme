@@ -32,7 +32,7 @@ import io.github.leonhover.theme.base.widget.CoverImageView;
 import io.github.leonhover.theme.widget.AbsListViewWidget;
 import io.github.leonhover.theme.widget.AbstractThemeWidget;
 import io.github.leonhover.theme.widget.CompoundButtonWidget;
-import io.github.leonhover.theme.widget.CoverImageWidget;
+import io.github.leonhover.theme.custom.CoverImageWidget;
 import io.github.leonhover.theme.widget.IThemeWidget;
 import io.github.leonhover.theme.widget.ImageViewWidget;
 import io.github.leonhover.theme.widget.LinearLayoutWidget;
@@ -183,7 +183,7 @@ public class ThemeManager {
      */
     private void assembleViewThemeElement(View view, AttributeSet attributeSet, Class<?> widgetKey) {
 
-        Log.d(TAG, "assembleViewThemeElement  theme widget type:" + widgetKey + ", view:" + view);
+        MultiTheme.d(TAG, "assembleViewThemeElement  theme widget type:" + widgetKey + ", view:" + view);
         if (view == null) {
             return;
         }
@@ -193,10 +193,10 @@ public class ThemeManager {
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
             view.setTag(R.id.amt_tag_view_current_theme, getAppTheme());
             themeWidget.assemble(view, attributeSet);
-            Log.d(TAG, "assembleViewThemeElement  theme widget type: " + widgetKey + " themeWidget:" + themeWidget.getClass().getSimpleName());
+            MultiTheme.d(TAG, "assembleViewThemeElement  theme widget type: " + widgetKey + " themeWidget:" + themeWidget.getClass().getSimpleName());
         } else {
             view.setTag(R.id.amt_tag_widget_key, null);
-            Log.i(TAG, "unsupported theme widget type " + widgetKey + ",is your custom theme widget?");
+            MultiTheme.i(TAG, "unsupported theme widget type " + widgetKey + ",is your custom theme widget?");
         }
     }
 
@@ -206,7 +206,7 @@ public class ThemeManager {
      * @return true 改变为夜间主题，false 改变为默认主题
      */
     protected boolean setAppTheme(int whichTheme) {
-        Log.d(TAG, "setAppTheme whichTheme=" + whichTheme);
+        MultiTheme.d(TAG, "setAppTheme whichTheme=" + whichTheme);
 
         if (whichTheme > -1 && whichTheme != appTheme) {
             ThemePreferences.setAppTheme(this.application, whichTheme);
@@ -243,7 +243,7 @@ public class ThemeManager {
     }
 
     private void applyTheme(Activity activity) {
-        Log.d(TAG, "applyThemeForActivity");
+        MultiTheme.d(TAG, "applyThemeForActivity");
         if (activity == null) {
             throw new IllegalArgumentException("activity  is null!");
         }
@@ -274,13 +274,13 @@ public class ThemeManager {
 
         Class<?> widgetKey = (Class<?>) view.getTag(R.id.amt_tag_widget_key);
 
-        Log.d(TAG, "applyTheme  theme widget type:" + widgetKey + " ,view:" + view);
+        MultiTheme.d(TAG, "applyTheme  theme widget type:" + widgetKey + " ,view:" + view);
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetKey);
         if (themeWidget != null) {
             themeWidget.applyTheme(view);
-            Log.d(TAG, "applyTheme  theme widget type: " + widgetKey + " ,view:" + view + " themeWidget:" + themeWidget);
+            MultiTheme.d(TAG, "applyTheme  theme widget type: " + widgetKey + " ,view:" + view + " themeWidget:" + themeWidget);
         } else {
-            Log.i(TAG, "applyTheme unsupport theme widget type:" + widgetKey + ", view:" + view);
+            MultiTheme.i(TAG, "applyTheme unsupport theme widget type:" + widgetKey + ", view:" + view);
         }
 
         if (view instanceof ViewGroup) {

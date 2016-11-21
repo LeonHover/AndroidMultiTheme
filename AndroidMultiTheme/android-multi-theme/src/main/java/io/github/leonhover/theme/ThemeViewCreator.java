@@ -6,6 +6,7 @@ import android.view.View;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 /**
  * Created by leonhover on 16-9-28.
@@ -21,13 +22,20 @@ public class ThemeViewCreator {
 //            "android.app."
     };
 
+    private static String[] sViewPostfixs = {
+            "View",
+            "ViewStub",
+            "SurfaceView",
+            "TextureView",
+    };
+
+
     protected View createView(View parent, String name, Context context, AttributeSet attrs) {
         View view = null;
         if (name.contains(".")) {
             view = createSubViewImpl(parent, "", name, context, attrs);
         } else {
-
-            if (name.equals("View")) {
+            if (Arrays.asList(sViewPostfixs).contains(name)) {
                 view = createSubViewImpl(parent, "android.view.", name, context, attrs);
             } else {
                 for (String prefix : sClassPrefixs) {

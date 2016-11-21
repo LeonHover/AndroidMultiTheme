@@ -83,9 +83,8 @@ public class ActivityTheme implements IThemeObserver {
         initializeStatusBarTheme();
     }
 
-    @SuppressWarnings("")
     private void initializeStatusBarTheme() {
-        Log.d(TAG, "initializeStatusBarTheme sdk version:" + Build.VERSION.SDK_INT);
+        MultiTheme.d(TAG, "initializeStatusBarTheme sdk version:" + Build.VERSION.SDK_INT);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || statusBarColorAttrResId < 0) {
             return;
         }
@@ -100,7 +99,7 @@ public class ActivityTheme implements IThemeObserver {
     }
 
     private void initializeStatusBarColorKitKat(int statusBarColor) {
-        Log.d(TAG, "setStatusBarColorKitkat");
+        MultiTheme.d(TAG, "setStatusBarColorKitkat");
         int statusBarHeight = getStatusBarHeight(this.activity);
         Window window = activity.getWindow();
         ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);
@@ -125,7 +124,7 @@ public class ActivityTheme implements IThemeObserver {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initializeStatusBarColorOnLollipop(int statusBarColor) {
-        Log.d(TAG, "setStatusBarColorOnLollipop");
+        MultiTheme.d(TAG, "setStatusBarColorOnLollipop");
         Window window = activity.getWindow();
         //设置透明状态栏,这样才能让 ContentView 向上
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

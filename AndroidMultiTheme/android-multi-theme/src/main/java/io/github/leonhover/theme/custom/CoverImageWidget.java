@@ -1,4 +1,4 @@
-package io.github.leonhover.theme.widget;
+package io.github.leonhover.theme.custom;
 
 import android.support.annotation.AttrRes;
 import android.view.View;
@@ -7,6 +7,7 @@ import io.github.leonhover.theme.R;
 import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.base.widget.CoverImageView;
 import io.github.leonhover.theme.model.ThemeElement;
+import io.github.leonhover.theme.widget.ImageViewWidget;
 
 /**
  * Created by wangzongliang on 2016/11/8.
