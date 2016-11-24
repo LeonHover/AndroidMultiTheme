@@ -52,7 +52,7 @@ public class ThemeManager {
 
     private static final String TAG = ThemeManager.class.getSimpleName();
 
-    private Map<Class<?>, AbstractThemeWidget> themeWidgetMap;
+    private Map<Class<? extends View>, AbstractThemeWidget> themeWidgetMap;
 
     private ThemeViewCreator themeViewCreator;
 
@@ -83,12 +83,12 @@ public class ThemeManager {
 
     }
 
-    protected void addThemeWidget(Class<?> widgetKey, AbstractThemeWidget themeWidget) {
+    protected void addThemeWidget(Class<? extends View> widgetKey, AbstractThemeWidget themeWidget) {
         this.themeWidgetMap.put(widgetKey, themeWidget);
     }
 
-    protected AbstractThemeWidget getThemeWidget(Class<?> clazz) {
-        Class<?> widgetKey = findProperThemeWidgetKey(clazz);
+    protected AbstractThemeWidget getThemeWidget(Class<? extends View> clazz) {
+        Class<? extends View> widgetKey = findProperThemeWidgetKey(clazz);
         return this.themeWidgetMap.get(widgetKey);
     }
 
@@ -127,7 +127,7 @@ public class ThemeManager {
                     return null;
                 }
 
-                Class<?> widgetKey = findProperThemeWidgetKey(view.getClass());
+                Class<? extends View> widgetKey = findProperThemeWidgetKey(view.getClass());
                 assembleViewThemeElement(view, attrs, widgetKey);
 
                 return view;
@@ -135,10 +135,10 @@ public class ThemeManager {
         });
     }
 
-    private Class<?> findProperThemeWidgetKey(Class<?> clazz) {
+    private Class<? extends View> findProperThemeWidgetKey(Class<? extends View> clazz) {
 
-        Class<?> tmpKey = null;
-        for (Class<?> widgetKey : this.themeWidgetMap.keySet()) {
+        Class<? extends View> tmpKey = null;
+        for (Class<? extends View> widgetKey : this.themeWidgetMap.keySet()) {
 
             if (clazz.equals(widgetKey)) {
                 return clazz;
@@ -171,7 +171,7 @@ public class ThemeManager {
      */
     protected AbstractThemeWidget addViewThemeWidgetKeyTag(View view) {
         if (view != null) {
-            Class<?> widgetKey = findProperThemeWidgetKey(view.getClass());
+            Class<? extends View> widgetKey = findProperThemeWidgetKey(view.getClass());
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
             return this.themeWidgetMap.get(widgetKey);
         }
@@ -181,7 +181,7 @@ public class ThemeManager {
     /**
      * 组装每个View的主题元素
      */
-    private void assembleViewThemeElement(View view, AttributeSet attributeSet, Class<?> widgetKey) {
+    private void assembleViewThemeElement(View view, AttributeSet attributeSet, Class<? extends View> widgetKey) {
 
         MultiTheme.d(TAG, "assembleViewThemeElement  theme widget type:" + widgetKey + ", view:" + view);
         if (view == null) {
@@ -272,7 +272,7 @@ public class ThemeManager {
             return;
         }
 
-        Class<?> widgetKey = (Class<?>) view.getTag(R.id.amt_tag_widget_key);
+        Class<? extends View> widgetKey = (Class<? extends View>) view.getTag(R.id.amt_tag_widget_key);
 
         MultiTheme.d(TAG, "applyTheme  theme widget type:" + widgetKey + " ,view:" + view);
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetKey);

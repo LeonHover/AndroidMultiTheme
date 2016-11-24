@@ -39,7 +39,7 @@ public class MultiTheme {
      * @param widgetKey   类型索引，指定themeWidget对应的View的Class，如TextViewWidget对应TextView.class.
      * @param themeWidget 自定义的AbstractThemeWidget
      */
-    public static void addThemeWidget(Class<?> widgetKey, AbstractThemeWidget themeWidget) {
+    public static void addThemeWidget(Class<? extends View> widgetKey, AbstractThemeWidget themeWidget) {
         checkInstance();
         sThemeManager.addThemeWidget(widgetKey, themeWidget);
     }
@@ -61,7 +61,7 @@ public class MultiTheme {
      * @param clazz class of View.
      * @return AbstractThemeWidget
      */
-    public static AbstractThemeWidget getThemeWidget(Class<?> clazz) {
+    public static AbstractThemeWidget getThemeWidget(Class<? extends View> clazz) {
         checkInstance();
         return sThemeManager.getThemeWidget(clazz);
     }
