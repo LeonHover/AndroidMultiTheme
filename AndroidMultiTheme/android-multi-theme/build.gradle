@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 10
-        versionName "0.2.3"
+        versionCode 11
+        versionName "0.2.4"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -90,7 +90,7 @@ bintray {
     pkg {
         repo = "android"
         name = "Android-Multi-Theme"
-        version "0.2.3"
+        version "0.2.4"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
