@@ -6,15 +6,13 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Created by leonhover on 16-9-26.
@@ -174,6 +172,31 @@ public class ThemeUtils {
             e1.printStackTrace();
         }
         return statusBarHeight;
+    }
+
+    public static Object invodeMethod(Object obj, String method, Object... parameters) {
+        if (obj == null || TextUtils.isEmpty(method)) {
+            return null;
+        }
+
+        Class<?>[] parameterTypes = new Class<?>[parameters.length];
+        for (int i = 0; i < parameters.length; i++) {
+            parameterTypes[i] = parameters[i].getClass();
+        }
+
+        try {
+            Method methodWanted = obj.getClass().getDeclaredMethod(method, parameterTypes);
+            methodWanted.setAccessible(true);
+            return methodWanted.invoke(obj, parameters);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

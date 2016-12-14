@@ -8,5 +8,7 @@
         <attr name="icon_launcher" format="reference"/>
         <attr name="icon_change_theme" format="reference"/>
         <attr name="img_cover_color" format="reference"/>
+        <attr name="progress_indeterminate" format="reference"/>
+        <attr name="progress_horizontal" format="reference"/>
     </declare-styleable>
 </resources>

@@ -1,5 +1,7 @@
 package io.github.leonhover.theme.widget;
 
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -46,7 +48,22 @@ public class ProgressBarWidget extends ViewWidget {
 
         progressBar.setTag(R.id.amt_tag_progress_bar_progress_drawable, attrResId);
 
-        progressBar.setProgressDrawable(ThemeUtils.getDrawable(progressBar.getContext(), attrResId));
+
+        Drawable drawable = ThemeUtils.getDrawable(progressBar.getContext(), attrResId);
+
+        if (progressBar.getIndeterminateDrawable() != null) {
+            Rect bounds = progressBar.getIndeterminateDrawable().copyBounds();
+            drawable.setBounds(bounds);
+            progressBar.setProgressDrawable(drawable);
+        } else {
+            progressBar.setProgressDrawable(drawable);
+            int width = progressBar.getWidth();
+            int height = progressBar.getHeight();
+
+            ThemeUtils.invodeMethod(progressBar, "updateDrawableBounds", width, height);
+        }
+
+        ThemeUtils.invodeMethod(progressBar, "startAnimation");
     }
 
     public void setIndeterminateDrawable(ProgressBar progressBar, @AttrRes int attrResId) {
@@ -55,6 +72,21 @@ public class ProgressBarWidget extends ViewWidget {
         }
 
         progressBar.setTag(R.id.amt_tag_progress_bar_indeterminate_drawable, attrResId);
-        progressBar.setIndeterminateDrawable(ThemeUtils.getDrawable(progressBar.getContext(), attrResId));
+        Drawable drawable = ThemeUtils.getDrawable(progressBar.getContext(), attrResId);
+
+        if (progressBar.getIndeterminateDrawable() != null) {
+            Rect bounds = progressBar.getIndeterminateDrawable().copyBounds();
+            drawable.setBounds(bounds);
+            progressBar.setIndeterminateDrawable(drawable);
+        } else {
+            progressBar.setIndeterminateDrawable(drawable);
+            int width = progressBar.getWidth();
+            int height = progressBar.getHeight();
+
+            ThemeUtils.invodeMethod(progressBar, "updateDrawableBounds", width, height);
+        }
+
+        ThemeUtils.invodeMethod(progressBar, "startAnimation");
+
     }
 }
