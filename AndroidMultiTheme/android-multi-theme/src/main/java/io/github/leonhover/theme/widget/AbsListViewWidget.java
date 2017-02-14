@@ -4,43 +4,34 @@ import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.AbsListView;
 
-import io.github.leonhover.theme.R;
 import io.github.leonhover.theme.ThemeUtils;
-import io.github.leonhover.theme.model.ThemeElement;
+import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
  * Created by leonhover on 16-9-27.
  */
-
+@MultiThemeAttrs({
+        android.R.attr.listSelector
+})
 public class AbsListViewWidget extends ViewWidget {
 
-    private static final String ATTR_NAME_LIST_SELECTOR = "listSelector";
-
-    public AbsListViewWidget() {
-        super();
-    }
-
     @Override
-    protected void initializeElements() {
-        super.initializeElements();
-        add(new ThemeElement(R.id.amt_tag_abs_list_view_list_selector, ATTR_NAME_LIST_SELECTOR));
-    }
-
-    @Override
-    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
-        super.appleElementTheme(view, element, attrResId);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+        super.appleElementTheme(view, themeElementKey, themeElementValue);
         AbsListView absListView = (AbsListView) view;
-        if (R.id.amt_tag_abs_list_view_list_selector == element.getTagKey()) {
-            setSelector(absListView, attrResId);
+        switch (themeElementKey) {
+            case android.R.attr.listSelector:
+                setSelector(absListView, themeElementValue);
+                break;
         }
     }
 
-    public void setSelector(AbsListView absListView, int attrResId) {
+    public static void setSelector(AbsListView absListView, int attrResId) {
         if (absListView == null) {
             return;
         }
 
-        absListView.setTag(R.id.amt_tag_abs_list_view_list_selector, attrResId);
+        saveThemeElementPair(absListView,android.R.attr.listSelector,attrResId);
 
         absListView.setSelector(ThemeUtils.getDrawable(absListView.getContext(), attrResId));
     }

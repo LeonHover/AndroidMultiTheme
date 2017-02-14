@@ -6,57 +6,51 @@ import android.widget.ImageView;
 
 import io.github.leonhover.theme.R;
 import io.github.leonhover.theme.ThemeUtils;
-import io.github.leonhover.theme.model.ThemeElement;
-
+import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
  * Created by leonhover on 16-9-27.
  */
-
+@MultiThemeAttrs({
+        android.R.attr.src,
+})
 public class ImageViewWidget extends ViewWidget {
 
-    private static final String ATTR_NAME_SRC = "src";
-    private static final String ATTR_NAME_SRC_COMPAT = "srcCompat";
-
-    public ImageViewWidget() {
-        super();
+    @Override
+    protected void initializeLibraryElements() {
+        super.initializeLibraryElements();
+        addThemeElementKey(R.attr.srcCompat);
     }
 
     @Override
-    protected void initializeElements() {
-        super.initializeElements();
-        add(new ThemeElement(R.id.amt_tag_image_view_src, ATTR_NAME_SRC));
-        add(new ThemeElement(R.id.amt_tag_image_view_src_compat, ATTR_NAME_SRC_COMPAT));
-    }
-
-    @Override
-    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
-        super.appleElementTheme(view, element, attrResId);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+        super.appleElementTheme(view, themeElementKey, themeElementValue);
         ImageView imageView = (ImageView) view;
-        if (R.id.amt_tag_image_view_src == element.getTagKey()) {
-            setImageDrawable(imageView, attrResId);
-        } else if (R.id.amt_tag_image_view_src_compat == element.getTagKey()) {
-            setImageCompatDrawable(imageView, attrResId);
+        if (themeElementKey == android.R.attr.src) {
+            setImageDrawable(imageView, themeElementValue);
+        } else if (themeElementKey == R.attr.srcCompat) {
+            setImageCompatDrawable(imageView, themeElementValue);
         }
     }
 
-    public void setImageDrawable(ImageView imageView, @AttrRes int attrResId) {
+    public static void setImageDrawable(ImageView imageView, @AttrRes int attrResId) {
         if (imageView == null) {
             return;
         }
 
-        imageView.setTag(R.id.amt_tag_image_view_src, attrResId);
+        saveThemeElementPair(imageView, android.R.attr.src, attrResId);
 
         imageView.setImageDrawable(ThemeUtils.getDrawable(imageView.getContext(), attrResId));
     }
 
-    public void setImageCompatDrawable(ImageView imageView, @AttrRes int attrResId) {
+    public static void setImageCompatDrawable(ImageView imageView, @AttrRes int attrResId) {
         if (imageView == null) {
             return;
         }
 
-        imageView.setTag(R.id.amt_tag_image_view_src_compat, attrResId);
+        saveThemeElementPair(imageView, R.attr.srcCompat, attrResId);
 
         imageView.setImageDrawable(ThemeUtils.getDrawable(imageView.getContext(), attrResId));
     }
+
 }

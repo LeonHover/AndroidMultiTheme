@@ -6,7 +6,6 @@ import android.view.View;
 import io.github.leonhover.theme.R;
 import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.base.widget.CoverImageView;
-import io.github.leonhover.theme.model.ThemeElement;
 import io.github.leonhover.theme.widget.ImageViewWidget;
 
 /**
@@ -15,34 +14,27 @@ import io.github.leonhover.theme.widget.ImageViewWidget;
 
 public class CoverImageWidget extends ImageViewWidget {
 
-    private static final String ATTR_NAME_COVER_COLOR = "coverColor";
-
     public CoverImageWidget() {
         super();
+        addThemeElementKey(R.attr.coverColor);
     }
 
     @Override
-    protected void initializeElements() {
-        super.initializeElements();
-        add(new ThemeElement(R.id.amt_tag_cover_image_view_cover_color, ATTR_NAME_COVER_COLOR));
-    }
-
-    @Override
-    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
-        super.appleElementTheme(view, element, attrResId);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+        super.appleElementTheme(view, themeElementKey, themeElementValue);
         CoverImageView coverImageView = (CoverImageView) view;
-        if (R.id.amt_tag_cover_image_view_cover_color == element.getTagKey()) {
-            setCoverColor(coverImageView, attrResId);
+        if (R.attr.coverColor == themeElementKey) {
+            setCoverColor(coverImageView, themeElementValue);
         }
     }
 
-    public void setCoverColor(CoverImageView coverImageView, @AttrRes int attrResId) {
+    public static void setCoverColor(CoverImageView coverImageView, @AttrRes int attrResId) {
 
         if (coverImageView == null) {
             return;
         }
 
-        coverImageView.setTag(R.id.amt_tag_cover_image_view_cover_color, attrResId);
+        saveThemeElementPair(coverImageView,R.attr.coverColor,attrResId);
 
         coverImageView.setCoverColor(ThemeUtils.getColor(coverImageView.getContext(), attrResId));
     }

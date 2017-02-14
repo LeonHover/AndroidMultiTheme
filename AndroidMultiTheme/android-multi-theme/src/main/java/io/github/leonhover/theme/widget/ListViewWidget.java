@@ -4,44 +4,36 @@ import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.ListView;
 
-import io.github.leonhover.theme.R;
 import io.github.leonhover.theme.ThemeUtils;
-import io.github.leonhover.theme.model.ThemeElement;
+import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
  * Created by leonhover on 16-9-27.
  */
 
+@MultiThemeAttrs({
+        android.R.attr.divider
+})
 public class ListViewWidget extends AbsListViewWidget {
 
-    private static final String ATTR_NAME_DIVIDER = "divider";
-
-    public ListViewWidget() {
-        super();
-    }
-
     @Override
-    protected void initializeElements() {
-        super.initializeElements();
-        add(new ThemeElement(R.id.amt_tag_list_view_divider, ATTR_NAME_DIVIDER));
-    }
-
-    @Override
-    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
-        super.appleElementTheme(view, element, attrResId);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+        super.appleElementTheme(view, themeElementKey, themeElementValue);
         ListView listView = (ListView) view;
-        if (R.id.amt_tag_list_view_divider == element.getTagKey()) {
-            setDividerDrawable(listView, attrResId);
+        switch (themeElementKey) {
+            case android.R.attr.divider:
+                setDividerDrawable(listView, themeElementValue);
+                break;
         }
     }
 
-    public void setDividerDrawable(ListView listView, @AttrRes int attrResId) {
+    public static void setDividerDrawable(ListView listView, @AttrRes int attrResId) {
 
         if (listView == null) {
             return;
         }
 
-        listView.setTag(R.id.amt_tag_list_view_divider, attrResId);
+        saveThemeElementPair(listView,android.R.attr.divider,attrResId);
 
         int dividerHeight = listView.getDividerHeight();
         listView.setDivider(ThemeUtils.getDrawable(listView.getContext(), attrResId));

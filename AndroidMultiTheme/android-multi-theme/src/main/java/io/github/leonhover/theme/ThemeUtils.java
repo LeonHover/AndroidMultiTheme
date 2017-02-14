@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.IdRes;
 import android.text.TextUtils;
@@ -20,8 +21,10 @@ import java.lang.reflect.Method;
 
 public class ThemeUtils {
 
-    public static final String ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android";
-    public static final String APP_NAMESPACE = "http://schemas.android.com/apk/res-auto";
+    public static final boolean IS_JELLY_BEAN = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    public static final boolean IS_KITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    public static final boolean IS_LOLLIPOP = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    public static final boolean IS_M = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
 
     /**
      * 判断是否是以“?attr/**”引用的资源
@@ -74,10 +77,16 @@ public class ThemeUtils {
      * @param attrResId attr资源id
      * @return Color
      */
+    @SuppressWarnings("NewApi")
     public static int getColor(Resources.Theme theme, Resources resources, @AttrRes int attrResId) {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attrResId, typedValue, true);
-        int color = resources.getColor(typedValue.resourceId);
+        int color;
+        if (IS_M) {
+            color = resources.getColor(typedValue.resourceId, theme);
+        } else {
+            color = resources.getColor(typedValue.resourceId);
+        }
         return color;
     }
 
@@ -103,10 +112,18 @@ public class ThemeUtils {
      * @param attrResId attr资源id
      * @return ColorStateList
      */
+    @SuppressWarnings("NewApi")
     public static ColorStateList getColorStateList(Resources.Theme theme, Resources resources, @AttrRes int attrResId) {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attrResId, typedValue, true);
-        ColorStateList colorStateList = resources.getColorStateList(typedValue.resourceId);
+
+        ColorStateList colorStateList;
+
+        if (IS_M) {
+            colorStateList = resources.getColorStateList(typedValue.resourceId, theme);
+        } else {
+            colorStateList = resources.getColorStateList(typedValue.resourceId);
+        }
         return colorStateList;
     }
 
@@ -134,10 +151,16 @@ public class ThemeUtils {
      * @param attrResId attr资源id
      * @return Drawable
      */
+    @SuppressWarnings("NewApi")
     public static Drawable getDrawable(Resources.Theme theme, Resources resources, @AttrRes int attrResId) {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attrResId, typedValue, true);
-        Drawable drawable = resources.getDrawable(typedValue.resourceId);
+        Drawable drawable;
+        if (IS_M) {
+            drawable = resources.getDrawable(typedValue.resourceId, theme);
+        } else {
+            drawable = resources.getDrawable(typedValue.resourceId);
+        }
         return drawable;
     }
 
@@ -174,7 +197,7 @@ public class ThemeUtils {
         return statusBarHeight;
     }
 
-    public static Object invodeMethod(Object obj, String method, Object... parameters) {
+    public static Object invokeMethod(Object obj, String method, Object... parameters) {
         if (obj == null || TextUtils.isEmpty(method)) {
             return null;
         }

@@ -1,41 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- View -->
-    <item name="amt_tag_view_background" type="id" />
     <item name="amt_tag_view_current_theme" type="id" />
     <item name="amt_tag_widget_key" type="id" />
-    <!-- TextView -->
-    <item name="amt_tag_text_view_text_color" type="id" />
-    <item name="amt_tag_text_view_text_color_link" type="id" />
-    <item name="amt_tag_text_view_text_color_hint" type="id" />
-    <item name="amt_tag_text_view_drawable_top" type="id" />
-    <item name="amt_tag_text_view_drawable_bottom" type="id" />
-    <item name="amt_tag_text_view_drawable_left" type="id" />
-    <item name="amt_tag_text_view_drawable_right" type="id" />
-    <!-- ImageView -->
-    <item name="amt_tag_image_view_src" type="id" />
-    <item name="amt_tag_image_view_src_compat" type="id" />
-    <!-- LinearLayout -->
-    <item name="amt_tag_linear_layout_divider" type="id" />
-    <!-- AbsListView -->
-    <item name="amt_tag_abs_list_view_list_selector" type="id" />
-    <!-- ListView -->
-    <item name="amt_tag_list_view_divider" type="id" />
-    <!-- ProgressBar -->
-    <item name="amt_tag_progress_bar_progress_drawable" type="id" />
-    <item name="amt_tag_progress_bar_indeterminate_drawable" type="id" />
-    <!-- SeekBar -->
-    <item name="amt_tag_seek_bar_thumb" type="id" />
-    <!-- CompoundButton -->
-    <item name="amt_tag_compound_button_button" type="id" />
-    <!-- ToolBar -->
-    <item name="amt_tag_tool_bar_collapse_icon" type="id" />
-    <item name="amt_tag_tool_bar_overflow_icon" type="id" />
-    <item name="amt_tag_tool_bar_logo" type="id" />
-    <item name="amt_tag_tool_bar_navigation_icon" type="id" />
-    <item name="amt_tag_tool_bar_subtitle_text_color" type="id" />
-    <item name="amt_tag_tool_bar_title_text_color" type="id" />
-    <!-- CoverImageView -->
-    <item name="amt_tag_cover_image_view_cover_color" type="id" />
+    <item name="amt_tag_theme_element_pairs" type="id" />
 
 </resources>

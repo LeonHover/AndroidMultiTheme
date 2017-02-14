@@ -6,12 +6,13 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import static io.github.leonhover.theme.ThemeUtils.IS_KITKAT;
+import static io.github.leonhover.theme.ThemeUtils.IS_LOLLIPOP;
 import static io.github.leonhover.theme.ThemeUtils.getStatusBarHeight;
 
 /**
@@ -61,14 +62,14 @@ public class ActivityTheme implements IThemeObserver {
     }
 
     public final void setStatusBarColor(@ColorInt int statusBarColor) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+        if (!IS_KITKAT) {
             return;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            setStatusBarColorKitKat(statusBarColor);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (IS_LOLLIPOP) {
             setStatusBarColorOnLollipop(statusBarColor);
+        } else if (IS_KITKAT) {
+            setStatusBarColorKitKat(statusBarColor);
         }
     }
 
@@ -85,16 +86,15 @@ public class ActivityTheme implements IThemeObserver {
 
     private void initializeStatusBarTheme() {
         MultiTheme.d(TAG, "initializeStatusBarTheme sdk version:" + Build.VERSION.SDK_INT);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || statusBarColorAttrResId < 0) {
+        if (!IS_KITKAT || statusBarColorAttrResId < 0) {
             return;
         }
 
         int statusColor = ThemeUtils.getColor(this.activity, statusBarColorAttrResId);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            initializeStatusBarColorKitKat(statusColor);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (IS_LOLLIPOP) {
             initializeStatusBarColorOnLollipop(statusColor);
+        } else if (IS_KITKAT) {
+            initializeStatusBarColorKitKat(statusColor);
         }
     }
 

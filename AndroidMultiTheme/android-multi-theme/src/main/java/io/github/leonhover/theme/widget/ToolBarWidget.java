@@ -7,101 +7,76 @@ import android.view.View;
 
 import io.github.leonhover.theme.R;
 import io.github.leonhover.theme.ThemeUtils;
-import io.github.leonhover.theme.model.ThemeElement;
 
 /**
  * Created by wangzongliang on 2016/10/22.
  */
-
 public class ToolBarWidget extends ViewWidget {
 
-    //    private final static String ATTR_NAME_COLLAPSE_ICON = "collapseIcon";
-    private final static String ATTR_NAME_LOGO = "logo";
-    private final static String ATTR_NAME_NAVIGATION_ICON = "navigationIcon";
-    private final static String ATTR_NAME_SUBTITLE_TEXT_COLOR = "subtitleTextColor";
-    private final static String ATTR_NAME_TITLE_TEXT_COLOR = "titleTextColor";
-
-    public ToolBarWidget() {
-        super();
+    @Override
+    protected void initializeLibraryElements() {
+        super.initializeLibraryElements();
+        addThemeElementKey(R.attr.logo);
+        addThemeElementKey(R.attr.navigationIcon);
+        addThemeElementKey(R.attr.subtitleTextColor);
+        addThemeElementKey(R.attr.titleTextColor);
     }
 
     @Override
-    protected void initializeElements() {
-        super.initializeElements();
-        add(new ThemeElement(R.id.amt_tag_tool_bar_logo, ATTR_NAME_LOGO));
-        add(new ThemeElement(R.id.amt_tag_tool_bar_navigation_icon, ATTR_NAME_NAVIGATION_ICON));
-        add(new ThemeElement(R.id.amt_tag_tool_bar_subtitle_text_color, ATTR_NAME_SUBTITLE_TEXT_COLOR));
-        add(new ThemeElement(R.id.amt_tag_tool_bar_title_text_color, ATTR_NAME_TITLE_TEXT_COLOR));
-    }
-
-    @Override
-    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
-        super.appleElementTheme(view, element, attrResId);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+        super.appleElementTheme(view, themeElementKey, themeElementValue);
         Toolbar toolbar = (Toolbar) view;
-        if (R.id.amt_tag_tool_bar_overflow_icon == element.getTagKey()) {
-            setOverflowIcon(toolbar, attrResId);
-        } else if (R.id.amt_tag_tool_bar_logo == element.getTagKey()) {
-            setLogo(toolbar, attrResId);
-        } else if (R.id.amt_tag_tool_bar_subtitle_text_color == element.getTagKey()) {
-            setSubTitleTextColor(toolbar, attrResId);
-        } else if (R.id.amt_tag_tool_bar_navigation_icon == element.getTagKey()) {
-            setNavigationIcon(toolbar, attrResId);
-        } else if (R.id.amt_tag_tool_bar_title_text_color == element.getTagKey()) {
-            setTitleTextColor(toolbar, attrResId);
+        if (android.R.attr.logo == themeElementKey) {
+            setLogo(toolbar, themeElementValue);
+        } else if (R.attr.subtitleTextColor == themeElementKey) {
+            setSubTitleTextColor(toolbar, themeElementValue);
+        } else if (R.attr.navigationIcon == themeElementKey) {
+            setNavigationIcon(toolbar, themeElementValue);
+        } else if (R.attr.titleTextColor == themeElementKey) {
+            setTitleTextColor(toolbar, themeElementValue);
         }
     }
 
-    public void setLogo(Toolbar toolBar, @AttrRes int attrResId) {
+    public static void setLogo(Toolbar toolBar, @AttrRes int attrResId) {
         if (toolBar == null) {
             return;
         }
 
-        toolBar.setTag(R.id.amt_tag_tool_bar_logo, attrResId);
+        saveThemeElementPair(toolBar,R.attr.logo,attrResId);
 
         Drawable logoDrawable = ThemeUtils.getDrawable(toolBar.getContext(), attrResId);
         toolBar.setLogo(logoDrawable);
     }
 
-    public void setNavigationIcon(Toolbar toolBar, @AttrRes int attrResId) {
+    public static void setNavigationIcon(Toolbar toolBar, @AttrRes int attrResId) {
         if (toolBar == null) {
             return;
         }
 
-        toolBar.setTag(R.id.amt_tag_tool_bar_navigation_icon, attrResId);
+        saveThemeElementPair(toolBar,R.attr.navigationIcon,attrResId);
 
         Drawable iconDrawable = ThemeUtils.getDrawable(toolBar.getContext(), attrResId);
         toolBar.setNavigationIcon(iconDrawable);
     }
 
-    public void setOverflowIcon(Toolbar toolBar, @AttrRes int attrResId) {
-        if (toolBar == null) {
-            return;
-        }
-
-        toolBar.setTag(R.id.amt_tag_tool_bar_overflow_icon, attrResId);
-
-        Drawable iconDrawable = ThemeUtils.getDrawable(toolBar.getContext(), attrResId);
-        toolBar.setOverflowIcon(iconDrawable);
-    }
-
-    public void setTitleTextColor(Toolbar toolBar, @AttrRes int attrResId) {
+    public static void setTitleTextColor(Toolbar toolBar, @AttrRes int attrResId) {
 
         if (toolBar == null) {
             return;
         }
 
-        toolBar.setTag(R.id.amt_tag_tool_bar_title_text_color, attrResId);
+        saveThemeElementPair(toolBar,R.attr.titleTextColor,attrResId);
 
         toolBar.setTitleTextColor(ThemeUtils.getColor(toolBar.getContext(), attrResId));
     }
 
-    public void setSubTitleTextColor(Toolbar toolBar, @AttrRes int attrResId) {
+    public static void setSubTitleTextColor(Toolbar toolBar, @AttrRes int attrResId) {
 
         if (toolBar == null) {
             return;
         }
 
-        toolBar.setTag(R.id.amt_tag_tool_bar_subtitle_text_color, attrResId);
+        saveThemeElementPair(toolBar,R.attr.subtitleTextColor,attrResId);
 
         toolBar.setSubtitleTextColor(ThemeUtils.getColor(toolBar.getContext(), attrResId));
     }

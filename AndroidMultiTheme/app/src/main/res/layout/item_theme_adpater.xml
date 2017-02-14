@@ -10,6 +10,7 @@
         android:layout_height="50dp"
         app:coverColor="?attr/img_cover_color" />
 
+
     <TextView
         android:id="@+id/theme_title"
         android:layout_width="match_parent"
@@ -29,4 +30,10 @@
         android:textColor="?attr/sub_title_text_color"
         android:textSize="14sp" />
 
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/theme_description"
+        app:srcCompat="?attr/icon_launcher"/>
 </RelativeLayout>

@@ -70,6 +70,12 @@
             android:textSize="14sp" />
     </LinearLayout>
 
+    <TextView
+        style="@style/RedTitleTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="red"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

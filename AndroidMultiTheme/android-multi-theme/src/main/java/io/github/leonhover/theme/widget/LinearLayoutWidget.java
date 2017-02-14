@@ -4,45 +4,35 @@ import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import io.github.leonhover.theme.R;
 import io.github.leonhover.theme.ThemeUtils;
-import io.github.leonhover.theme.model.ThemeElement;
+import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 
 /**
  * Created by leonhover on 16-9-27.
  */
-
+@MultiThemeAttrs({
+        android.R.attr.divider
+})
 public class LinearLayoutWidget extends ViewWidget {
 
-
-    private static final String ATTR_NAME_DIVIDER = "divider";
-
-    public LinearLayoutWidget() {
-        super();
-    }
-
     @Override
-    protected void initializeElements() {
-        super.initializeElements();
-        add(new ThemeElement(R.id.amt_tag_linear_layout_divider, ATTR_NAME_DIVIDER));
-    }
-
-    @Override
-    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
-        super.appleElementTheme(view, element, attrResId);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+        super.appleElementTheme(view, themeElementKey, themeElementValue);
         LinearLayout linearLayout = (LinearLayout) view;
-        if (R.id.amt_tag_linear_layout_divider == element.getTagKey()) {
-            setDividerDrawable(linearLayout, attrResId);
+        switch (themeElementKey) {
+            case android.R.attr.divider:
+                setDividerDrawable(linearLayout, themeElementValue);
+                break;
         }
     }
 
-    public void setDividerDrawable(LinearLayout linearLayout, @AttrRes int attrResId) {
+    public static void setDividerDrawable(LinearLayout linearLayout, @AttrRes int attrResId) {
         if (linearLayout == null) {
             return;
         }
 
-        linearLayout.setTag(R.id.amt_tag_linear_layout_divider, attrResId);
+        saveThemeElementPair(linearLayout,android.R.attr.divider,attrResId);
 
         linearLayout.setDividerDrawable(ThemeUtils.getDrawable(linearLayout.getContext(), attrResId));
     }

@@ -2,17 +2,16 @@ package io.github.leonhover.theme.widget;
 
 import android.support.annotation.AttrRes;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.View;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import io.github.leonhover.theme.MultiTheme;
-import io.github.leonhover.theme.model.ThemeElement;
+import io.github.leonhover.theme.R;
+import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
-import static io.github.leonhover.theme.ThemeUtils.ANDROID_NAMESPACE;
-import static io.github.leonhover.theme.ThemeUtils.APP_NAMESPACE;
 import static io.github.leonhover.theme.ThemeUtils.getAttrResId;
 import static io.github.leonhover.theme.ThemeUtils.isAttrReference;
 
@@ -25,66 +24,89 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     public static final String TAG = AbstractThemeWidget.class.getSimpleName();
 
     /**
-     * Android官方的NameSpace
-     */
-    private static String[] NAMESPACES = new String[]{ANDROID_NAMESPACE, APP_NAMESPACE};
-
-    /**
      * 主题元素集合
      */
-    private Set<ThemeElement> elementSet;
+    private Set<Integer> themeElementKeySet = new HashSet<>();
 
     public AbstractThemeWidget() {
-        initializeElements();
+        initializeLibraryElements();
+        initializeAppThemeElements(this.getClass());
     }
 
     /**
-     * 初始化主题的元素
+     * 初始化应用或FrameWork的attr属性作为Key的主题元素
      */
-    protected abstract void initializeElements();
+    private void initializeAppThemeElements(Class<?> themeWidgetClass) {
+        if (themeWidgetClass != null && AbstractThemeWidget.class.isAssignableFrom(themeWidgetClass)) {
+            Class<?> superClass = themeWidgetClass.getSuperclass();
+            initializeAppThemeElements(superClass);
 
-    /**
-     * 添加主题元素
-     *
-     * @param themeElement 主题元素
-     */
-    protected final void add(ThemeElement themeElement) {
-        if (elementSet == null) {
-            elementSet = new HashSet<>();
+            MultiThemeAttrs multiThemeAttrs = themeWidgetClass.getAnnotation(MultiThemeAttrs.class);
+            if (multiThemeAttrs != null) {
+                for (int attrRes : multiThemeAttrs.value()) {
+                    themeElementKeySet.add(attrRes);
+                }
+            }
         }
-
-        elementSet.add(themeElement);
     }
 
+    /**
+     * 仅供MultiThemeLibrary来初始一些不能直接当做常量引用的attr属性主题元素Key。
+     *
+     * @hide
+     */
+    protected void initializeLibraryElements() {
+
+    }
+
+    /**
+     * @hide
+     */
+    protected final void addThemeElementKey(@AttrRes int themeElementKey) {
+        themeElementKeySet.add(themeElementKey);
+    }
+
+    /**
+     * 添加主题支持的Attribute Resource Id;
+     *
+     * @param themeElementKey Attribute Ressurce Id
+     */
+    public final void add(@AttrRes int themeElementKey) {
+        themeElementKeySet.add(themeElementKey);
+    }
+
+    /**
+     * hide
+     */
     @Override
     public void assemble(View view, AttributeSet attributeSet) {
-
-        MultiTheme.d(TAG, "applyTheme");
-        if (elementSet == null) {
+        MultiTheme.d(TAG, "assemble");
+        if (themeElementKeySet == null) {
             return;
         }
 
-//        int count = attributeSet.getAttributeCount();
-//        for (int i = 0; i < count; i++) {
-//            String attrName = attributeSet.getAttributeName(i);
-//            Log.e(TAG, "assemble attributeSet.getAttributeName(" + i + ")   name:" + attrName);
-//        }
+        SparseIntArray themeElementPairs = getThemeElementPairs(view);
 
-        for (ThemeElement element : elementSet) {
-            for (String nameSpace : NAMESPACES) {
-                String attrValue = attributeSet.getAttributeValue(nameSpace, element.getAttrName());
-                int attrId = -1;
-                if (isAttrReference(attrValue)) {
-                    attrId = getAttrResId(attrValue);
-                    view.setTag(element.getTagKey(), attrId);
-                    MultiTheme.d(TAG, "assemble element:" + element + " attrId:" + attrId);
-                    break;
+        int count = attributeSet.getAttributeCount();
+        for (int themeElementKey : themeElementKeySet) {
+            for (int i = 0; i < count; i++) {
+                if (themeElementKey == attributeSet.getAttributeNameResource(i)) {
+                    String attrValue = attributeSet.getAttributeValue(i);
+                    int attrId = -1;
+                    if (isAttrReference(attrValue)) {
+                        attrId = getAttrResId(attrValue);
+                        themeElementPairs.put(themeElementKey, attrId);
+                        break;
+                    }
                 }
             }
         }
 
     }
 
+    /**
+     * @hide
+     */
     @Override
     public void applyTheme(View view) {
         MultiTheme.d(TAG, "applyTheme");
@@ -92,33 +114,61 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
             throw new IllegalArgumentException(" view is illegal!!");
         }
 
-        if (elementSet == null) {
+        if (themeElementKeySet == null) {
             return;
         }
 
-        for (ThemeElement element : elementSet) {
-            Object tagValue = view.getTag(element.getTagKey());
-            int attrResId = -1;
-            if (tagValue instanceof Integer) {
-                attrResId = (int) tagValue;
-            }
+        SparseIntArray themeElements = getThemeElementPairs(view);
+
+        for (int i = 0; i < themeElements.size(); i++) {
+            int attrResSupported = themeElements.keyAt(i);
+            int attrResId = themeElements.get(attrResSupported);
+
             if (attrResId > -1) {
-                MultiTheme.d(TAG, "applyTheme element:" + element + " attrId:" + attrResId);
-                appleElementTheme(view, element, attrResId);
+                appleElementTheme(view, attrResSupported, attrResId);
             }
         }
     }
 
     /**
      * 应用单个主题元素
+     * <p>
+     * 编写具体主题元素应用代码时候，为了支持动态修改主题元素存储的值，请在实现中调用
+     * {@link AbstractThemeWidget#saveThemeElementPair(View, int, int)}方法，
+     * 才能保证动态修改成功主题元素中的值。
      *
-     * @param view      View
-     * @param element   主题元素
-     * @param attrResId AttrResId
+     * @param view              View
+     * @param themeElementKey   主题元素
+     * @param themeElementValue AttrResId
      */
-    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
 
     }
 
+    /**
+     * 保存主题元素对应Key的Value
+     *
+     * @param view              view 不可空
+     * @param themeElementKey   AttrRes
+     * @param themeElementValue AttrRes
+     */
+    protected static void saveThemeElementPair(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+
+        SparseIntArray themeElementPairs = getThemeElementPairs(view);
+
+        themeElementPairs.put(themeElementKey, themeElementValue);
+    }
+
+    private static SparseIntArray getThemeElementPairs(View view) {
+
+        SparseIntArray themeElementPairs = (SparseIntArray) view.getTag(R.id.amt_tag_theme_element_pairs);
+
+        if (themeElementPairs == null) {
+            themeElementPairs = new SparseIntArray();
+            view.setTag(R.id.amt_tag_theme_element_pairs, themeElementPairs);
+        }
+
+        return themeElementPairs;
+    }
 
 }

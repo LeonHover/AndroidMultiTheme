@@ -4,44 +4,34 @@ import android.support.annotation.AttrRes;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import io.github.leonhover.theme.R;
 import io.github.leonhover.theme.ThemeUtils;
-import io.github.leonhover.theme.model.ThemeElement;
+import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
  * Created by leonhover on 16-9-27.
  */
-
+@MultiThemeAttrs({
+        android.R.attr.button
+})
 public class CompoundButtonWidget extends TextViewWidget {
-
-    private static final String ATTR_NAME_BUTTON = "button";
-
-    public CompoundButtonWidget() {
-        super();
-    }
-
     @Override
-    protected void initializeElements() {
-        super.initializeElements();
-        add(new ThemeElement(R.id.amt_tag_compound_button_button, ATTR_NAME_BUTTON));
-    }
-
-    @Override
-    public void appleElementTheme(View view, ThemeElement element, @AttrRes int attrResId) {
-        super.appleElementTheme(view, element, attrResId);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+        super.appleElementTheme(view, themeElementKey, themeElementValue);
         CompoundButton compoundButton = (CompoundButton) view;
-        if (R.id.amt_tag_compound_button_button == element.getTagKey()) {
-            setButtonDrawable(compoundButton, attrResId);
+        switch (themeElementKey) {
+            case android.R.attr.button:
+                setButtonDrawable(compoundButton, themeElementValue);
+                break;
         }
     }
 
-    public void setButtonDrawable(CompoundButton compoundButton, @AttrRes int attrResId) {
+    public static void setButtonDrawable(CompoundButton compoundButton, @AttrRes int attrResId) {
 
         if (compoundButton == null) {
             return;
         }
 
-        compoundButton.setTag(R.id.amt_tag_compound_button_button, attrResId);
+        saveThemeElementPair(compoundButton,android.R.attr.button,attrResId);
 
         compoundButton.setButtonDrawable(ThemeUtils.getDrawable(compoundButton.getContext(), attrResId));
     }
