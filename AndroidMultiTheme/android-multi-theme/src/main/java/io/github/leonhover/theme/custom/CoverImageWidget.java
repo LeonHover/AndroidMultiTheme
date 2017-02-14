@@ -14,8 +14,9 @@ import io.github.leonhover.theme.widget.ImageViewWidget;
 
 public class CoverImageWidget extends ImageViewWidget {
 
-    public CoverImageWidget() {
-        super();
+    @Override
+    protected void initializeLibraryElements() {
+        super.initializeLibraryElements();
         addThemeElementKey(R.attr.coverColor);
     }
 
