@@ -2,6 +2,7 @@ package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
 import android.view.View;
 
@@ -22,24 +23,22 @@ public class ViewWidget extends AbstractThemeWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         switch (themeElementKey) {
             case android.R.attr.background:
-                setBackground(view, themeElementValue);
+                setBackground(view, resId);
                 break;
         }
     }
 
     @SuppressWarnings("NewApi")
-    public static void setBackground(View view, @AttrRes int attrResId) {
+    public static void setBackground(View view, @AnyRes int resId) {
         if (view == null) {
             return;
         }
 
-        Drawable background = ThemeUtils.getDrawable(view.getContext(), attrResId);
-
-        saveThemeElementPair(view, android.R.attr.background, attrResId);
+        Drawable background = getDrawable(view, resId);
 
         if (ThemeUtils.IS_JELLY_BEAN) {
             view.setBackground(background);

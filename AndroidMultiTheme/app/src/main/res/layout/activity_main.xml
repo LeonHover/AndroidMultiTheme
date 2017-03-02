@@ -52,12 +52,12 @@
         </LinearLayout>
 
         <TextView
+            style="@style/RedTitleTextStyle"
             android:id="@+id/app_description_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="@string/app_description"
-            android:textColor="?attr/title_text_color"
             android:textSize="14sp" />
 
         <Button
@@ -69,12 +69,6 @@
             android:textColor="?button_text_color"
             android:textSize="14sp" />
     </LinearLayout>
-
-    <TextView
-        style="@style/RedTitleTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="red"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

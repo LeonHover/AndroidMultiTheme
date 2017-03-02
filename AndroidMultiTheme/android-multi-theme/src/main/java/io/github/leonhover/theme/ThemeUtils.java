@@ -1,11 +1,14 @@
 package io.github.leonhover.theme;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -81,6 +84,7 @@ public class ThemeUtils {
     public static int getColor(Resources.Theme theme, Resources resources, @AttrRes int attrResId) {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attrResId, typedValue, true);
+        MultiTheme.d("a", "Color type:" + typedValue.toString());
         int color;
         if (IS_M) {
             color = resources.getColor(typedValue.resourceId, theme);
@@ -89,6 +93,41 @@ public class ThemeUtils {
         }
         return color;
     }
+
+
+    /**
+     * 获取colorResId指向的颜色Color
+     *
+     * @param context
+     * @param colorResId 颜色资源id
+     * @return Color
+     */
+    public static int getColorWithResId(Context context, @ColorRes int colorResId) {
+        if (context == null) {
+            return -1;
+        }
+        return getColorWithResId(context.getTheme(), context.getResources(), colorResId);
+    }
+
+    /**
+     * 获取colorResId指向的颜色Color
+     *
+     * @param theme      主题
+     * @param resources  资源
+     * @param colorResId 颜色资源id
+     * @return Color
+     */
+    @SuppressWarnings("NewApi")
+    public static int getColorWithResId(Resources.Theme theme, Resources resources, @ColorRes int colorResId) {
+        int color;
+        if (IS_M) {
+            color = resources.getColor(colorResId, theme);
+        } else {
+            color = resources.getColor(colorResId);
+        }
+        return color;
+    }
+
 
     /**
      * 获取attrResId指向的颜色ColorStateList
@@ -117,6 +156,7 @@ public class ThemeUtils {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attrResId, typedValue, true);
 
+        MultiTheme.d("a", "ColorStateList type:" + typedValue.toString());
         ColorStateList colorStateList;
 
         if (IS_M) {
@@ -127,6 +167,41 @@ public class ThemeUtils {
         return colorStateList;
     }
 
+    /**
+     * 获取ColorStateListResId指向的颜色ColorStateList
+     *
+     * @param context
+     * @param colorStateListResId 资源id
+     * @return ColorStateList
+     */
+    public static ColorStateList getColorStateListWithResId(Context context, @ColorRes int colorStateListResId) {
+        if (context == null) {
+            return null;
+        }
+        return getColorStateListWithResId(context.getTheme(), context.getResources(), colorStateListResId);
+    }
+
+
+    /**
+     * 获取ColorStateListResId指向的颜色ColorStateList
+     *
+     * @param theme               主题
+     * @param resources           资源
+     * @param colorStateListResId 资源id
+     * @return ColorStateList
+     */
+    @SuppressWarnings("NewApi")
+    public static ColorStateList getColorStateListWithResId(Resources.Theme theme, Resources resources, @ColorRes int colorStateListResId) {
+
+        ColorStateList colorStateList;
+
+        if (IS_M) {
+            colorStateList = resources.getColorStateList(colorStateListResId, theme);
+        } else {
+            colorStateList = resources.getColorStateList(colorStateListResId);
+        }
+        return colorStateList;
+    }
 
     /**
      * 获取attrResId指向的Drawable
@@ -156,10 +231,46 @@ public class ThemeUtils {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attrResId, typedValue, true);
         Drawable drawable;
+        MultiTheme.d("a", "drawable type:" + typedValue.toString());
         if (IS_M) {
             drawable = resources.getDrawable(typedValue.resourceId, theme);
         } else {
             drawable = resources.getDrawable(typedValue.resourceId);
+        }
+        return drawable;
+    }
+
+
+    /**
+     * 获取DrawableResId指向的Drawable
+     *
+     * @param context
+     * @param drawableResId Drawable资源id
+     * @return Drawable
+     */
+    public static Drawable getDrawableWithResId(Context context, @DrawableRes int drawableResId) {
+        if (context == null) {
+            return null;
+        }
+
+        return getDrawableWithResId(context.getTheme(), context.getResources(), drawableResId);
+    }
+
+    /**
+     * 获取DrawableResId指向的Drawable
+     *
+     * @param theme         主题
+     * @param resources     资源
+     * @param drawableResId Drawable资源id
+     * @return Drawable
+     */
+    @SuppressLint("NewApi")
+    public static Drawable getDrawableWithResId(Resources.Theme theme, Resources resources, @DrawableRes int drawableResId) {
+        Drawable drawable;
+        if (IS_M) {
+            drawable = resources.getDrawable(drawableResId, theme);
+        } else {
+            drawable = resources.getDrawable(drawableResId);
         }
         return drawable;
     }

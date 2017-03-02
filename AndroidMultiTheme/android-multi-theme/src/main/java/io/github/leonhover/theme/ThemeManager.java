@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -29,10 +28,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import io.github.leonhover.theme.base.widget.CoverImageView;
+import io.github.leonhover.theme.custom.CoverImageWidget;
 import io.github.leonhover.theme.widget.AbsListViewWidget;
 import io.github.leonhover.theme.widget.AbstractThemeWidget;
 import io.github.leonhover.theme.widget.CompoundButtonWidget;
-import io.github.leonhover.theme.custom.CoverImageWidget;
 import io.github.leonhover.theme.widget.IThemeWidget;
 import io.github.leonhover.theme.widget.ImageViewWidget;
 import io.github.leonhover.theme.widget.LinearLayoutWidget;
@@ -192,6 +191,10 @@ public class ThemeManager {
         if (themeWidget != null) {
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
             view.setTag(R.id.amt_tag_view_current_theme, getAppTheme());
+            int styleResId = attributeSet.getStyleAttribute();
+            if (styleResId != 0) {
+                view.setTag(R.id.amt_tag_widget_style, styleResId);
+            }
             themeWidget.assemble(view, attributeSet);
             MultiTheme.d(TAG, "assembleViewThemeElement  theme widget type: " + widgetKey + " themeWidget:" + themeWidget.getClass().getSimpleName());
         } else {
@@ -264,7 +267,12 @@ public class ThemeManager {
         try {
             themeOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_view_current_theme);
         } catch (ClassCastException e) {
-            e.printStackTrace();
+        } catch (NullPointerException e) {
+        }
+        int styleResOfView = -1;
+        try {
+            styleResOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_widget_style);
+        } catch (ClassCastException e) {
         } catch (NullPointerException e) {
         }
 
@@ -277,6 +285,9 @@ public class ThemeManager {
         MultiTheme.d(TAG, "applyTheme  theme widget type:" + widgetKey + " ,view:" + view);
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetKey);
         if (themeWidget != null) {
+            if (styleResOfView != -1) {
+                themeWidget.applyStyle(view, styleResOfView);
+            }
             themeWidget.applyTheme(view);
             MultiTheme.d(TAG, "applyTheme  theme widget type: " + widgetKey + " ,view:" + view + " themeWidget:" + themeWidget);
         } else {

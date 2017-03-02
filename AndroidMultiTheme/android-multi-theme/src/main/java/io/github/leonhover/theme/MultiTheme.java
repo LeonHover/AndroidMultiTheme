@@ -2,12 +2,15 @@ package io.github.leonhover.theme;
 
 import android.app.Activity;
 import android.app.Application;
+import android.support.annotation.AttrRes;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 
 import io.github.leonhover.theme.widget.AbstractThemeWidget;
+import io.github.leonhover.theme.widget.ViewWidget;
 
 /**
  * Created by wangzongliang on 2016/10/28.
@@ -157,6 +160,18 @@ public class MultiTheme {
     public static void applyTheme(View view) {
         checkInstance();
         sThemeManager.applyTheme(view);
+    }
+
+    /**
+     * 对View的单个Attr属性设定主题，可用来动态修改主题元素的索引值
+     * @param view view
+     * @param themeElementKey Attr属性值
+     * @param themeElementValue Attr属性值
+     */
+    public static void appleSingleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+        checkInstance();
+        AbstractThemeWidget themeWidget = sThemeManager.getThemeWidget(view.getClass());
+        themeWidget.appleSingleElementTheme(view,themeElementKey,themeElementValue);
     }
 
     private static void checkInstance() throws IllegalStateException {

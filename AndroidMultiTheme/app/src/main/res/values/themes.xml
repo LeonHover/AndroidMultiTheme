@@ -13,6 +13,7 @@
         <item name="img_cover_color">@color/red_img_cover_color</item>
         <item name="progress_indeterminate">@drawable/red_progress_rotate</item>
         <item name="progress_horizontal">@drawable/red_progress_horizontal</item>
+        <item name="title_text_style">@style/RedTitleTextStyle</item>
 
     </style>
 
@@ -28,6 +29,7 @@
         <item name="img_cover_color">@color/black_img_cover_color</item>
         <item name="progress_indeterminate">@drawable/black_progress_rotate</item>
         <item name="progress_horizontal">@drawable/black_progress_horizontal</item>
+        <item name="title_text_style">@style/BlueTitleTextStyle</item>
 
     </style>
 
@@ -43,6 +45,7 @@
         <item name="img_cover_color">@color/green_img_cover_color</item>
         <item name="progress_indeterminate">@drawable/green_progress_rotate</item>
         <item name="progress_horizontal">@drawable/black_progress_horizontal</item>
+        <item name="title_text_style">@style/RedTitleTextStyle</item>
     </style>
 
     <style name="AppTheme.Yellow" parent="AppTheme">
@@ -57,6 +60,7 @@
         <item name="img_cover_color">@color/yellow_img_cover_color</item>
         <item name="progress_indeterminate">@drawable/yellow_progress_rotate</item>
         <item name="progress_horizontal">@drawable/black_progress_horizontal</item>
+        <item name="title_text_style">@style/BlueTitleTextStyle</item>
     </style>
 
     <style name="AppTheme.Blue" parent="AppTheme">
@@ -71,5 +75,6 @@
         <item name="img_cover_color">@color/blue_img_cover_color</item>
         <item name="progress_indeterminate">@drawable/blue_progress_rotate</item>
         <item name="progress_horizontal">@drawable/red_progress_horizontal</item>
+        <item name="title_text_style">@style/RedTitleTextStyle</item>
     </style>
 </resources>

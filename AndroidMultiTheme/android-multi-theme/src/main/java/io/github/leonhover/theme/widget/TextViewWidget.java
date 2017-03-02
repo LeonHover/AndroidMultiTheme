@@ -1,11 +1,14 @@
 package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
@@ -23,105 +26,95 @@ import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 public class TextViewWidget extends ViewWidget {
 
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         TextView textView = (TextView) view;
         switch (themeElementKey) {
             case android.R.attr.textColor:
-                setTextColor(textView, themeElementValue);
+                setTextColor(textView, resId);
                 break;
             case android.R.attr.textColorHint:
-                setTextColorHint(textView, themeElementValue);
+                setTextColorHint(textView, resId);
                 break;
             case android.R.attr.textColorLink:
-                setTextColorLink(textView, themeElementValue);
+                setTextColorLink(textView, resId);
                 break;
             case android.R.attr.drawableBottom:
-                setDrawableBottom(textView, themeElementValue);
+                setDrawableBottom(textView, resId);
                 break;
             case android.R.attr.drawableTop:
-                setDrawableTop(textView, themeElementValue);
+                setDrawableTop(textView, resId);
                 break;
             case android.R.attr.drawableLeft:
-                setDrawableLeft(textView, themeElementValue);
+                setDrawableLeft(textView, resId);
                 break;
             case android.R.attr.drawableRight:
-                setDrawableRight(textView, themeElementValue);
+                setDrawableRight(textView, resId);
                 break;
             default:
         }
     }
 
-    public static void setTextColor(TextView textView, @AttrRes int attrResId) {
+    public static void setTextColor(TextView textView, @ColorRes int colorResId) {
         if (textView == null) {
             return;
         }
-
-        saveThemeElementPair(textView, android.R.attr.textColor, attrResId);
-
-        textView.setTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
+        Log.d(TAG, "setTextColor textColor:"+colorResId);
+        textView.setTextColor(getColorStateList(textView, colorResId));
     }
 
-    public static void setTextColorLink(TextView textView, @AttrRes int attrResId) {
+    public static void setTextColorLink(TextView textView, @ColorRes int colorResId) {
         if (textView == null) {
             return;
         }
 
-        saveThemeElementPair(textView, android.R.attr.textColorLink, attrResId);
-
-        textView.setLinkTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
+        textView.setLinkTextColor(getColorStateList(textView, colorResId));
     }
 
-    public static void setTextColorHint(TextView textView, @AttrRes int attrResId) {
+    public static void setTextColorHint(TextView textView, @ColorRes int colorResId) {
         if (textView == null) {
             return;
         }
-        saveThemeElementPair(textView, android.R.attr.textColorHint, attrResId);
 
-        textView.setHintTextColor(ThemeUtils.getColorStateList(textView.getContext(), attrResId));
+        textView.setHintTextColor(getColorStateList(textView, colorResId));
     }
 
-    public static void setDrawableBottom(TextView textView, @AttrRes int attrResId) {
+    public static void setDrawableBottom(TextView textView, @DrawableRes int drawableResId) {
         if (textView == null) {
             return;
         }
 
-        saveThemeElementPair(textView, android.R.attr.drawableBottom, attrResId);
-
-        Drawable drawable = ThemeUtils.getDrawable(textView.getContext(), attrResId);
+        Drawable drawable = getDrawable(textView, drawableResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         textView.setCompoundDrawables(null, null, null, drawable);
     }
 
-    public static void setDrawableLeft(TextView textView, @AttrRes int attrResId) {
+    public static void setDrawableLeft(TextView textView, @DrawableRes int drawableResId) {
         if (textView == null) {
             return;
         }
 
-        saveThemeElementPair(textView, android.R.attr.drawableLeft, attrResId);
-        Drawable drawable = ThemeUtils.getDrawable(textView.getContext(), attrResId);
+        Drawable drawable = getDrawable(textView, drawableResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         textView.setCompoundDrawables(drawable, null, null, null);
     }
 
-    public static void setDrawableRight(TextView textView, @AttrRes int attrResId) {
+    public static void setDrawableRight(TextView textView, @DrawableRes int drawableResId) {
         if (textView == null) {
             return;
         }
 
-        saveThemeElementPair(textView, android.R.attr.drawableRight, attrResId);
-        Drawable drawable = ThemeUtils.getDrawable(textView.getContext(), attrResId);
+        Drawable drawable = getDrawable(textView, drawableResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         textView.setCompoundDrawables(null, null, drawable, null);
     }
 
-    public static void setDrawableTop(TextView textView, @AttrRes int attrResId) {
+    public static void setDrawableTop(TextView textView, @DrawableRes int drawableResId) {
         if (textView == null) {
             return;
         }
 
-        saveThemeElementPair(textView, android.R.attr.drawableTop, attrResId);
-        Drawable drawable = ThemeUtils.getDrawable(textView.getContext(), attrResId);
+        Drawable drawable = getDrawable(textView, drawableResId);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         textView.setCompoundDrawables(null, drawable, null, null);
     }

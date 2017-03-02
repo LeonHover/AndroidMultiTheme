@@ -1,11 +1,12 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
 
 import io.github.leonhover.theme.R;
-import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
@@ -23,34 +24,30 @@ public class ImageViewWidget extends ViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         ImageView imageView = (ImageView) view;
         if (themeElementKey == android.R.attr.src) {
-            setImageDrawable(imageView, themeElementValue);
+            setImageDrawable(imageView, resId);
         } else if (themeElementKey == R.attr.srcCompat) {
-            setImageCompatDrawable(imageView, themeElementValue);
+            setImageCompatDrawable(imageView, resId);
         }
     }
 
-    public static void setImageDrawable(ImageView imageView, @AttrRes int attrResId) {
+    public static void setImageDrawable(ImageView imageView, @DrawableRes int drawableResId) {
         if (imageView == null) {
             return;
         }
 
-        saveThemeElementPair(imageView, android.R.attr.src, attrResId);
-
-        imageView.setImageDrawable(ThemeUtils.getDrawable(imageView.getContext(), attrResId));
+        imageView.setImageDrawable(getDrawable(imageView, drawableResId));
     }
 
-    public static void setImageCompatDrawable(ImageView imageView, @AttrRes int attrResId) {
+    public static void setImageCompatDrawable(ImageView imageView, @DrawableRes int drawableResId) {
         if (imageView == null) {
             return;
         }
 
-        saveThemeElementPair(imageView, R.attr.srcCompat, attrResId);
-
-        imageView.setImageDrawable(ThemeUtils.getDrawable(imageView.getContext(), attrResId));
+        imageView.setImageDrawable(getDrawable(imageView, drawableResId));
     }
 
 }

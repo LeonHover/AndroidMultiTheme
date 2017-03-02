@@ -81,9 +81,8 @@ public class MainActivity extends BaseThemeActivity {
     }
 
     public void clickButton(View view) {
-        TextViewWidget textViewWidget = (TextViewWidget) MultiTheme.getThemeWidget(appDescriptionTextView);
         attrChanged = !attrChanged;
         int textColorAttrId = attrChanged ? R.attr.sub_title_text_color : R.attr.title_text_color;
-        textViewWidget.setTextColor(appDescriptionTextView, textColorAttrId);
+        MultiTheme.appleSingleElementTheme(appDescriptionTextView, android.R.attr.textColor, textColorAttrId);
     }
 }

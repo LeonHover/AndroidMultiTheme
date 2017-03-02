@@ -2,7 +2,9 @@ package io.github.leonhover.theme.widget;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,29 +19,26 @@ import io.github.leonhover.theme.annotation.MultiThemeAttrs;
         android.R.attr.indeterminateDrawable,
 })
 public class ProgressBarWidget extends ViewWidget {
-
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         ProgressBar progressBar = (ProgressBar) view;
         switch (themeElementKey) {
             case android.R.attr.progressDrawable:
-                setProgressDrawable(progressBar, themeElementValue);
+                setProgressDrawable(progressBar, resId);
                 break;
             case android.R.attr.indeterminateDrawable:
-                setIndeterminateDrawable(progressBar, themeElementValue);
+                setIndeterminateDrawable(progressBar, resId);
                 break;
         }
     }
 
-    public static void setProgressDrawable(ProgressBar progressBar, @AttrRes int attrResId) {
+    public static void setProgressDrawable(ProgressBar progressBar, @DrawableRes int drawableResId) {
         if (progressBar == null) {
             return;
         }
 
-        saveThemeElementPair(progressBar, android.R.attr.progressDrawable, attrResId);
-
-        Drawable drawable = ThemeUtils.getDrawable(progressBar.getContext(), attrResId);
+        Drawable drawable = getDrawable(progressBar, drawableResId);
 
         if (progressBar.getIndeterminateDrawable() != null) {
             Rect bounds = progressBar.getIndeterminateDrawable().copyBounds();
@@ -56,13 +55,12 @@ public class ProgressBarWidget extends ViewWidget {
         ThemeUtils.invokeMethod(progressBar, "startAnimation");
     }
 
-    public static void setIndeterminateDrawable(ProgressBar progressBar, @AttrRes int attrResId) {
+    public static void setIndeterminateDrawable(ProgressBar progressBar, @DrawableRes int drawableResId) {
         if (progressBar == null) {
             return;
         }
 
-        saveThemeElementPair(progressBar, android.R.attr.indeterminateDrawable, attrResId);
-        Drawable drawable = ThemeUtils.getDrawable(progressBar.getContext(), attrResId);
+        Drawable drawable = getDrawable(progressBar, drawableResId);
 
         if (progressBar.getIndeterminateDrawable() != null) {
             Rect bounds = progressBar.getIndeterminateDrawable().copyBounds();

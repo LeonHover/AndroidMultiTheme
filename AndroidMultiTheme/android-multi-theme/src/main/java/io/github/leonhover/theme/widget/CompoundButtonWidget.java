@@ -1,10 +1,11 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
@@ -14,25 +15,24 @@ import io.github.leonhover.theme.annotation.MultiThemeAttrs;
         android.R.attr.button
 })
 public class CompoundButtonWidget extends TextViewWidget {
+
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         CompoundButton compoundButton = (CompoundButton) view;
         switch (themeElementKey) {
             case android.R.attr.button:
-                setButtonDrawable(compoundButton, themeElementValue);
+                setButtonDrawable(compoundButton, resId);
                 break;
         }
     }
 
-    public static void setButtonDrawable(CompoundButton compoundButton, @AttrRes int attrResId) {
+    public static void setButtonDrawable(CompoundButton compoundButton, @DrawableRes int drawableResId) {
 
         if (compoundButton == null) {
             return;
         }
 
-        saveThemeElementPair(compoundButton,android.R.attr.button,attrResId);
-
-        compoundButton.setButtonDrawable(ThemeUtils.getDrawable(compoundButton.getContext(), attrResId));
+        compoundButton.setButtonDrawable(getDrawable(compoundButton, drawableResId));
     }
 }

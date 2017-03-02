@@ -1,10 +1,11 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.AbsListView;
 
-import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
@@ -16,24 +17,22 @@ import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 public class AbsListViewWidget extends ViewWidget {
 
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         AbsListView absListView = (AbsListView) view;
         switch (themeElementKey) {
             case android.R.attr.listSelector:
-                setSelector(absListView, themeElementValue);
+                setSelector(absListView, resId);
                 break;
         }
     }
 
-    public static void setSelector(AbsListView absListView, int attrResId) {
+    public static void setSelector(AbsListView absListView, @DrawableRes int drawableResId) {
         if (absListView == null) {
             return;
         }
 
-        saveThemeElementPair(absListView,android.R.attr.listSelector,attrResId);
-
-        absListView.setSelector(ThemeUtils.getDrawable(absListView.getContext(), attrResId));
+        absListView.setSelector(getDrawable(absListView, drawableResId));
     }
 
 }

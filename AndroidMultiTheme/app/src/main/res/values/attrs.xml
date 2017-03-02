@@ -10,5 +10,6 @@
         <attr name="img_cover_color" format="reference"/>
         <attr name="progress_indeterminate" format="reference"/>
         <attr name="progress_horizontal" format="reference"/>
+        <attr name="title_text_style" format="reference"/>
     </declare-styleable>
 </resources>

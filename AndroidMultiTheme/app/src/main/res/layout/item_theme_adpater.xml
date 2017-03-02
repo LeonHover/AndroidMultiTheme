@@ -35,5 +35,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/theme_description"
-        app:srcCompat="?attr/icon_launcher"/>
+        app:srcCompat="?attr/icon_launcher"
+        android:id="@+id/appCompatImageView" />
+
 </RelativeLayout>

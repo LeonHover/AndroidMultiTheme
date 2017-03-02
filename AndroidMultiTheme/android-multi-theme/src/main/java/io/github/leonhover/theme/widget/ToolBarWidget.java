@@ -1,12 +1,14 @@
 package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import io.github.leonhover.theme.R;
-import io.github.leonhover.theme.ThemeUtils;
 
 /**
  * Created by wangzongliang on 2016/10/22.
@@ -23,61 +25,53 @@ public class ToolBarWidget extends ViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         Toolbar toolbar = (Toolbar) view;
         if (android.R.attr.logo == themeElementKey) {
-            setLogo(toolbar, themeElementValue);
+            setLogo(toolbar, resId);
         } else if (R.attr.subtitleTextColor == themeElementKey) {
-            setSubTitleTextColor(toolbar, themeElementValue);
+            setSubTitleTextColor(toolbar, resId);
         } else if (R.attr.navigationIcon == themeElementKey) {
-            setNavigationIcon(toolbar, themeElementValue);
+            setNavigationIcon(toolbar, resId);
         } else if (R.attr.titleTextColor == themeElementKey) {
-            setTitleTextColor(toolbar, themeElementValue);
+            setTitleTextColor(toolbar, resId);
         }
     }
 
-    public static void setLogo(Toolbar toolBar, @AttrRes int attrResId) {
+    public static void setLogo(Toolbar toolBar, @DrawableRes int drawableResId) {
         if (toolBar == null) {
             return;
         }
 
-        saveThemeElementPair(toolBar,R.attr.logo,attrResId);
-
-        Drawable logoDrawable = ThemeUtils.getDrawable(toolBar.getContext(), attrResId);
+        Drawable logoDrawable = getDrawable(toolBar, drawableResId);
         toolBar.setLogo(logoDrawable);
     }
 
-    public static void setNavigationIcon(Toolbar toolBar, @AttrRes int attrResId) {
+    public static void setNavigationIcon(Toolbar toolBar, @DrawableRes int drawableResId) {
         if (toolBar == null) {
             return;
         }
 
-        saveThemeElementPair(toolBar,R.attr.navigationIcon,attrResId);
-
-        Drawable iconDrawable = ThemeUtils.getDrawable(toolBar.getContext(), attrResId);
+        Drawable iconDrawable = getDrawable(toolBar, drawableResId);
         toolBar.setNavigationIcon(iconDrawable);
     }
 
-    public static void setTitleTextColor(Toolbar toolBar, @AttrRes int attrResId) {
+    public static void setTitleTextColor(Toolbar toolBar, @ColorRes int colorResId) {
 
         if (toolBar == null) {
             return;
         }
 
-        saveThemeElementPair(toolBar,R.attr.titleTextColor,attrResId);
-
-        toolBar.setTitleTextColor(ThemeUtils.getColor(toolBar.getContext(), attrResId));
+        toolBar.setTitleTextColor(getColor(toolBar, colorResId));
     }
 
-    public static void setSubTitleTextColor(Toolbar toolBar, @AttrRes int attrResId) {
+    public static void setSubTitleTextColor(Toolbar toolBar, @ColorRes int colorResId) {
 
         if (toolBar == null) {
             return;
         }
 
-        saveThemeElementPair(toolBar,R.attr.subtitleTextColor,attrResId);
-
-        toolBar.setSubtitleTextColor(ThemeUtils.getColor(toolBar.getContext(), attrResId));
+        toolBar.setSubtitleTextColor(getColor(toolBar, colorResId));
     }
 }

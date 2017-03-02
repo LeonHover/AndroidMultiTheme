@@ -3,6 +3,7 @@
     <!-- View -->
     <item name="amt_tag_view_current_theme" type="id" />
     <item name="amt_tag_widget_key" type="id" />
+    <item name="amt_tag_widget_style" type="id" />
     <item name="amt_tag_theme_element_pairs" type="id" />
 
 </resources>

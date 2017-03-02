@@ -1,5 +1,6 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -23,5 +24,13 @@ public interface IThemeWidget {
      * @param view View
      */
     void applyTheme(View view);
+
+    /**
+     * View应用主题中的Style
+     *
+     * @param view
+     * @param styleRes Style id
+     */
+    void applyStyle(View view, @StyleRes int styleRes);
 
 }

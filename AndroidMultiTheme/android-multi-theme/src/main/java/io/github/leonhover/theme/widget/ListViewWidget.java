@@ -1,10 +1,11 @@
 package io.github.leonhover.theme.widget;
 
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ListView;
 
-import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 /**
@@ -15,28 +16,25 @@ import io.github.leonhover.theme.annotation.MultiThemeAttrs;
         android.R.attr.divider
 })
 public class ListViewWidget extends AbsListViewWidget {
-
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         ListView listView = (ListView) view;
         switch (themeElementKey) {
             case android.R.attr.divider:
-                setDividerDrawable(listView, themeElementValue);
+                setDividerDrawable(listView, resId);
                 break;
         }
     }
 
-    public static void setDividerDrawable(ListView listView, @AttrRes int attrResId) {
+    public static void setDividerDrawable(ListView listView, @DrawableRes int drawableResId) {
 
         if (listView == null) {
             return;
         }
 
-        saveThemeElementPair(listView,android.R.attr.divider,attrResId);
-
         int dividerHeight = listView.getDividerHeight();
-        listView.setDivider(ThemeUtils.getDrawable(listView.getContext(), attrResId));
+        listView.setDivider(getDrawable(listView, drawableResId));
         listView.setDividerHeight(dividerHeight);
     }
 

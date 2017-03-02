@@ -1,10 +1,11 @@
 package io.github.leonhover.theme.custom;
 
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorRes;
 import android.view.View;
 
 import io.github.leonhover.theme.R;
-import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.base.widget.CoverImageView;
 import io.github.leonhover.theme.widget.ImageViewWidget;
 
@@ -21,22 +22,20 @@ public class CoverImageWidget extends ImageViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        super.appleElementTheme(view, themeElementKey, themeElementValue);
+    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.appleElementTheme(view, themeElementKey, resId);
         CoverImageView coverImageView = (CoverImageView) view;
         if (R.attr.coverColor == themeElementKey) {
-            setCoverColor(coverImageView, themeElementValue);
+            setCoverColor(coverImageView, resId);
         }
     }
 
-    public static void setCoverColor(CoverImageView coverImageView, @AttrRes int attrResId) {
+    public static void setCoverColor(CoverImageView coverImageView, @ColorRes int colorResId) {
 
         if (coverImageView == null) {
             return;
         }
 
-        saveThemeElementPair(coverImageView,R.attr.coverColor,attrResId);
-
-        coverImageView.setCoverColor(ThemeUtils.getColor(coverImageView.getContext(), attrResId));
+        coverImageView.setCoverColor(getColor(coverImageView, colorResId));
     }
 }
