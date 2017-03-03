@@ -158,7 +158,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
             if (typedArray != null && typedArray.getIndexCount() > 0) {
                 TypedValue typedValue = new TypedValue();
                 typedArray.getValue(0, typedValue);
-                Log.d(TAG, "typedValue:" + typedValue.resourceId + " " + typedValue.type);
                 if (typedValue.resourceId > 0) {
                     appleElementTheme(view, themeElementKey, typedValue.resourceId);
                 }
@@ -172,10 +171,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
 
     /**
      * 应用单个主题元素
-     * <p>
-     * 编写具体主题元素应用代码时候，为了支持动态修改主题元素存储的值，请在实现中调用
-     * {@link AbstractThemeWidget#saveThemeElementPair(View, int, int)}方法，
-     * 才能保证动态修改成功主题元素中的值。
      *
      * @param view              View
      * @param themeElementKey   主题元素
@@ -192,10 +187,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
 
     /**
      * 应用单个主题元素
-     * <p>
-     * 编写具体主题元素应用代码时候，为了支持动态修改主题元素存储的值，请在实现中调用
-     * {@link AbstractThemeWidget#saveThemeElementPair(View, int, int)}方法，
-     * 才能保证动态修改成功主题元素中的值。
      *
      * @param view            View
      * @param themeElementKey 主题元素
