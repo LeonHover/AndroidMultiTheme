@@ -14,9 +14,7 @@ import java.lang.annotation.Target;
  * 这些值不但是作为MultiTheme中用来索引的Key，也是通过其从XML解析出的Attribute中取出主题元素的值的关键。
  * <p>
  * 例:
- * <View>
  * android:background="?attr/theme_background"
- * </View>
  * <p>
  * View中都有'android.R.attr.background'的标签，添加其作为View的MultiThemeAttrs，那么MultiTheme
  * 就会将'background'标签下的'theme_background'对应attrRes取出，作为主题元素的值来存储。当主题改变

@@ -63,15 +63,11 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     /**
      * 仅供MultiThemeLibrary来初始一些不能直接当做常量引用的attr属性主题元素Key。
      *
-     * @hide
      */
     protected void initializeLibraryElements() {
 
     }
 
-    /**
-     * @hide
-     */
     protected final void addThemeElementKey(@AttrRes int themeElementKey) {
         themeElementKeySet.add(themeElementKey);
     }
@@ -85,9 +81,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
         themeElementKeySet.add(themeElementKey);
     }
 
-    /**
-     * hide
-     */
     @Override
     public void assemble(View view, AttributeSet attributeSet) {
         MultiTheme.d(TAG, "assemble");
@@ -115,9 +108,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
 
     }
 
-    /**
-     * @hide
-     */
     @Override
     public void applyTheme(View view) {
         MultiTheme.d(TAG, "applyTheme");
