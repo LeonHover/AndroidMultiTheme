@@ -1,20 +1,24 @@
 package io.github.leonhover.theme.samples;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.leonhover.theme.ActivityTheme;
+import io.github.leonhover.theme.IThemeObserver;
 import io.github.leonhover.theme.MultiTheme;
 import io.github.leonhover.theme.base.BaseThemeActivity;
-import io.github.leonhover.theme.widget.TextViewWidget;
 
 public class MainActivity extends BaseThemeActivity {
 
@@ -24,6 +28,7 @@ public class MainActivity extends BaseThemeActivity {
     private boolean attrChanged = false;
 
     private RecyclerView recyclerView;
+    ImageView mBackground;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -38,6 +43,13 @@ public class MainActivity extends BaseThemeActivity {
         appDescriptionTextView = (TextView) findViewById(R.id.app_description_text);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        LinearLayout linearLayout = findViewById(R.id.contaier);
+
+        mBackground = new ImageView(this);
+        MultiTheme.applySingleElementTheme(mBackground, android.R.attr.background, R.attr.sub_title_text_color);
+        MultiTheme.applySingleElementTheme(mBackground, android.R.attr.src, R.attr.icon_launcher);
+        linearLayout.addView(mBackground);
 
         List<ThemeInfo> themeInfoList = new ArrayList<>();
         themeInfoList.add(new ThemeInfo(R.drawable.black_ic_theme,
@@ -83,6 +95,7 @@ public class MainActivity extends BaseThemeActivity {
     public void clickButton(View view) {
         attrChanged = !attrChanged;
         int textColorAttrId = attrChanged ? R.attr.sub_title_text_color : R.attr.title_text_color;
-        MultiTheme.appleSingleElementTheme(appDescriptionTextView, android.R.attr.textColor, textColorAttrId);
+        MultiTheme.applySingleElementTheme(appDescriptionTextView, android.R.attr.textColor, textColorAttrId);
     }
+
 }

@@ -181,6 +181,7 @@ public class ThemeManager {
         if (view != null) {
             Class<? extends View> widgetKey = findProperThemeWidgetKey(view.getClass());
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
+            view.setTag(R.id.amt_tag_view_current_theme, getAppTheme());
             return this.themeWidgetMap.get(widgetKey);
         }
         return null;
@@ -200,11 +201,13 @@ public class ThemeManager {
         if (themeWidget != null) {
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
             view.setTag(R.id.amt_tag_view_current_theme, getAppTheme());
-            int styleResId = attributeSet.getStyleAttribute();
-            if (styleResId != 0) {
-                view.setTag(R.id.amt_tag_widget_style, styleResId);
+            if (attributeSet != null) {
+                int styleResId = attributeSet.getStyleAttribute();
+                if (styleResId != 0) {
+                    view.setTag(R.id.amt_tag_widget_style, styleResId);
+                }
+                themeWidget.assemble(view, attributeSet);
             }
-            themeWidget.assemble(view, attributeSet);
             MultiTheme.d(TAG, "assembleViewThemeElement  theme widget type: " + widgetKey + " themeWidget:" + themeWidget.getClass().getSimpleName());
         } else {
             view.setTag(R.id.amt_tag_widget_key, null);
@@ -285,7 +288,7 @@ public class ThemeManager {
             return;
         }
 
-        Class<? extends View> widgetKey = (Class<? extends View>) view.getTag(R.id.amt_tag_widget_key);
+        Class<? extends View> widgetKey = getThemeWidgetKey(view);
 
         MultiTheme.d(TAG, "applyTheme  theme widget type:" + widgetKey + " ,view:" + view);
         IThemeWidget themeWidget = this.themeWidgetMap.get(widgetKey);
@@ -310,4 +313,8 @@ public class ThemeManager {
         view.setTag(R.id.amt_tag_view_current_theme, getAppTheme());
     }
 
+    @SuppressWarnings("unchecked")
+    protected Class<? extends View> getThemeWidgetKey(View view) {
+        return (Class<? extends View>) view.getTag(R.id.amt_tag_widget_key);
+    }
 }

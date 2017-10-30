@@ -173,9 +173,14 @@ public class MultiTheme {
      * @param themeElementKey   Attr属性值
      * @param themeElementValue Attr属性值
      */
-    public static void appleSingleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+    public static void applySingleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
         checkInstance();
-        AbstractThemeWidget themeWidget = sThemeManager.getThemeWidget(view.getClass());
+        AbstractThemeWidget themeWidget;
+        if (sThemeManager.getThemeWidgetKey(view) == null) {
+            themeWidget = addViewThemeWidgetKeyTag(view);
+        } else {
+            themeWidget = sThemeManager.getThemeWidget(view.getClass());
+        }
         themeWidget.applySingleElementTheme(view, themeElementKey, themeElementValue);
     }
 

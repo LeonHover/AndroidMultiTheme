@@ -26,6 +26,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/contaier"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal">
@@ -36,10 +37,11 @@
                 android:layout_height="50dp"
                 android:indeterminateDrawable="?attr/progress_indeterminate" />
 
-            <TextView
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="?attr/progress_indeterminate" />
+                android:src="?attr/icon_launcher"
+                android:background="?button_text_color" />
 
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
@@ -49,6 +51,7 @@
                 android:secondaryProgress="75"
                 android:max="100"
                 android:progressDrawable="?attr/progress_horizontal" />
+
         </LinearLayout>
 
         <TextView
