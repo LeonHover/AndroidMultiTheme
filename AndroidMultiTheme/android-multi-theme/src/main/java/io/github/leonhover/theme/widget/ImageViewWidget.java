@@ -24,8 +24,8 @@ public class ImageViewWidget extends ViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
-        super.appleElementTheme(view, themeElementKey, resId);
+    public void applyElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.applyElementTheme(view, themeElementKey, resId);
         ImageView imageView = (ImageView) view;
         if (themeElementKey == android.R.attr.src) {
             setImageDrawable(imageView, resId);

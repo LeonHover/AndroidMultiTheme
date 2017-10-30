@@ -22,8 +22,8 @@ public class CoverImageWidget extends ImageViewWidget {
     }
 
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
-        super.appleElementTheme(view, themeElementKey, resId);
+    public void applyElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.applyElementTheme(view, themeElementKey, resId);
         CoverImageView coverImageView = (CoverImageView) view;
         if (R.attr.coverColor == themeElementKey) {
             setCoverColor(coverImageView, resId);

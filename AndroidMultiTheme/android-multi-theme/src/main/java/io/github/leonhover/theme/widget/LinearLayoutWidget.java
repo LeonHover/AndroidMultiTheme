@@ -6,7 +6,6 @@ import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 
 
@@ -18,8 +17,8 @@ import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 })
 public class LinearLayoutWidget extends ViewWidget {
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
-        super.appleElementTheme(view, themeElementKey, resId);
+    public void applyElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.applyElementTheme(view, themeElementKey, resId);
         LinearLayout linearLayout = (LinearLayout) view;
         switch (themeElementKey) {
             case android.R.attr.divider:

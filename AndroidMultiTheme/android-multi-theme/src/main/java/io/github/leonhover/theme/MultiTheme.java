@@ -6,11 +6,9 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 
 import io.github.leonhover.theme.widget.AbstractThemeWidget;
-import io.github.leonhover.theme.widget.ViewWidget;
 
 /**
  * Created by wangzongliang on 2016/10/28.
@@ -178,7 +176,7 @@ public class MultiTheme {
     public static void appleSingleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
         checkInstance();
         AbstractThemeWidget themeWidget = sThemeManager.getThemeWidget(view.getClass());
-        themeWidget.appleSingleElementTheme(view, themeElementKey, themeElementValue);
+        themeWidget.applySingleElementTheme(view, themeElementKey, themeElementValue);
     }
 
     public static void release() {

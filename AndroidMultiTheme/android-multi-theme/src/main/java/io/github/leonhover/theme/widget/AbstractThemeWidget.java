@@ -9,7 +9,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.view.View;
@@ -126,7 +125,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
             int attrResId = themeElements.get(attrResSupported);
 
             if (attrResId > 0) {
-                appleSingleElementTheme(view, attrResSupported, attrResId);
+                applySingleElementTheme(view, attrResSupported, attrResId);
             }
         }
     }
@@ -149,7 +148,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
                 TypedValue typedValue = new TypedValue();
                 typedArray.getValue(0, typedValue);
                 if (typedValue.resourceId > 0) {
-                    appleElementTheme(view, themeElementKey, typedValue.resourceId);
+                    applyElementTheme(view, themeElementKey, typedValue.resourceId);
                 }
             }
 
@@ -166,12 +165,12 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
      * @param themeElementKey   主题元素
      * @param themeElementValue Attr资源ID
      */
-    public void appleSingleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
+    public void applySingleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
         saveThemeElementPair(view, themeElementKey, themeElementValue);
         TypedValue typedValue = new TypedValue();
         view.getContext().getTheme().resolveAttribute(themeElementValue, typedValue, true);
         if (typedValue.resourceId > 0) {
-            appleElementTheme(view, themeElementKey, typedValue.resourceId);
+            applyElementTheme(view, themeElementKey, typedValue.resourceId);
         }
     }
 
@@ -182,7 +181,7 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
      * @param themeElementKey 主题元素
      * @param resId           资源ID
      */
-    protected void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+    protected void applyElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
 
     }
 

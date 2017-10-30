@@ -20,8 +20,8 @@ import io.github.leonhover.theme.annotation.MultiThemeAttrs;
 })
 public class ProgressBarWidget extends ViewWidget {
     @Override
-    public void appleElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
-        super.appleElementTheme(view, themeElementKey, resId);
+    public void applyElementTheme(View view, @AttrRes int themeElementKey, @AnyRes int resId) {
+        super.applyElementTheme(view, themeElementKey, resId);
         ProgressBar progressBar = (ProgressBar) view;
         switch (themeElementKey) {
             case android.R.attr.progressDrawable:
