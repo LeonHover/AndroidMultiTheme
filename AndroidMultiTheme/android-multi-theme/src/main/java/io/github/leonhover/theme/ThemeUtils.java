@@ -1,6 +1,7 @@
 package io.github.leonhover.theme;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -291,6 +292,7 @@ public class ThemeUtils {
      * @param context
      * @return
      */
+    @SuppressLint("PrivateApi")
     public static int getStatusBarHeight(Context context) {
         Class<?> c = null;
         Object obj = null;

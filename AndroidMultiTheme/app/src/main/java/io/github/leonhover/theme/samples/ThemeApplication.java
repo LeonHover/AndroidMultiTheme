@@ -18,7 +18,7 @@ public class ThemeApplication extends Application {
 
     private void initTheme() {
         MultiTheme.init(this);
-        MultiTheme.setDebugMode(true);
+        MultiTheme.enableDebug();
         MultiTheme.setDefaultAppTheme(0);
     }
 }

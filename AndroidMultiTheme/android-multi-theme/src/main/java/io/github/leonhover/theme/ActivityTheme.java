@@ -98,6 +98,7 @@ public class ActivityTheme implements IThemeObserver {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void initializeStatusBarColorKitKat(int statusBarColor) {
         MultiTheme.d(TAG, "setStatusBarColorKitkat");
         int statusBarHeight = getStatusBarHeight(this.activity);

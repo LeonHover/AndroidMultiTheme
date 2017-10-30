@@ -7,8 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import java.lang.ref.SoftReference;
 
@@ -18,7 +18,7 @@ import io.github.leonhover.theme.R;
  * Created by wangzongliang on 2016/11/8.
  */
 
-public class CoverImageView extends ImageView {
+public class CoverImageView extends AppCompatImageView {
 
     public static final String TAG = "CoverImageView";
 

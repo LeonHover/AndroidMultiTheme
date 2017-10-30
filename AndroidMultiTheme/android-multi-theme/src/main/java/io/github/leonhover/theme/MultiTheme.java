@@ -28,12 +28,18 @@ public class MultiTheme {
         sThemeManager = new ThemeManager(application);
     }
 
+    /**
+     * 设置调试模式
+     *
+     * @param debugMode
+     * @deprecated
+     */
     public static void setDebugMode(boolean debugMode) {
         MultiTheme.debugMode = debugMode;
     }
 
-    protected static boolean isDebugMode() {
-        return MultiTheme.debugMode;
+    public static void enableDebug() {
+        debugMode = true;
     }
 
     /**
@@ -164,14 +170,19 @@ public class MultiTheme {
 
     /**
      * 对View的单个Attr属性设定主题，可用来动态修改主题元素的索引值
-     * @param view view
-     * @param themeElementKey Attr属性值
+     *
+     * @param view              view
+     * @param themeElementKey   Attr属性值
      * @param themeElementValue Attr属性值
      */
     public static void appleSingleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
         checkInstance();
         AbstractThemeWidget themeWidget = sThemeManager.getThemeWidget(view.getClass());
-        themeWidget.appleSingleElementTheme(view,themeElementKey,themeElementValue);
+        themeWidget.appleSingleElementTheme(view, themeElementKey, themeElementValue);
+    }
+
+    public static void release() {
+        sThemeManager = null;
     }
 
     private static void checkInstance() throws IllegalStateException {
@@ -181,7 +192,7 @@ public class MultiTheme {
     }
 
     public static int d(String tag, String msg) {
-        if (isDebugMode()) {
+        if (debugMode) {
             return Log.d(tag, msg);
         } else {
             return -1;
@@ -189,7 +200,7 @@ public class MultiTheme {
     }
 
     public static int e(String tag, String msg) {
-        if (isDebugMode()) {
+        if (debugMode) {
             return Log.e(tag, msg);
         } else {
             return -1;
@@ -197,7 +208,7 @@ public class MultiTheme {
     }
 
     public static int i(String tag, String msg) {
-        if (isDebugMode()) {
+        if (debugMode) {
             return Log.i(tag, msg);
         } else {
             return -1;

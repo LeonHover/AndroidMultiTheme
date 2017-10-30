@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -111,9 +113,16 @@ public class ThemeManager {
         if (activity == null) {
             throw new NullPointerException();
         }
-        LayoutInflaterCompat.setFactory(activity.getLayoutInflater(), new LayoutInflaterFactory() {
+        LayoutInflaterCompat.setFactory2(activity.getLayoutInflater(), new LayoutInflater.Factory2() {
+            @Override
+            public View onCreateView(String name, Context context, AttributeSet attributeSet) {
+                Log.d(TAG, "onCreateView name:" + name);
+                return onCreateView(null, name, context, attributeSet);
+            }
+
             @Override
             public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+                Log.d(TAG, "onCreateView parent:" + parent + ",name:" + name);
                 AppCompatDelegate appCompatDelegate = activity.getDelegate();
                 View view = appCompatDelegate.createView(parent, name, context, attrs);
 
@@ -264,16 +273,12 @@ public class ThemeManager {
     protected void applyTheme(View view) {
 
         int themeOfView = -1;
-        try {
-            themeOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_view_current_theme);
-        } catch (ClassCastException e) {
-        } catch (NullPointerException e) {
-        }
         int styleResOfView = -1;
         try {
+            themeOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_view_current_theme);
             styleResOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_widget_style);
-        } catch (ClassCastException e) {
-        } catch (NullPointerException e) {
+        } catch (ClassCastException | NullPointerException e) {
+            MultiTheme.d(TAG, e.getMessage());
         }
 
         if (themeOfView == appTheme) {
