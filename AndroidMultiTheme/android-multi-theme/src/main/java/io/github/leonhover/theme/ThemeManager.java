@@ -281,7 +281,6 @@ public class ThemeManager {
             themeOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_view_current_theme);
             styleResOfView = ThemeUtils.getViewTag(view, R.id.amt_tag_widget_style);
         } catch (ClassCastException | NullPointerException e) {
-            MultiTheme.d(TAG, e.getMessage());
         }
 
         if (themeOfView == appTheme) {
