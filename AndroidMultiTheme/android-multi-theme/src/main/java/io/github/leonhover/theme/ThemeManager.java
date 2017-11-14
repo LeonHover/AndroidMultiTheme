@@ -5,12 +5,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.StyleRes;
 import android.support.v4.view.LayoutInflaterCompat;
-import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,13 +114,13 @@ public class ThemeManager {
         LayoutInflaterCompat.setFactory2(activity.getLayoutInflater(), new LayoutInflater.Factory2() {
             @Override
             public View onCreateView(String name, Context context, AttributeSet attributeSet) {
-                Log.d(TAG, "onCreateView name:" + name);
+                MultiTheme.d(TAG, "onCreateView name:" + name);
                 return onCreateView(null, name, context, attributeSet);
             }
 
             @Override
             public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-                Log.d(TAG, "onCreateView parent:" + parent + ",name:" + name);
+                MultiTheme.d(TAG, "onCreateView parent:" + parent + ",name:" + name);
                 AppCompatDelegate appCompatDelegate = activity.getDelegate();
                 View view = appCompatDelegate.createView(parent, name, context, attrs);
 
