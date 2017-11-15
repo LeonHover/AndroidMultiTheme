@@ -184,6 +184,23 @@ public class MultiTheme {
         themeWidget.applySingleElementTheme(view, themeElementKey, themeElementValue);
     }
 
+    /**
+     * 移除View的单个Attr属性设定的主题元素值，移除此Attr属性将不再跟随主题而改变
+     *
+     * @param view            view
+     * @param themeElementKey Attr属性值
+     */
+    public static void removeSingleElementTheme(View view, @AttrRes int themeElementKey) {
+        checkInstance();
+        AbstractThemeWidget themeWidget;
+        if (sThemeManager.getThemeWidgetKey(view) == null) {
+            themeWidget = addViewThemeWidgetKeyTag(view);
+        } else {
+            themeWidget = sThemeManager.getThemeWidget(view.getClass());
+        }
+        themeWidget.removeSingleElementTheme(view, themeElementKey);
+    }
+
     public static void release() {
         sThemeManager = null;
     }

@@ -7,6 +7,7 @@ import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.util.SparseIntArray;
@@ -61,7 +62,6 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
 
     /**
      * 仅供MultiThemeLibrary来初始一些不能直接当做常量引用的attr属性主题元素Key。
-     *
      */
     protected void initializeLibraryElements() {
 
@@ -162,15 +162,30 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
      * 应用单个主题元素
      *
      * @param view              View
-     * @param themeElementKey   主题元素
+     * @param themeElementKey   主题元素Key
      * @param themeElementValue Attr资源ID
      */
     public void applySingleElementTheme(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-        saveThemeElementPair(view, themeElementKey, themeElementValue);
+        SparseIntArray themeElementPairs = getThemeElementPairs(view);
+        themeElementPairs.put(themeElementKey, themeElementValue);
         TypedValue typedValue = new TypedValue();
         view.getContext().getTheme().resolveAttribute(themeElementValue, typedValue, true);
         if (typedValue.resourceId > 0) {
             applyElementTheme(view, themeElementKey, typedValue.resourceId);
+        }
+    }
+
+    /**
+     * 移除View的单个主题元素，移除的主题元素将不再跟随主题变化
+     *
+     * @param view            View
+     * @param themeElementKey 主题元素Key
+     */
+    public void removeSingleElementTheme(View view, @AttrRes int themeElementKey) {
+        SparseIntArray themeElementPairs = getThemeElementPairs(view);
+        int index = themeElementPairs.indexOfKey(themeElementKey);
+        if (index >= 0) {
+            themeElementPairs.removeAt(index);
         }
     }
 
@@ -186,19 +201,11 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     }
 
     /**
-     * 保存主题元素对应Key的Value
+     * 获取单个View的所有主题元素键值对
      *
-     * @param view              view 不可空
-     * @param themeElementKey   AttrRes
-     * @param themeElementValue AttrRes
+     * @param view View
+     * @return SparseIntArray
      */
-    private static void saveThemeElementPair(View view, @AttrRes int themeElementKey, @AttrRes int themeElementValue) {
-
-        SparseIntArray themeElementPairs = getThemeElementPairs(view);
-
-        themeElementPairs.put(themeElementKey, themeElementValue);
-    }
-
     private static SparseIntArray getThemeElementPairs(View view) {
 
         SparseIntArray themeElementPairs = (SparseIntArray) view.getTag(R.id.amt_tag_theme_element_pairs);
