@@ -7,7 +7,6 @@ import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.util.SparseIntArray;
@@ -39,8 +38,8 @@ public abstract class AbstractThemeWidget implements IThemeWidget {
     private Set<Integer> themeElementKeySet = new HashSet<>();
 
     public AbstractThemeWidget() {
-        initializeLibraryElements();
         initializeAppThemeElements(this.getClass());
+        initializeLibraryElements();
     }
 
     /**
