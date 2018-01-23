@@ -6,6 +6,8 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
 
 可以很容易地在项目代码中添加主题的支持，比如夜间模式(NightMode)等。通常只需要修改xml布局资源即可实现主题控制。
 
+**目前采用的Apk的Resource加载机制，所以如果有多套主题资源时，会比较多的占用内存。所以建议使用者结合自己的应用情况来考虑使用。比较好的应用场景是仅仅是颜色改变的多套主题切换以及主题中图片资源较少的情况。**
+
  [![Download](https://api.bintray.com/packages/leonhover/android/Android-Multi-Theme/images/download.svg) ](https://bintray.com/leonhover/android/Android-Multi-Theme/_latestVersion)
 
  ![效果图](https://github.com/LeonHover/Android-Multi-Theme/blob/master/assets/2016-11-09%2011_57_38.gif)
