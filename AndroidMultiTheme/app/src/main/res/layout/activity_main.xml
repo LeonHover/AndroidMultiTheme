@@ -40,23 +40,23 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="?attr/icon_launcher"
-                android:background="?button_text_color" />
+                android:background="?button_text_color"
+                android:src="?attr/icon_launcher" />
 
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:progress="45"
-                android:secondaryProgress="75"
                 android:max="100"
-                android:progressDrawable="?attr/progress_horizontal" />
+                android:progress="45"
+                android:progressDrawable="?attr/progress_horizontal"
+                android:secondaryProgress="75" />
 
         </LinearLayout>
 
         <TextView
-            style="@style/RedTitleTextStyle"
             android:id="@+id/app_description_text"
+            style="@style/RedTitleTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
@@ -72,6 +72,11 @@
             android:textColor="?button_text_color"
             android:textSize="14sp" />
     </LinearLayout>
+
+    <fragment
+        android:name="io.github.leonhover.theme.samples.SampleFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

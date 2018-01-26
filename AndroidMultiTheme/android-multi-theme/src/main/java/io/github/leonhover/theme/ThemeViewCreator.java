@@ -24,9 +24,15 @@ public class ThemeViewCreator {
 
     private static String[] sViewPostfixs = {
             "View",
-            "ViewStub",
             "SurfaceView",
             "TextureView",
+    };
+
+    private static String[] sExcludeTags = {
+            "fragment",
+            "merge",
+            "include",
+            "ViewStub",
     };
 
 
@@ -35,7 +41,9 @@ public class ThemeViewCreator {
         if (name.contains(".")) {
             view = createSubViewImpl(parent, "", name, context, attrs);
         } else {
-            if (Arrays.asList(sViewPostfixs).contains(name)) {
+            if (Arrays.asList(sExcludeTags).contains(name)) {
+                return null;
+            } else if (Arrays.asList(sViewPostfixs).contains(name)) {
                 view = createSubViewImpl(parent, "android.view.", name, context, attrs);
             } else {
                 for (String prefix : sClassPrefixs) {
