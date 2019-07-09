@@ -70,13 +70,13 @@ public class CoverImageView extends AppCompatImageView {
             return;
         }
 
-        if (canvas.getHeight() + canvas.getWidth() == 0) {
+        if (getHeight() + getWidth() == 0) {
             return;
         }
 
-        if (canvasHeight != canvas.getHeight() || canvasWidth != canvas.getWidth()) {
-            canvasHeight = canvas.getHeight();
-            canvasWidth = canvas.getWidth();
+        if (canvasHeight != getHeight() || canvasWidth != getWidth()) {
+            canvasHeight = getHeight();
+            canvasWidth = getWidth();
             pixels = new int[canvasWidth * canvasHeight];
         }
 

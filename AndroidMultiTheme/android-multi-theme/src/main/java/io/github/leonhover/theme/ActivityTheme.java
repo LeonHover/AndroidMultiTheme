@@ -31,7 +31,7 @@ public class ActivityTheme implements IThemeObserver {
     private boolean isSupportMenuItemEnable = false;
 
     @AttrRes
-    private int statusBarColorAttrResId = -1;
+    private int statusBarColorAttrResId = 0;
 
     private View statusBarPlaceHolder = null;
 
@@ -86,14 +86,14 @@ public class ActivityTheme implements IThemeObserver {
 
     private void initializeStatusBarTheme() {
         MultiTheme.d(TAG, "initializeStatusBarTheme sdk version:" + Build.VERSION.SDK_INT);
-        if (!IS_KITKAT || statusBarColorAttrResId < 0) {
+        if (!IS_KITKAT || statusBarColorAttrResId == 0) {
             return;
         }
 
         int statusColor = ThemeUtils.getColor(this.activity, statusBarColorAttrResId);
         if (IS_LOLLIPOP) {
             initializeStatusBarColorOnLollipop(statusColor);
-        } else if (IS_KITKAT) {
+        } else {
             initializeStatusBarColorKitKat(statusColor);
         }
     }
@@ -163,7 +163,7 @@ public class ActivityTheme implements IThemeObserver {
     }
 
     private void changeStatusBarColor() {
-        if (statusBarColorAttrResId > 0) {
+        if (statusBarColorAttrResId != 0) {
             int statusBarColor = ThemeUtils.getColor(this.activity, statusBarColorAttrResId);
             setStatusBarColor(statusBarColor);
         }

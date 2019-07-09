@@ -47,7 +47,7 @@ import io.github.leonhover.theme.widget.ViewWidget;
  * Created by leonhover on 16-9-26.
  */
 
-public class ThemeManager {
+class ThemeManager {
 
     private static final String TAG = ThemeManager.class.getSimpleName();
 
@@ -61,7 +61,7 @@ public class ThemeManager {
 
     private Set<IThemeObserver> themeObserverSet;
 
-    protected ThemeManager(Application application) {
+    ThemeManager(Application application) {
         this.application = application;
         this.themeWidgetMap = new HashMap<>();
         this.themeWidgetMap.put(View.class, new ViewWidget());
@@ -82,20 +82,20 @@ public class ThemeManager {
 
     }
 
-    protected void addThemeWidget(Class<? extends View> widgetKey, AbstractThemeWidget themeWidget) {
+    void addThemeWidget(Class<? extends View> widgetKey, AbstractThemeWidget themeWidget) {
         this.themeWidgetMap.put(widgetKey, themeWidget);
     }
 
-    protected AbstractThemeWidget getThemeWidget(Class<? extends View> clazz) {
+    AbstractThemeWidget getThemeWidget(Class<? extends View> clazz) {
         Class<? extends View> widgetKey = findProperThemeWidgetKey(clazz);
         return this.themeWidgetMap.get(widgetKey);
     }
 
-    protected void addObserver(IThemeObserver observer) {
+    void addObserver(IThemeObserver observer) {
         this.themeObserverSet.add(observer);
     }
 
-    protected void removeObserver(IThemeObserver observer) {
+    void removeObserver(IThemeObserver observer) {
         Iterator<IThemeObserver> obsIterator = this.themeObserverSet.iterator();
         while (obsIterator.hasNext()) {
             IThemeObserver obs = obsIterator.next();
@@ -106,7 +106,7 @@ public class ThemeManager {
         }
     }
 
-    protected void assembleThemeBeforeInflate(final AppCompatActivity activity) {
+    void assembleThemeBeforeInflate(final AppCompatActivity activity) {
 
         if (activity == null) {
             throw new NullPointerException();
@@ -175,7 +175,7 @@ public class ThemeManager {
      * @param view
      * @return AbstractThemeWidget
      */
-    protected AbstractThemeWidget addViewThemeWidgetKeyTag(View view) {
+    AbstractThemeWidget addViewThemeWidgetKeyTag(View view) {
         if (view != null) {
             Class<? extends View> widgetKey = findProperThemeWidgetKey(view.getClass());
             view.setTag(R.id.amt_tag_widget_key, widgetKey);
@@ -234,11 +234,11 @@ public class ThemeManager {
 
     }
 
-    protected int getAppTheme() {
+    int getAppTheme() {
         return this.appTheme;
     }
 
-    protected void setDefaultTheme(int defaultTheme) {
+    void setDefaultTheme(int defaultTheme) {
         if (ThemePreferences.getAppTheme(this.application) == -1) {
             setAppTheme(defaultTheme);
         }
@@ -250,7 +250,7 @@ public class ThemeManager {
      * @param activity   Activity
      * @param themeResId 主题资源id
      */
-    protected void applyTheme(Activity activity, @StyleRes int themeResId) {
+    void applyTheme(Activity activity, @StyleRes int themeResId) {
         activity.setTheme(themeResId);
         applyTheme(activity);
     }
@@ -271,7 +271,7 @@ public class ThemeManager {
      *
      * @param view View
      */
-    protected void applyTheme(View view) {
+    void applyTheme(View view) {
 
         int themeOfView = -1;
         int styleResOfView = -1;
@@ -311,7 +311,7 @@ public class ThemeManager {
     }
 
     @SuppressWarnings("unchecked")
-    protected Class<? extends View> getThemeWidgetKey(View view) {
+    Class<? extends View> getThemeWidgetKey(View view) {
         return (Class<? extends View>) view.getTag(R.id.amt_tag_widget_key);
     }
 }
