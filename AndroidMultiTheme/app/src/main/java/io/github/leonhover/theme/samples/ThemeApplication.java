@@ -2,6 +2,7 @@ package io.github.leonhover.theme.samples;
 
 import android.app.Application;
 
+import io.github.leonhover.theme.DarkMode;
 import io.github.leonhover.theme.MultiTheme;
 
 /**
@@ -10,9 +11,12 @@ import io.github.leonhover.theme.MultiTheme;
 
 public class ThemeApplication extends Application {
 
+    static Application sApp;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        sApp = this;
         initTheme();
     }
 

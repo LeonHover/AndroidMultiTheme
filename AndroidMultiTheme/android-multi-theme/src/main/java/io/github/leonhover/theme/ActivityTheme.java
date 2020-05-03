@@ -6,6 +6,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,12 +22,12 @@ import static io.github.leonhover.theme.ThemeUtils.getStatusBarHeight;
 
 public class ActivityTheme implements IThemeObserver {
 
-    public static final String TAG = ActivityTheme.class.getSimpleName();
-
     private AppCompatActivity activity;
 
     @StyleRes
     private int[] themes;
+
+    private int darkThemeIndex = -1;
 
     private boolean isSupportMenuItemEnable = false;
 
@@ -39,8 +40,27 @@ public class ActivityTheme implements IThemeObserver {
         this.activity = activity;
     }
 
+    /**
+     * 设置主题资源数组
+     *
+     * @param themes 主题资源数组
+     */
     public final void setThemes(@StyleRes int[] themes) {
         this.themes = themes;
+    }
+
+    /**
+     * 设置支持暗黑模式的主题资源数组
+     *
+     * @param darkThemeIndex 暗黑主题在主题资源数组中的位置
+     * @param themes         主题资源数组
+     */
+    public final void setThemes(int darkThemeIndex, @StyleRes int[] themes) {
+        this.themes = themes;
+        this.darkThemeIndex = darkThemeIndex;
+        if (this.darkThemeIndex < 0 || this.darkThemeIndex >= this.themes.length) {
+            throw new IllegalArgumentException("please check you param,there ara some error.");
+        }
     }
 
     /**
@@ -85,7 +105,7 @@ public class ActivityTheme implements IThemeObserver {
     }
 
     private void initializeStatusBarTheme() {
-        MultiTheme.d(TAG, "initializeStatusBarTheme sdk version:" + Build.VERSION.SDK_INT);
+        MultiTheme.d(MultiTheme.TAG, "initializeStatusBarTheme sdk version:" + Build.VERSION.SDK_INT);
         if (!IS_KITKAT || statusBarColorAttrResId == 0) {
             return;
         }
@@ -100,7 +120,7 @@ public class ActivityTheme implements IThemeObserver {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void initializeStatusBarColorKitKat(int statusBarColor) {
-        MultiTheme.d(TAG, "setStatusBarColorKitkat");
+        MultiTheme.d(MultiTheme.TAG, "setStatusBarColorKitkat");
         int statusBarHeight = getStatusBarHeight(this.activity);
         Window window = activity.getWindow();
         ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);
@@ -125,7 +145,7 @@ public class ActivityTheme implements IThemeObserver {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initializeStatusBarColorOnLollipop(int statusBarColor) {
-        MultiTheme.d(TAG, "setStatusBarColorOnLollipop");
+        MultiTheme.d(MultiTheme.TAG, "setStatusBarColorOnLollipop");
         Window window = activity.getWindow();
         //设置透明状态栏,这样才能让 ContentView 向上
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -171,14 +191,33 @@ public class ActivityTheme implements IThemeObserver {
 
     private int getTheme(int index) {
         if (this.themes == null) {
+            MultiTheme.e(MultiTheme.TAG, "There is no theme array.");
             return -1;
         }
 
+        if (index == MultiTheme.DARK_THEME) {
+            return getDarkTheme();
+        } else {
+            return getNormalTheme(index);
+        }
+    }
+
+    private int getNormalTheme(int index) {
+        MultiTheme.d(MultiTheme.TAG, "getNormalTheme index:" + index);
         if (index > this.themes.length || index < 0) {
+            MultiTheme.e(MultiTheme.TAG, "OutOfBound. we use the first theme.");
             return this.themes[0];
         }
-
         return this.themes[index];
+    }
+
+    private int getDarkTheme() {
+        MultiTheme.d(MultiTheme.TAG, "getDarkTheme");
+        if (darkThemeIndex < 0 || darkThemeIndex >= this.themes.length) {
+            MultiTheme.e(MultiTheme.TAG, "You forgot setup a darkThemeIndex, we use the first theme indeed.");
+            return this.themes[0];
+        }
+        return this.themes[this.darkThemeIndex];
     }
 
     @Override

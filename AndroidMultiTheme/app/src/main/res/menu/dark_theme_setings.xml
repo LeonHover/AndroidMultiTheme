@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/amt_dark_theme_settings"
+        android:menuCategory="alternative"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/amt_dark_theme_off"
+            android:checkable="true"
+            android:title="Dark Mode Off" />
+        <item
+            android:id="@+id/amt_dark_theme_on"
+            android:checkable="true"
+            android:title="Dark Mode On" />
+        <item
+            android:id="@+id/amt_dark_theme_follow_system"
+            android:checkable="true"
+            android:title="Dark Mode follow System" />
+    </group>
+</menu>

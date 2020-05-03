@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.AttrRes;
@@ -335,4 +337,16 @@ public class ThemeUtils {
         return null;
     }
 
+    /**
+     * 判断是否是暗黑模式开启状态
+     *
+     * @param context Context
+     * @return true or false
+     */
+    public static boolean isSystemDarkMode(Context context) {
+        int mode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        boolean result = mode == Configuration.UI_MODE_NIGHT_YES;
+        MultiTheme.d(MultiTheme.TAG, "isSystemDarkMode result:" + result);
+        return result;
+    }
 }

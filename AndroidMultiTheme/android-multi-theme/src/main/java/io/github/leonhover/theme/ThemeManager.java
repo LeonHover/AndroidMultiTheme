@@ -82,6 +82,47 @@ class ThemeManager {
 
     }
 
+    /**
+     * 判断系统是否是暗黑模式
+     *
+     * @return true or false
+     */
+    boolean isSystemDarkMode() {
+        return ThemeUtils.isSystemDarkMode(this.application);
+    }
+
+    /**
+     * 获取设置的暗黑模式
+     *
+     * @return true or false
+     */
+    DarkMode getDarkMode() {
+        return ThemePreferences.getDarkMode(this.application);
+    }
+
+    /**
+     * 设置跟跟随系统颜色模式调整主题
+     *
+     * @param mode 跟随与否
+     */
+    void setDarkMode(DarkMode mode) {
+        switch (mode) {
+            case on:
+                setAppTheme(MultiTheme.DARK_THEME);
+                break;
+            case followSystem:
+                if (isSystemDarkMode()) {
+                    setAppTheme(MultiTheme.DARK_THEME);
+                } else {
+                    setAppTheme(MultiTheme.sDefaultThemeIndex);
+                }
+                break;
+            default:
+                setAppTheme(MultiTheme.sDefaultThemeIndex);
+        }
+        ThemePreferences.setDarkMode(this.application, mode);
+    }
+
     void addThemeWidget(Class<? extends View> widgetKey, AbstractThemeWidget themeWidget) {
         this.themeWidgetMap.put(widgetKey, themeWidget);
     }
@@ -218,8 +259,8 @@ class ThemeManager {
      *
      * @return true 改变为夜间主题，false 改变为默认主题
      */
-    protected boolean setAppTheme(int whichTheme) {
-        MultiTheme.d(TAG, "setAppTheme whichTheme=" + whichTheme);
+    boolean setAppTheme(int whichTheme) {
+        MultiTheme.d(MultiTheme.TAG, "setAppTheme whichTheme=" + whichTheme);
 
         if (whichTheme > -1 && whichTheme != appTheme) {
             ThemePreferences.setAppTheme(this.application, whichTheme);
@@ -238,9 +279,9 @@ class ThemeManager {
         return this.appTheme;
     }
 
-    void setDefaultTheme(int defaultTheme) {
+    void setDefaultTheme(int defaultThemeIndex) {
         if (ThemePreferences.getAppTheme(this.application) == -1) {
-            setAppTheme(defaultTheme);
+            setAppTheme(defaultThemeIndex);
         }
     }
 

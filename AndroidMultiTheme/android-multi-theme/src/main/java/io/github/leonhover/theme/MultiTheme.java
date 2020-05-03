@@ -16,6 +16,9 @@ import io.github.leonhover.theme.widget.AbstractThemeWidget;
 
 public class MultiTheme {
 
+    static final String TAG = MultiTheme.class.getSimpleName();
+    public static final int DARK_THEME = 2016;
+    public static int sDefaultThemeIndex = 0;
     private static ThemeManager sThemeManager = null;
     private static boolean debugMode = false;
 
@@ -115,6 +118,29 @@ public class MultiTheme {
     }
 
     /**
+     * 判断是否开启了暗黑模式
+     * @return true or false
+     */
+    public static DarkMode getDarkMode() {
+        checkInstance();
+        return sThemeManager.getDarkMode();
+    }
+
+    public static void setDarkMode(DarkMode mode) {
+        checkInstance();
+        sThemeManager.setDarkMode(mode);
+    }
+
+    /**
+     * 判断系统是否开启了暗黑模式
+     * @return true or false
+     */
+    public static boolean isSystemDarkMode() {
+        checkInstance();
+        return sThemeManager.isSystemDarkMode();
+    }
+
+    /**
      * 改变主题
      *
      * @param whichTheme 应用主题，这里对应的是ActivityTheme中的theme[]的索引值
@@ -126,13 +152,14 @@ public class MultiTheme {
     }
 
     /**
-     * 设置应用的默认主题，通常是首次使用的，但修改后就会这个值就不再生效了。
+     * 设置应用的默认主题，修改后就会这个值就不再生效了，一般在Application的子类中设置
      *
-     * @param defaultTheme 默认主题
+     * @param defaultThemeIndex 默认主题资源数组所索引
      */
-    public static void setDefaultAppTheme(int defaultTheme) {
+    public static void setDefaultAppTheme(int defaultThemeIndex) {
         checkInstance();
-        sThemeManager.setDefaultTheme(defaultTheme);
+        sDefaultThemeIndex = defaultThemeIndex;
+        sThemeManager.setDefaultTheme(sDefaultThemeIndex);
     }
 
     /**
@@ -151,7 +178,7 @@ public class MultiTheme {
      * @param activity
      * @param theme
      */
-    protected static void applyTheme(Activity activity, @StyleRes int theme) {
+    static void applyTheme(Activity activity, @StyleRes int theme) {
         checkInstance();
         sThemeManager.applyTheme(activity, theme);
     }
