@@ -54,12 +54,13 @@ public abstract class BaseThemeActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         DarkMode mode = MultiTheme.getDarkMode();
-        MultiTheme.d("MultiTheme", "onConfigurationChanged mode:" + mode);
         if (mode == DarkMode.followSystem) {
             int uiMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
             if (uiMode == Configuration.UI_MODE_NIGHT_YES) {
+                MultiTheme.d("MultiTheme", "onConfigurationChanged mode:UI_MODE_NIGHT_YES");
                 MultiTheme.setAppTheme(MultiTheme.DARK_THEME);
             } else {
+                MultiTheme.d("MultiTheme", "onConfigurationChanged mode:UI_MODE_NIGHT_NO");
                 MultiTheme.setAppTheme(MultiTheme.sDefaultThemeIndex);
             }
         }
