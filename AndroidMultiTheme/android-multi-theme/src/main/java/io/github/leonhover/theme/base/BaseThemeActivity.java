@@ -2,7 +2,7 @@ package io.github.leonhover.theme.base;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import io.github.leonhover.theme.ActivityTheme;
 import io.github.leonhover.theme.DarkMode;

@@ -1,8 +1,8 @@
 package io.github.leonhover.theme.custom;
 
-import android.support.annotation.AnyRes;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorRes;
+import androidx.annotation.AnyRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorRes;
 import android.view.View;
 
 import io.github.leonhover.theme.R;

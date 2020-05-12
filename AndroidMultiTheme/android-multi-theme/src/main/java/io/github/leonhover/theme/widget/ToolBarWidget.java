@@ -1,11 +1,11 @@
 package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.AnyRes;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.AnyRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import io.github.leonhover.theme.R;

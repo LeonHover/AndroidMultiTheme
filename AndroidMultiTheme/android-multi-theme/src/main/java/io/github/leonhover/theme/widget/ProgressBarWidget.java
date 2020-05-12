@@ -2,9 +2,9 @@ package io.github.leonhover.theme.widget;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.AnyRes;
-import android.support.annotation.AttrRes;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.AnyRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ProgressBar;
 

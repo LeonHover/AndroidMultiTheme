@@ -2,11 +2,11 @@ package io.github.leonhover.theme.samples;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +20,6 @@ import java.util.List;
 
 import io.github.leonhover.theme.ActivityTheme;
 import io.github.leonhover.theme.DarkMode;
-import io.github.leonhover.theme.IThemeObserver;
 import io.github.leonhover.theme.MultiTheme;
 import io.github.leonhover.theme.ThemeUtils;
 import io.github.leonhover.theme.base.BaseThemeActivity;

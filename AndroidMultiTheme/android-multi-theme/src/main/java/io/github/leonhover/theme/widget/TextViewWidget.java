@@ -1,10 +1,10 @@
 package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.AnyRes;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.AnyRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;

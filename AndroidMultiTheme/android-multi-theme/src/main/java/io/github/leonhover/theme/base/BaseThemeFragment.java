@@ -1,6 +1,6 @@
 package io.github.leonhover.theme.base;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import io.github.leonhover.theme.ThemeViewEntities;
 

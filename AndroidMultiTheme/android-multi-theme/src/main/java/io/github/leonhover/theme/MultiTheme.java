@@ -2,9 +2,9 @@ package io.github.leonhover.theme;
 
 import android.app.Activity;
 import android.app.Application;
-import android.support.annotation.AttrRes;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.AttrRes;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 

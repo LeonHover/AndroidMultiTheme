@@ -30,7 +30,7 @@
         android:textColor="?attr/sub_title_text_color"
         android:textSize="14sp" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"

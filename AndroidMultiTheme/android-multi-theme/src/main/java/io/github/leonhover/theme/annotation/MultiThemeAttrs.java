@@ -1,6 +1,6 @@
 package io.github.leonhover.theme.annotation;
 
-import android.support.annotation.AttrRes;
+import androidx.annotation.AttrRes;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

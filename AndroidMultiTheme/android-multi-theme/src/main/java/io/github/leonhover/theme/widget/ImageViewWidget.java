@@ -1,9 +1,9 @@
 package io.github.leonhover.theme.widget;
 
-import android.support.annotation.AnyRes;
-import android.support.annotation.AttrRes;
-import android.support.annotation.DrawableRes;
-import android.util.Log;
+import androidx.annotation.AnyRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.DrawableRes;
+
 import android.view.View;
 import android.widget.ImageView;
 

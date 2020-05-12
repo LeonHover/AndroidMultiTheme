@@ -1,6 +1,6 @@
 package io.github.leonhover.theme.widget;
 
-import android.support.annotation.StyleRes;
+import androidx.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.View;
 

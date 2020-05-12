@@ -1,8 +1,8 @@
 package io.github.leonhover.theme.widget;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.AnyRes;
-import android.support.annotation.AttrRes;
+import androidx.annotation.AnyRes;
+import androidx.annotation.AttrRes;
 import android.view.View;
 
 import io.github.leonhover.theme.ThemeUtils;
