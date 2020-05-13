@@ -2,11 +2,17 @@
 
 Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并且支持在不销毁重建Activity的情况下动态切换主题。利用Android自身支持的不同Style中可复写相同的attribute的值的特性，通过代码动态设置不同的Style来达到不同主题的切换效果。它支持静态设置控件使用主题元素的方式——layout的xml中定义控件时使用，也支持程序动态设置——主题控件辅助类来动态改变主题元素。
 
+*与Android提倡的主题设置思想一致，通过设置不同的ThemeResource来切换主题。*
+*改变主题不会重新创建Activity，自然切换，体验更好。*
+*适配了Android Q的暗黑模式，新增可以跟随系统主题设置来切换主题。*
 *目前已经支持Style中设置attrRes来支持多主题控件属性切换。*
+*扩展性好，可以自由结合自定义的控件编写控制主题的辅助类。*
 
-可以很容易地在项目代码中添加主题的支持，比如夜间模式(NightMode)等。通常只需要修改xml布局资源即可实现主题控制。
+## 版本
 
-**目前采用的Apk的Resource加载机制，所以如果有多套主题资源时，会比较多的占用内存。所以建议使用者结合自己的应用情况来考虑使用。比较好的应用场景是仅仅是颜色改变的多套主题切换以及主题中图片资源较少的情况。**
+根据自己的选择决定使用对应的版本
+v1.0.0版本基于android.support.library构建
+v2.0.0版本基于androidx构建
 
  [![Download](https://api.bintray.com/packages/leonhover/android/Android-Multi-Theme/images/download.svg) ](https://bintray.com/leonhover/android/Android-Multi-Theme/_latestVersion)
 
@@ -74,6 +80,12 @@ Android-Mulit-Theme可以让轻松地对Android应用添加多主题支持，并
 
 ```
             MultiTheme.setAppTheme(indexOfthemes);//blue 0,red 1;
+```
+
+8. 暗黑主题
+
+```
+            MultiTheme.setDarkMode(darkMode); // DarkMode.off(关),DarkMode.on（开）,DarkMode.followSystem（跟随系统主题）;
 ```
 
 ## 进阶
